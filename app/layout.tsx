@@ -1,20 +1,36 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
-import Footer from "./components/footer";
 import Providers from "./providers";
+import SiteHeader from "./components/site-header";
 
 export const metadata: Metadata = {
-  title: "Amir Ibrahim | Computer Engineer | Software Developer UK & Canada",
+  title: "Amir Ibrahim | Computer Engineer | Software Developer",
   description:
-    "Portfolio of Amir Ibrahim, Computer Engineer graduated from York University in Jun 2025, focused on Java, Node.js, and System Design for teams in the UK and Canada.",
+    "Portfolio of Amir Ibrahim, Computer Engineer focused on scalable systems, language-agnostic engineering, and reliable software delivery.",
   keywords: [
-    "Freelance Web Development",
-    "SRE",
+    "Computer Engineer",
+    "Software Developer",
+    "Java",
+    "Node.js",
+    "Python",
+    "MySQL",
+    "React",
+    "System Design",
+    "Distributed Systems",
     "Site Reliability Engineering",
-    "Software Developer UK",
-    "Software Developer Canada",
   ],
+  openGraph: {
+    title: "Amir Ibrahim | Computer Engineer | Software Developer",
+    description:
+      "Scalable systems, robust backend architecture, and impact-driven engineering delivery.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amir Ibrahim | Computer Engineer",
+    description:
+      "Scalable systems and language-agnostic software engineering.",
+  },
 };
 
 export default function RootLayout({
@@ -23,42 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className="antialiased">
         <Providers>
           <div className="min-h-screen bg-background text-foreground">
-            <header className="sticky top-0 z-50 border-b border-line/80 bg-background/85 backdrop-blur-xl">
-              <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-                <Link
-                  href="/#about"
-                  className="text-sm font-semibold tracking-[0.16em] text-foreground uppercase transition hover:text-accent"
-                >
-                  Portfolio
-                </Link>
-                <nav className="flex items-center gap-1 rounded-full border border-line bg-surface px-2 py-1">
-                  <Link
-                    href="/#about"
-                    className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-accent/10 hover:text-foreground"
-                  >
-                    About
-                  </Link>
-                  <Link
-                    href="/#projects"
-                    className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-accent/10 hover:text-foreground"
-                  >
-                    Projects
-                  </Link>
-                  <Link
-                    href="/#contact"
-                    className="rounded-full px-4 py-2 text-sm text-muted transition hover:bg-accent/10 hover:text-foreground"
-                  >
-                    Contact
-                  </Link>
-                </nav>
-              </div>
-            </header>
+            <SiteHeader />
             {children}
-            <Footer />
           </div>
         </Providers>
       </body>

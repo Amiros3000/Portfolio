@@ -10,24 +10,31 @@ type Project = {
 const projects: Project[] = [
   {
     title: "KonnectTaps",
-    techStack: "Node.js, MySQL, React",
+    techStack: "Next.js, Python, MySQL",
     result:
       "Rebuilt the backend architecture to support 100+ active users with stronger data integrity and stable production performance.",
-    href: "https://github.com/",
+    href: "https://github.com/Amiros3000",
   },
   {
     title: "CSA Capstone (SOSO)",
     techStack: "Python, API Design, Data Visualization",
     result:
       "Defined telemetry and scheduling API requirements and delivered a visualization workflow that improved mission planning clarity.",
-    href: "https://github.com/",
+    href: "https://github.com/ENG4000-SOSO",
   },
   {
     title: "MIX Registration System",
     techStack: "Node.js, MySQL, High-Availability Architecture",
     result:
       "Handled 400+ concurrent requests during peak registration windows with zero downtime in production.",
-    href: "https://github.com/",
+    href: "https://github.com/Amiros3000",
+  },
+  {
+    title: "Desktop Automation Suite",
+    techStack: "Python, Bash, File-System Automation",
+    result:
+      "Built automation scripts for file organization and batch PDF processing, reducing manual workflow time by 40%.",
+    href: "https://github.com/Amiros3000",
   },
 ];
 
@@ -49,11 +56,11 @@ export default function ProjectsSection() {
         </p>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2">
         {projects.map((project) => (
           <article
             key={project.title}
-            className="rounded-3xl border border-accent/35 bg-surface p-6 transition hover:-translate-y-1 hover:border-accent/70 hover:shadow-[0_24px_55px_-45px_var(--shadow-accent)]"
+            className="glass-card rounded-3xl border-accent/35 p-6 transition hover:-translate-y-1 hover:border-accent/70 hover:shadow-[0_24px_55px_-45px_var(--shadow-accent)]"
           >
             <h3 className="text-lg font-semibold text-foreground">
               {project.title}

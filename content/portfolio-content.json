@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "headline": "Amir Ibrahim | Computer Engineer",
+    "subheadline": "Building scalable systems. Language-agnostic. Fast learner.",
+    "bio": "I am a Computer Engineering graduate from York University (2025). While my core experience spans Java, Python, and Node.js infrastructure, my engineering foundation allows me to rapidly adapt to new languages and frameworks. I build robust tools to solve complex problems, regardless of the tech stack.",
+    "resumeUrl": "/resume.pdf"
+  },
+  "skills": [
+    "Java",
+    "Python",
+    "Node.js",
+    "React.js",
+    "MySQL",
+    "Docker",
+    "Linux",
+    "Bash",
+    "SQL",
+    "RESTful APIs",
+    "Distributed Systems"
+  ],
+  "projects": [
+    {
+      "title": "KonnectTaps",
+      "stack": "Next.js / Python / MySQL",
+      "description": "Architected a backend overhaul stabilizing infrastructure for 100+ active users. Improved data integrity and eliminated legacy technical debt.",
+      "href": "https://github.com/Amiros3000",
+      "hrefLabel": "View GitHub"
+    },
+    {
+      "title": "CSA Capstone - SOSO",
+      "stack": "System Design",
+      "description": "Built a satellite telemetry visualization tool for a space operations team. Translated complex operational constraints into technical logic to prevent scheduling conflicts.",
+      "href": "https://github.com/ENG4000-SOSO",
+      "hrefLabel": "View Team Repository"
+    },
+    {
+      "title": "MIX Registration System",
+      "stack": "High-Availability",
+      "description": "Engineered an event platform capable of handling 400+ concurrent requests with zero downtime during peak traffic spikes.",
+      "href": "https://github.com/Amiros3000",
+      "hrefLabel": "View GitHub"
+    },
+    {
+      "title": "Desktop Automation Suite",
+      "stack": "Python",
+      "description": "Developed custom automation scripts to batch process file systems and parse downloaded data, reducing manual administrative workflow time by 40%.",
+      "href": "https://github.com/Amiros3000",
+      "hrefLabel": "View GitHub"
+    }
+  ],
+  "contact": {
+    "directEmail": "amir.ibrahim3000@gmail.com",
+    "githubUrl": "https://github.com/Amiros3000",
+    "linkedinUrl": "https://linkedin.com/in/amir3000"
+  }
+}

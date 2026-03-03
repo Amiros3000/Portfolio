@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio (Next.js 15)
 
-## Getting Started
+This project is a portfolio site with:
+- Next.js App Router + Tailwind CSS
+- Light/Dark glassmorphism UI with Bloody Red accent (`#880808`)
+- Admin panel at `/admin` to edit hero/skills/projects/contact content
+- Resume upload from admin
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin login
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set these in `.env.local` (and in Vercel for production):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+PORTFOLIO_ADMIN_EMAIL=admin@portfolio.local
+PORTFOLIO_ADMIN_PASSWORD=change-this-password
+PORTFOLIO_ADMIN_SECRET=change-this-signing-secret
+```
 
-## Learn More
+Then open `/admin` and sign in.
 
-To learn more about Next.js, take a look at the following resources:
+## Supabase setup (required for persistent edits on Vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Runtime file writes are not persistent on Vercel, so admin content and resume are stored in Supabase when these env vars are present:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+SUPABASE_PORTFOLIO_TABLE=portfolio_content
+SUPABASE_PORTFOLIO_CONTENT_ID=main
+SUPABASE_RESUME_BUCKET=portfolio-assets
+SUPABASE_RESUME_PATH=resume.pdf
+```
 
-## Deploy on Vercel
+### 1) Create table
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Run this SQL in Supabase SQL editor:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```sql
+create table if not exists public.portfolio_content (
+  id text primary key,
+  content jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+create or replace function public.set_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+drop trigger if exists trg_portfolio_content_updated_at on public.portfolio_content;
+
+create trigger trg_portfolio_content_updated_at
+before update on public.portfolio_content
+for each row execute function public.set_updated_at();
+```
+
+### 2) Create storage bucket
+
+In Supabase Storage, create a bucket named `portfolio-assets` and set it to **Public**.
+
+### 3) Add env vars in Vercel
+
+Project Settings -> Environment Variables:
+- `PORTFOLIO_ADMIN_EMAIL`
+- `PORTFOLIO_ADMIN_PASSWORD`
+- `PORTFOLIO_ADMIN_SECRET`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- optional: `SUPABASE_PORTFOLIO_TABLE`, `SUPABASE_PORTFOLIO_CONTENT_ID`, `SUPABASE_RESUME_BUCKET`, `SUPABASE_RESUME_PATH`
+
+Redeploy after adding env vars.
+
+## How persistence works
+
+- If Supabase env vars are set: homepage/admin read and write via Supabase.
+- If Supabase env vars are missing: app falls back to local file storage (`content/portfolio-content.json`, `public/resume.pdf`).
+
