@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "Amir Ibrahim | Computer Engineer",
-    "subheadline": "Building scalable systems. Language-agnostic. Fast learner.",
-    "bio": "I am a Computer Engineering graduate from York University (2025). While my core experience spans Java, Python, and Node.js infrastructure, my engineering foundation allows me to rapidly adapt to new languages and frameworks. I build robust tools to solve complex problems, regardless of the tech stack.",
+    "subheadline": "I build scalable systems that stay reliable when real-world pressure hits.",
+    "bio": "I am a Computer Engineering graduate from York University (2025) with hands-on experience across Java, Python, and Node.js systems. I enjoy translating ambiguous product or operational problems into clear technical plans, then delivering solutions that are stable, maintainable, and practical for teams to extend.",
     "resumeUrl": "/resume.pdf"
   },
   "skills": [
@@ -22,28 +22,30 @@
     {
       "title": "KonnectTaps",
       "stack": "Next.js / Python / MySQL",
-      "description": "Architected a backend overhaul stabilizing infrastructure for 100+ active users. Improved data integrity and eliminated legacy technical debt.",
-      "href": "https://github.com/Amiros3000",
-      "hrefLabel": "View GitHub"
+      "description": "Led a backend overhaul that stabilized infrastructure for 100+ active users. Core production code is private, with public deployments at konnecttaps.com and ktaps.me.",
+      "href": "https://konnecttaps.com",
+      "hrefLabel": "Main Site",
+      "secondaryHref": "https://ktaps.me",
+      "secondaryHrefLabel": "Open App"
     },
     {
       "title": "CSA Capstone - SOSO",
       "stack": "System Design",
-      "description": "Built a satellite telemetry visualization tool for a space operations team. Translated complex operational constraints into technical logic to prevent scheduling conflicts.",
+      "description": "Built a satellite telemetry visualization tool that converted complex operational constraints into clear technical workflows. This improved scheduling visibility and reduced planning conflicts.",
       "href": "https://github.com/ENG4000-SOSO",
       "hrefLabel": "View Team Repository"
     },
     {
       "title": "MIX Registration System",
       "stack": "High-Availability",
-      "description": "Engineered an event platform capable of handling 400+ concurrent requests with zero downtime during peak traffic spikes.",
-      "href": "https://github.com/Amiros3000",
-      "hrefLabel": "View GitHub"
+      "description": "Engineered a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
+      "href": "",
+      "hrefLabel": ""
     },
     {
       "title": "Desktop Automation Suite",
       "stack": "Python",
-      "description": "Developed custom automation scripts to batch process file systems and parse downloaded data, reducing manual administrative workflow time by 40%.",
+      "description": "Developed automation scripts for batch file handling and structured data parsing to reduce repetitive administrative work and improve execution speed.",
       "href": "https://github.com/Amiros3000",
       "hrefLabel": "View GitHub"
     }

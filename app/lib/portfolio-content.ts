@@ -12,6 +12,8 @@ export type PortfolioProject = {
   description: string;
   href: string;
   hrefLabel: string;
+  secondaryHref?: string;
+  secondaryHrefLabel?: string;
 };
 
 export type PortfolioContent = {
@@ -35,8 +37,9 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     headline: "Amir Ibrahim | Computer Engineer",
-    subheadline: "Building scalable systems. Language-agnostic. Fast learner.",
-    bio: "I am a Computer Engineering graduate from York University (2025). While my core experience spans Java, Python, and Node.js infrastructure, my engineering foundation allows me to rapidly adapt to new languages and frameworks. I build robust tools to solve complex problems, regardless of the tech stack.",
+    subheadline:
+      "I build scalable systems that stay reliable when real-world pressure hits.",
+    bio: "I am a Computer Engineering graduate from York University (2025) with hands-on experience across Java, Python, and Node.js systems. I enjoy translating ambiguous product or operational problems into clear technical plans, then delivering solutions that are stable, maintainable, and practical for teams to extend.",
     resumeUrl: "/resume.pdf",
   },
   skills: [
@@ -57,15 +60,17 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       title: "KonnectTaps",
       stack: "Next.js / Python / MySQL",
       description:
-        "Architected a backend overhaul stabilizing infrastructure for 100+ active users. Improved data integrity and eliminated legacy technical debt.",
-      href: "https://github.com/Amiros3000",
-      hrefLabel: "View GitHub",
+        "Led a backend overhaul that stabilized infrastructure for 100+ active users. Core production code is private, with public deployments at konnecttaps.com and ktaps.me.",
+      href: "https://konnecttaps.com",
+      hrefLabel: "Main Site",
+      secondaryHref: "https://ktaps.me",
+      secondaryHrefLabel: "Open App",
     },
     {
       title: "CSA Capstone - SOSO",
       stack: "System Design",
       description:
-        "Built a satellite telemetry visualization tool for a space operations team. Translated complex operational constraints into technical logic to prevent scheduling conflicts.",
+        "Built a satellite telemetry visualization tool that converted complex operational constraints into clear technical workflows. This improved scheduling visibility and reduced planning conflicts.",
       href: "https://github.com/ENG4000-SOSO",
       hrefLabel: "View Team Repository",
     },
@@ -73,15 +78,15 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       title: "MIX Registration System",
       stack: "High-Availability",
       description:
-        "Engineered an event platform capable of handling 400+ concurrent requests with zero downtime during peak traffic spikes.",
-      href: "https://github.com/Amiros3000",
-      hrefLabel: "View GitHub",
+        "Engineered a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
+      href: "",
+      hrefLabel: "",
     },
     {
       title: "Desktop Automation Suite",
       stack: "Python",
       description:
-        "Developed custom automation scripts to batch process file systems and parse downloaded data, reducing manual administrative workflow time by 40%.",
+        "Developed automation scripts for batch file handling and structured data parsing to reduce repetitive administrative work and improve execution speed.",
       href: "https://github.com/Amiros3000",
       hrefLabel: "View GitHub",
     },
@@ -94,6 +99,16 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
 };
 
 function cleanString(value: unknown, fallback: string, maxLength = 500): string {
+  if (typeof value !== "string") return fallback;
+  const cleaned = value.trim().slice(0, maxLength);
+  return cleaned.length > 0 ? cleaned : fallback;
+}
+
+function cleanOptionalString(
+  value: unknown,
+  fallback?: string,
+  maxLength = 500,
+): string | undefined {
   if (typeof value !== "string") return fallback;
   const cleaned = value.trim().slice(0, maxLength);
   return cleaned.length > 0 ? cleaned : fallback;
@@ -143,6 +158,16 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
         description: cleanString(record.description, fallback.description, 380),
         href: cleanString(record.href, fallback.href, 200),
         hrefLabel: cleanString(record.hrefLabel, fallback.hrefLabel, 40),
+        secondaryHref: cleanOptionalString(
+          record.secondaryHref,
+          fallback.secondaryHref,
+          200,
+        ),
+        secondaryHrefLabel: cleanOptionalString(
+          record.secondaryHrefLabel,
+          fallback.secondaryHrefLabel,
+          40,
+        ),
       };
     })
     .slice(0, 12);

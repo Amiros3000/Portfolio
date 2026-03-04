@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Amir Ibrahim | Computer Engineer | Software Developer",
   description:
     "Portfolio of Amir Ibrahim, Computer Engineer focused on scalable systems, language-agnostic engineering, and reliable software delivery.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
   keywords: [
     "Computer Engineer",
     "Software Developer",
