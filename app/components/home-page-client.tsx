@@ -51,6 +51,52 @@ const signatureMetrics = [
   { value: "Private", label: "Production Codebases" },
 ];
 
+type ExperienceEntry = {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  bullets: string[];
+};
+
+const experience: ExperienceEntry[] = [
+  {
+    title: "Co-Founder & Lead Engineer",
+    company: "KonnectTaps",
+    location: "Remote",
+    period: "Jan 2024 – Present",
+    bullets: [
+      "Architecting full backend overhaul in Node.js and MySQL for a live product with 100+ active users.",
+      "Designing modular architecture to eliminate technical debt and support scalable feature growth.",
+      "Driving all engineering decisions end-to-end — system design, data modeling, and production deployment.",
+    ],
+  },
+  {
+    title: "Assistant Manager, Operations",
+    company: "Marché Adonis",
+    location: "Mississauga, ON",
+    period: "Nov 2017 – Present",
+    bullets: [
+      "Led daily operations and scheduling for a 13-person team, serving as primary escalation contact for real-time issues.",
+      "Maintained consistent service levels under high-volume, time-sensitive conditions — same reliability mindset I bring to production systems.",
+      "7+ years of professional accountability, stakeholder communication, and execution under pressure.",
+    ],
+  },
+];
+
+const education = {
+  degree: "B.Eng. Computer Engineering",
+  institution: "York University — Lassonde School of Engineering",
+  period: "Graduated Jun 2025",
+  courses: [
+    "Object-Oriented Programming (Java)",
+    "Data Structures & Algorithms",
+    "Operating Systems",
+    "Communication Networks",
+    "Software Engineering Principles",
+  ],
+};
+
 const sectionWrap = "mx-auto max-w-6xl px-4 sm:px-6 lg:px-8";
 const glassPanel =
   "rounded-3xl border border-accent/20 bg-surface/55 backdrop-blur-md";
@@ -133,6 +179,15 @@ export default function HomePageClient({ content }: HomePageClientProps) {
             transition={{ duration: 0.55, ease: "easeOut" }}
             className={`${glassPanel} p-6 sm:p-10 lg:p-12`}
           >
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                Open to opportunities
+              </span>
+            </div>
             <p className="text-xs tracking-[0.16em] text-muted uppercase sm:text-sm">
               Computer Engineer
             </p>
@@ -225,6 +280,51 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </span>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      <section id="experience" className={`${sectionWrap} mt-14 sm:mt-18`}>
+        <div className="mb-6">
+          <p className="text-xs tracking-[0.16em] text-muted uppercase">
+            Experience
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
+            Where I&apos;ve built and shipped
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+          {experience.map((entry) => (
+            <article
+              key={entry.company}
+              className={`${glassPanel} p-5 sm:p-7`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className="text-xs tracking-[0.12em] text-muted uppercase">
+                    {entry.company} &middot; {entry.location}
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold text-foreground">
+                    {entry.title}
+                  </h3>
+                </div>
+                <span className="shrink-0 rounded-full border border-accent/20 bg-surface/70 px-3 py-1 text-xs text-muted">
+                  {entry.period}
+                </span>
+              </div>
+              <ul className="mt-4 space-y-2">
+                {entry.bullets.map((bullet, i) => (
+                  <li
+                    key={i}
+                    className="flex gap-2.5 text-sm leading-relaxed text-muted"
+                  >
+                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -327,6 +427,42 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section id="education" className={`${sectionWrap} mt-14 sm:mt-18`}>
+        <div className={`${glassPanel} p-5 sm:p-8`}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-xs tracking-[0.16em] text-muted uppercase">
+                Education
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
+                {education.degree}
+              </h2>
+              <p className="mt-1 text-base font-medium text-muted">
+                {education.institution}
+              </p>
+            </div>
+            <span className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-muted">
+              {education.period}
+            </span>
+          </div>
+          <div className="mt-5">
+            <p className="mb-3 text-xs tracking-[0.14em] text-muted uppercase">
+              Relevant Coursework
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {education.courses.map((course) => (
+                <span
+                  key={course}
+                  className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-foreground"
+                >
+                  {course}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

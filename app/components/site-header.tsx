@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -12,9 +13,9 @@ type NavItem = {
 };
 
 const homeNavItems: NavItem[] = [
-  { id: "skills", href: "/#skills", label: "Skills" },
-  { id: "approach", href: "/#approach", label: "Approach" },
+  { id: "experience", href: "/#experience", label: "Experience" },
   { id: "projects", href: "/#projects", label: "Projects" },
+  { id: "skills", href: "/#skills", label: "Skills" },
   { id: "contact", href: "/#contact", label: "Contact" },
 ];
 
@@ -32,6 +33,12 @@ export default function SiteHeader() {
   const onHomePage = pathname === "/";
   const [activeSection, setActiveSection] = useState<string>("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = useMemo(() => {
     if (!onHomePage) {
@@ -102,27 +109,42 @@ export default function SiteHeader() {
           Portfolio
         </Link>
 
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          onClick={() => setMobileOpen((previous) => !previous)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-surface/70 text-muted transition hover:bg-accent/10 hover:text-foreground active:scale-95 md:hidden"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-surface/70 text-muted transition hover:bg-accent/10 hover:text-foreground active:scale-95"
+          >
+            {mounted && resolvedTheme === "dark" ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
+          </button>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-accent/20 bg-surface/75 px-2 py-1 backdrop-blur-md md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              onClick={() => setActiveSection(item.id)}
-              className={navItemClasses(item.id === activeSection)}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            onClick={() => setMobileOpen((previous) => !previous)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-surface/70 text-muted transition hover:bg-accent/10 hover:text-foreground active:scale-95 md:hidden"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+
+          <nav className="hidden items-center gap-1 rounded-full border border-accent/20 bg-surface/75 px-2 py-1 backdrop-blur-md md:flex">
+            {navItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                onClick={() => setActiveSection(item.id)}
+                className={navItemClasses(item.id === activeSection)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
 
       <div

@@ -39,7 +39,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     headline: "Amir Ibrahim | Computer Engineer",
     subheadline:
       "I build scalable systems that stay reliable when real-world pressure hits.",
-    bio: "I am a Computer Engineering graduate from York University (2025) with hands-on experience across Java, Python, and Node.js systems. I enjoy translating ambiguous product or operational problems into clear technical plans, then delivering solutions that are stable, maintainable, and practical for teams to extend.",
+    bio: "Computer Engineering grad from York University (2025). I worked professionally for 7+ years — managing a 13-person operations team and co-founding a live product — while earning my degree. I build backend systems in Node.js and Java, focused on reliability, clean data flows, and code that teams can actually extend.",
     resumeUrl: "/resume.pdf",
   },
   skills: [
