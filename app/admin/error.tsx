@@ -22,7 +22,7 @@ export default function AdminError({
           <button
             type="button"
             onClick={reset}
-            className="red-glow rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent/90"
+            className="accent-glow rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent/90"
           >
             Try Again
           </button>

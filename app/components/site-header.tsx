@@ -24,7 +24,7 @@ function navItemClasses(isActive: boolean): string {
     "rounded-full px-4 py-2 text-sm transition-all duration-200",
     "hover:bg-accent/10 hover:text-foreground",
     "active:scale-95 active:bg-accent/20",
-    isActive ? "bg-accent/15 text-foreground red-glow" : "text-muted",
+    isActive ? "bg-accent/15 text-foreground accent-glow" : "text-muted",
   ].join(" ");
 }
 

@@ -27,7 +27,7 @@ export default function Image() {
             height: "360px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(136,8,8,0.25) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(220,38,38,0.25) 0%, transparent 70%)",
           }}
         />
 
@@ -107,7 +107,7 @@ export default function Image() {
             <span style={{ fontSize: "16px", color: "#525252" }}>
               github.com/Amiros3000
             </span>
-            <span style={{ fontSize: "16px", color: "#880808" }}>|</span>
+            <span style={{ fontSize: "16px", color: "#DC2626" }}>|</span>
             <span style={{ fontSize: "16px", color: "#525252" }}>
               linkedin.com/in/amir3000
             </span>
@@ -125,7 +125,7 @@ export default function Image() {
                 style={{
                   fontSize: "13px",
                   color: "#a3a3a3",
-                  border: "1px solid rgba(136,8,8,0.3)",
+                  border: "1px solid rgba(220,38,38,0.3)",
                   borderRadius: "9999px",
                   padding: "4px 12px",
                 }}

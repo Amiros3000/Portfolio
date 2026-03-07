@@ -16,7 +16,7 @@ type SaveStatus = "idle" | "saving" | "success" | "error";
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 const cardClass =
-  "rounded-2xl border border-accent/22 bg-surface/60 p-5 shadow-[0_18px_50px_-44px_rgba(136,8,8,0.8)] backdrop-blur-md sm:p-6";
+  "rounded-2xl border border-accent/22 bg-surface/60 p-5 shadow-[0_18px_50px_-44px_rgba(220,38,38,0.8)] backdrop-blur-md sm:p-6";
 const labelClass = "text-sm font-medium text-foreground";
 const inputClass =
   "rounded-xl border border-accent/25 bg-surface/70 px-4 py-3 text-sm text-foreground placeholder:text-muted/70 backdrop-blur-md transition focus:border-accent focus:outline-none";
@@ -154,7 +154,7 @@ export default function AdminEditor({
       <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-10 top-28 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
 
-      <section className="relative mb-8 rounded-3xl border border-accent/25 bg-surface/60 p-6 shadow-[0_30px_80px_-65px_rgba(136,8,8,0.9)] backdrop-blur-md sm:p-7">
+      <section className="relative mb-8 rounded-3xl border border-accent/25 bg-surface/60 p-6 shadow-[0_30px_80px_-65px_rgba(220,38,38,0.9)] backdrop-blur-md sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs tracking-[0.16em] text-muted uppercase">Admin Panel</p>
@@ -348,7 +348,7 @@ export default function AdminEditor({
                 type="button"
                 onClick={handleResumeUpload}
                 disabled={uploadStatus === "uploading"}
-                className="red-glow rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent/90 disabled:opacity-60"
+                className="accent-glow rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent/90 disabled:opacity-60"
               >
                 {uploadStatus === "uploading" ? "Uploading..." : "Upload Resume"}
               </button>
@@ -414,11 +414,11 @@ export default function AdminEditor({
           </div>
         </section>
 
-        <div className="sticky bottom-4 z-10 flex flex-wrap items-center gap-4 rounded-2xl border border-accent/25 bg-surface/70 px-4 py-3 shadow-[0_16px_40px_-30px_rgba(136,8,8,0.7)] backdrop-blur-md">
+        <div className="sticky bottom-4 z-10 flex flex-wrap items-center gap-4 rounded-2xl border border-accent/25 bg-surface/70 px-4 py-3 shadow-[0_16px_40px_-30px_rgba(220,38,38,0.7)] backdrop-blur-md">
           <button
             type="submit"
             disabled={saveStatus === "saving"}
-            className="red-glow rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90 disabled:opacity-60"
+            className="accent-glow rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90 disabled:opacity-60"
           >
             {saveStatus === "saving" ? "Saving..." : "Save All Changes"}
           </button>

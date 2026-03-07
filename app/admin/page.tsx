@@ -30,7 +30,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute -right-10 bottom-10 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
 
-        <article className="relative w-full max-w-xl rounded-3xl border border-accent/25 bg-surface/60 p-8 shadow-[0_28px_80px_-62px_rgba(136,8,8,0.8)] backdrop-blur-md sm:p-10">
+        <article className="relative w-full max-w-xl rounded-3xl border border-accent/25 bg-surface/60 p-8 shadow-[0_28px_80px_-62px_rgba(220,38,38,0.8)] backdrop-blur-md sm:p-10">
           <p className="text-xs tracking-[0.18em] text-muted uppercase">Admin Access</p>
           <h1 className="mt-2 text-3xl font-semibold text-foreground">Sign In</h1>
           <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -75,7 +75,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
 
             <button
               type="submit"
-              className="red-glow mt-2 inline-flex w-full items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90"
+              className="accent-glow mt-2 inline-flex w-full items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90"
             >
               Sign In
             </button>
