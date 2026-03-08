@@ -14,6 +14,7 @@ export type PortfolioProject = {
   hrefLabel: string;
   secondaryHref?: string;
   secondaryHrefLabel?: string;
+  imageUrl?: string;
 };
 
 export type PortfolioContent = {
@@ -39,7 +40,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     headline: "Amir Ibrahim | Computer Engineer",
     subheadline:
       "I build scalable systems that stay reliable when real-world pressure hits.",
-    bio: "Computer Engineering grad from York University (2025). I worked professionally for 7+ years — managing a 13-person operations team and co-founding a live product — while earning my degree. I build backend systems in Node.js and Java, focused on reliability, clean data flows, and code that teams can actually extend.",
+    bio: "Computer Engineering grad from York University (2025). I worked professionally for 7+ years — managing a 13-person operations team and co-founding a live product — while earning my degree. I build software in Java, Python, and JavaScript, focused on reliability, clean architecture, and code that teams can actually extend.",
     resumeUrl: "/resume.pdf",
   },
   skills: [
@@ -58,9 +59,9 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   projects: [
     {
       title: "KonnectTaps",
-      stack: "Next.js / Python / MySQL",
+      stack: "Next.js / React / MySQL",
       description:
-        "Led a backend overhaul that stabilized infrastructure for 100+ active users. Core production code is private, with public deployments at konnecttaps.com and ktaps.me.",
+        "Co-founded a digital networking platform serving 100+ active users. Built the frontend experience and contribute across the full stack. Taught myself the entire technology stack while shipping a real product.",
       href: "https://konnecttaps.com",
       hrefLabel: "Main Site",
       secondaryHref: "https://ktaps.me",
@@ -71,8 +72,10 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       stack: "System Design",
       description:
         "Built a satellite telemetry visualization tool that converted complex operational constraints into clear technical workflows. This improved scheduling visibility and reduced planning conflicts.",
-      href: "https://github.com/ENG4000-SOSO",
-      hrefLabel: "View Team Repository",
+      href: "https://master.d31pgqxunb4wwx.amplifyapp.com",
+      hrefLabel: "Live Demo",
+      secondaryHref: "https://github.com/ENG4000-SOSO",
+      secondaryHrefLabel: "GitHub",
     },
     {
       title: "MIX Registration System",
@@ -83,11 +86,11 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       hrefLabel: "",
     },
     {
-      title: "Desktop Automation Suite",
-      stack: "Python",
+      title: "MacTidy",
+      stack: "Swift / SwiftUI / macOS",
       description:
-        "Developed automation scripts for batch file handling and structured data parsing to reduce repetitive administrative work and improve execution speed.",
-      href: "https://github.com/Amiros3000",
+        "A native macOS system manager built with SwiftUI. Features 11 tools including file organization, storage analysis, duplicate detection, cache cleaning, memory monitoring, and battery health — all in one polished desktop app.",
+      href: "https://github.com/Amiros3000/desktop-organizer",
       hrefLabel: "View GitHub",
     },
   ],
@@ -167,6 +170,11 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
           record.secondaryHrefLabel,
           fallback.secondaryHrefLabel,
           40,
+        ),
+        imageUrl: cleanOptionalString(
+          record.imageUrl,
+          fallback.imageUrl,
+          300,
         ),
       };
     })

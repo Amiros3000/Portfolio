@@ -22,7 +22,7 @@ export default function Footer() {
             </a>
           </div>
           <p className="text-xs text-accent sm:absolute sm:right-0 sm:bottom-0">
-            Open to backend and systems engineering opportunities
+            Open to software engineering opportunities
           </p>
         </div>
       </div>

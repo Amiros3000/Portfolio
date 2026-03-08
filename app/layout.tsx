@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
 import SiteHeader from "./components/site-header";
+import ChatbotWidget from "./components/chatbot/chatbot-widget";
 
 export const metadata: Metadata = {
   title: "Amir Ibrahim | Computer Engineer | Software Developer",
@@ -51,6 +52,7 @@ export default function RootLayout({
             <SiteHeader />
             {children}
           </div>
+          <ChatbotWidget />
         </Providers>
       </body>
     </html>

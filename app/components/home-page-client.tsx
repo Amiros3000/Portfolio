@@ -14,6 +14,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import FadeInSection from "./fade-in-section";
+import CurrentlyLearning from "./currently-learning";
 
 type HomePageClientProps = {
   content: PortfolioContent;
@@ -71,25 +72,35 @@ type ExperienceEntry = {
 
 const experience: ExperienceEntry[] = [
   {
-    title: "Co-Founder & Lead Engineer",
+    title: "Co-Founder & Frontend Engineer",
     company: "KonnectTaps",
     location: "Remote",
     period: "Jan 2024 – Present",
     bullets: [
-      "Architecting full backend overhaul in Node.js and MySQL for a live product with 100+ active users.",
-      "Designing modular architecture to eliminate technical debt and support scalable feature growth.",
-      "Driving all engineering decisions end-to-end — system design, data modeling, and production deployment.",
+      "Co-founded a digital networking platform serving 100+ active users — taught myself the full stack from scratch while building the product.",
+      "Built and own the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
+      "Contribute across the stack including Node.js and MySQL, driving product decisions end-to-end with my co-founder.",
     ],
   },
   {
     title: "Assistant Manager, Operations",
     company: "Marché Adonis",
     location: "Mississauga, ON",
-    period: "Nov 2017 – Present",
+    period: "Jun 2025 – Present",
     bullets: [
-      "Led daily operations and scheduling for a 13-person team, serving as primary escalation contact for real-time issues.",
-      "Maintained consistent service levels under high-volume, time-sensitive conditions — same reliability mindset I bring to production systems.",
-      "7+ years of professional accountability, stakeholder communication, and execution under pressure.",
+      "Promoted from Clerk after 7 years — now leading daily operations and scheduling for a 13-person team.",
+      "Serve as primary escalation contact, resolving real-time issues under high-volume, time-sensitive conditions.",
+      "Drive cross-functional coordination, stakeholder communication, and consistent service delivery.",
+    ],
+  },
+  {
+    title: "Clerk",
+    company: "Marché Adonis",
+    location: "Mississauga, ON",
+    period: "Nov 2017 – Jun 2025",
+    bullets: [
+      "Managed inventory, customer service, and floor operations while completing a full-time engineering degree.",
+      "Built strong fundamentals in accountability, time management, and execution under pressure across 7 years.",
     ],
   },
 ];
@@ -127,7 +138,7 @@ const skillCategories = [
 ];
 
 const lookingFor = {
-  roles: ["Backend Engineer", "Systems Engineer", "Software Developer"],
+  roles: ["Software Developer", "Junior Engineer", "Full-Stack Developer"],
   location: "Remote or Hybrid — GTA, Ontario",
   values:
     "Teams that value clean code, clear communication, and engineering ownership.",
@@ -313,8 +324,8 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               Engineering with ownership and clarity
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              I combine backend depth with practical product thinking. My focus
-              is shipping reliable systems that teams can confidently extend.
+              I combine engineering fundamentals with practical product thinking. My focus
+              is shipping reliable software that teams can confidently extend.
             </p>
 
             <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-1">
@@ -378,6 +389,13 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </FadeInSection>
       </section>
 
+      {/* ── Currently Learning ── */}
+      <section className={`${sectionWrap} mt-10 sm:mt-14`}>
+        <FadeInSection>
+          <CurrentlyLearning />
+        </FadeInSection>
+      </section>
+
       {/* ── Experience ── */}
       <section id="experience" className={`${sectionWrap} mt-14 sm:mt-18`}>
         <FadeInSection>
@@ -393,7 +411,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
           <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             {experience.map((entry) => (
               <article
-                key={entry.company}
+                key={`${entry.company}-${entry.title}`}
                 className={`${glassPanel} p-5 sm:p-7`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
@@ -490,45 +508,56 @@ export default function HomePageClient({ content }: HomePageClientProps) {
             {content.projects.map((project) => (
               <article
                 key={project.title}
-                className={`${glassPanel} p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_-20px_var(--shadow-accent)] sm:p-7`}
+                className={`${glassPanel} overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_-20px_var(--shadow-accent)]`}
               >
-                <p className="text-xs tracking-[0.12em] text-muted uppercase">
-                  {project.stack}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
-                  {project.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-                  {project.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.href ? (
-                    <a
-                      href={project.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
-                    >
-                      {project.hrefLabel || "Open Link"}
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                  ) : (
-                    <span className="inline-flex items-center rounded-full border border-accent/25 bg-surface/70 px-3 py-1.5 text-xs text-muted">
-                      Private codebase
-                    </span>
-                  )}
-
-                  {project.secondaryHref && (
-                    <a
-                      href={project.secondaryHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
-                    >
-                      {project.secondaryHrefLabel || "Open Link"}
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                  )}
+                {project.imageUrl && (
+                  <div className="relative aspect-video w-full overflow-hidden bg-surface/80">
+                    <img
+                      src={project.imageUrl}
+                      alt={`Screenshot of ${project.title}`}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-5 sm:p-7">
+                  <p className="text-xs tracking-[0.12em] text-muted uppercase">
+                    {project.stack}
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
+                    {project.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+                    {project.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.href ? (
+                      <a
+                        href={project.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
+                      >
+                        {project.hrefLabel || "Open Link"}
+                        <ArrowUpRight className="h-4 w-4" />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center rounded-full border border-accent/25 bg-surface/70 px-3 py-1.5 text-xs text-muted">
+                        Private codebase
+                      </span>
+                    )}
+                    {project.secondaryHref && (
+                      <a
+                        href={project.secondaryHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
+                      >
+                        {project.secondaryHrefLabel || "Open Link"}
+                        <ArrowUpRight className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
