@@ -15,6 +15,7 @@ export type PortfolioProject = {
   secondaryHref?: string;
   secondaryHrefLabel?: string;
   imageUrl?: string;
+  images?: string[];
 };
 
 export type PortfolioContent = {
@@ -90,8 +91,8 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       stack: "Swift / SwiftUI / macOS",
       description:
         "A native macOS system manager built with SwiftUI. Features 11 tools including file organization, storage analysis, duplicate detection, cache cleaning, memory monitoring, and battery health — all in one polished desktop app.",
-      href: "https://github.com/Amiros3000/desktop-organizer",
-      hrefLabel: "View GitHub",
+      href: "",
+      hrefLabel: "",
     },
   ],
   contact: {
@@ -176,6 +177,11 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
           fallback.imageUrl,
           300,
         ),
+        images: Array.isArray(record.images)
+          ? (record.images as unknown[])
+              .filter((u): u is string => typeof u === "string" && u.length > 0)
+              .slice(0, 6)
+          : fallback.images,
       };
     })
     .slice(0, 12);

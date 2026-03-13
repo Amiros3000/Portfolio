@@ -15,6 +15,7 @@ import type { LucideIcon } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import FadeInSection from "./fade-in-section";
 import CurrentlyLearning from "./currently-learning";
+import ProjectCarousel from "./project-carousel";
 
 type HomePageClientProps = {
   content: PortfolioContent;
@@ -510,7 +511,12 @@ export default function HomePageClient({ content }: HomePageClientProps) {
                 key={project.title}
                 className={`${glassPanel} overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_-20px_var(--shadow-accent)]`}
               >
-                {project.imageUrl && (
+                {(project.images?.length ?? 0) > 0 ? (
+                  <ProjectCarousel
+                    images={project.images!}
+                    alt={`Screenshot of ${project.title}`}
+                  />
+                ) : project.imageUrl ? (
                   <div className="relative aspect-video w-full overflow-hidden bg-surface/80">
                     <img
                       src={project.imageUrl}
@@ -519,7 +525,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                )}
+                ) : null}
                 <div className="p-5 sm:p-7">
                   <p className="text-xs tracking-[0.12em] text-muted uppercase">
                     {project.stack}
