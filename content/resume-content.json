@@ -1,0 +1,100 @@
+{
+  "personalInfo": {
+    "fullName": "Amir Ibrahim",
+    "email": "amir.ibrahim3000@gmail.com",
+    "phone": "",
+    "location": "Mississauga, ON",
+    "linkedinUrl": "https://linkedin.com/in/amir3000",
+    "githubUrl": "https://github.com/Amiros3000",
+    "websiteUrl": ""
+  },
+  "summary": "Computer Engineering graduate from York University with 7+ years of professional experience managing operations and co-founding a live product. Passionate about building software end-to-end — from frontend UI to backend infrastructure. Self-taught full-stack developer who ships real products.",
+  "experience": [
+    {
+      "title": "Co-Founder & Frontend Engineer",
+      "company": "KonnectTaps",
+      "location": "Remote",
+      "startDate": "Jan 2024",
+      "endDate": "Present",
+      "bullets": [
+        "Co-founded a digital networking platform serving 100+ active users, teaching myself the full stack from scratch.",
+        "Built and own the frontend experience in React/Next.js, turning product ideas into polished features.",
+        "Contribute across the stack including Node.js and MySQL, driving product decisions end-to-end."
+      ]
+    },
+    {
+      "title": "Assistant Manager, Operations",
+      "company": "Marché Adonis",
+      "location": "Mississauga, ON",
+      "startDate": "Jun 2025",
+      "endDate": "Present",
+      "bullets": [
+        "Promoted from Clerk after 7 years — leading daily operations and scheduling for a 13-person team.",
+        "Serve as primary escalation contact, resolving real-time issues under high-volume conditions."
+      ]
+    },
+    {
+      "title": "Clerk",
+      "company": "Marché Adonis",
+      "location": "Mississauga, ON",
+      "startDate": "Nov 2017",
+      "endDate": "Jun 2025",
+      "bullets": [
+        "Managed inventory, customer service, and floor operations while completing a full-time engineering degree.",
+        "Built strong fundamentals in accountability, time management, and execution under pressure."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Eng. Computer Engineering",
+      "institution": "York University — Lassonde School of Engineering",
+      "location": "Toronto, ON",
+      "graduationDate": "Jun 2025",
+      "gpa": "",
+      "relevantCourses": [
+        "OOP (Java)",
+        "Data Structures & Algorithms",
+        "Operating Systems",
+        "Communication Networks",
+        "Software Engineering Principles"
+      ]
+    }
+  ],
+  "skills": [
+    "Java",
+    "Python",
+    "JavaScript (ES6+)",
+    "SQL",
+    "Bash",
+    "Node.js",
+    "Express",
+    "React.js",
+    "Next.js",
+    "RESTful APIs",
+    "Docker",
+    "Linux/Unix",
+    "MySQL",
+    "Git/GitHub"
+  ],
+  "projects": [
+    {
+      "title": "KonnectTaps",
+      "stack": "Next.js / React / MySQL",
+      "description": "Digital networking platform with 100+ users. Built frontend, contribute across full stack.",
+      "url": "https://ktaps.me"
+    },
+    {
+      "title": "CSA Capstone — SOSO",
+      "stack": "System Design",
+      "description": "Satellite telemetry visualization tool for the Canadian Space Agency.",
+      "url": ""
+    },
+    {
+      "title": "MacTidy",
+      "stack": "Swift / SwiftUI / macOS",
+      "description": "Native macOS system manager with 11 tools for file organization, storage analysis, and optimization.",
+      "url": ""
+    }
+  ]
+}

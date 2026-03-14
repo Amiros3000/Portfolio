@@ -8,8 +8,6 @@ import type {
 
 type AdminEditorProps = {
   initialContent: PortfolioContent;
-  adminEmail: string;
-  usingDefaultCredentials: boolean;
 };
 
 type SaveStatus = "idle" | "saving" | "success" | "error";
@@ -30,8 +28,6 @@ function normalizeSkillsFromText(skillsText: string): string[] {
 
 export default function AdminEditor({
   initialContent,
-  adminEmail,
-  usingDefaultCredentials,
 }: AdminEditorProps) {
   const [draft, setDraft] = useState<PortfolioContent>(initialContent);
   const [skillsText, setSkillsText] = useState(initialContent.skills.join("\n"));
@@ -150,38 +146,7 @@ export default function AdminEditor({
   }
 
   return (
-    <main className="relative mx-auto max-w-7xl px-6 py-12 lg:px-8">
-      <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-accent/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-10 top-28 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
-
-      <section className="relative mb-8 rounded-3xl border border-accent/25 bg-surface/60 p-6 shadow-[0_30px_80px_-65px_rgba(220,38,38,0.9)] backdrop-blur-md sm:p-7">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">Admin Panel</p>
-            <h1 className="mt-2 text-3xl font-semibold text-foreground sm:text-4xl">
-              Edit Portfolio Content
-            </h1>
-            <p className="mt-2 text-sm text-muted">Signed in as {adminEmail}</p>
-            {usingDefaultCredentials && (
-              <p className="mt-2 rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-sm text-accent">
-                Security reminder: set PORTFOLIO_ADMIN_EMAIL and
-                PORTFOLIO_ADMIN_PASSWORD in your environment.
-              </p>
-            )}
-          </div>
-
-          <form action="/admin/logout" method="POST">
-            <button
-              type="submit"
-              className="rounded-full border border-accent/40 bg-surface/70 px-4 py-2 text-sm font-medium text-foreground transition hover:bg-accent/10"
-            >
-              Log out
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <form onSubmit={handleSave} className="relative space-y-6">
+    <form onSubmit={handleSave} className="relative space-y-6">
         <div className="grid gap-6 lg:grid-cols-2">
           <section className={cardClass}>
             <h2 className="text-lg font-semibold text-foreground">Hero</h2>
@@ -424,7 +389,6 @@ export default function AdminEditor({
           </button>
           <p className="text-sm text-muted">{saveMessage}</p>
         </div>
-      </form>
-    </main>
+    </form>
   );
 }

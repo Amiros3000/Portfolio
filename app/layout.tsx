@@ -3,6 +3,7 @@ import "./globals.css";
 import Providers from "./providers";
 import SiteHeader from "./components/site-header";
 import ChatbotWidget from "./components/chatbot/chatbot-widget";
+import SiteFooter from "./components/site-footer";
 
 export const metadata: Metadata = {
   title: "Amir Ibrahim | Computer Engineer | Software Developer",
@@ -48,9 +49,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className="antialiased">
         <Providers>
-          <div className="min-h-screen bg-background text-foreground">
+          <div className="flex min-h-screen flex-col bg-background text-foreground">
             <SiteHeader />
-            {children}
+            <div className="flex-1">{children}</div>
+            <SiteFooter />
           </div>
           <ChatbotWidget />
         </Providers>

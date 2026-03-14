@@ -1,10 +1,11 @@
 import Link from "next/link";
-import AdminEditor from "@/app/components/admin-editor";
+import AdminTabs from "@/app/components/admin-tabs";
 import {
   getAdminCredentials,
   isAdminAuthenticated,
 } from "@/app/lib/admin-auth";
 import { getPortfolioContent } from "@/app/lib/portfolio-content";
+import { getResumeContent } from "@/app/lib/resume-content";
 
 type AdminPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -93,10 +94,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   }
 
   const content = await getPortfolioContent();
+  const resumeContent = await getResumeContent();
 
   return (
-    <AdminEditor
+    <AdminTabs
       initialContent={content}
+      initialResumeContent={resumeContent}
       adminEmail={credentials.email}
       usingDefaultCredentials={credentials.usingDefaultCredentials}
     />
