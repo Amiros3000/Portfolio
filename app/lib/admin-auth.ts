@@ -65,6 +65,8 @@ function signPayload(payload: string): string {
 export function verifyAdminCredentials(email: string, password: string): boolean {
   const credentials = getAdminCredentials();
 
+  if (!credentials.email || !credentials.password) return false;
+
   const normalizedEmail = email.trim().toLowerCase();
   const expectedEmail = credentials.email.trim().toLowerCase();
 
