@@ -67,11 +67,14 @@
       "graduationDate": "2023",
       "gpa": "",
       "relevantCourses": [
-        "Electrical Systems",
-        "Control Fundamentals",
-        "Relay Logic",
-        "Sensors",
-        "Industrial Automation Principles"
+        "Introduction to Control Circuits",
+        "Robotics",
+        "Mechatronics",
+        "Industrial Pneumatics",
+        "Statics",
+        "Engineering Graphics",
+        "Engineering Materials",
+        "Workshop Practices"
       ]
     }
   ],

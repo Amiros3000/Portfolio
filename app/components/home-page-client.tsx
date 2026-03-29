@@ -124,11 +124,14 @@ const educationEntries = [
     institution: "Humber College",
     period: "2022 – 2023",
     courses: [
-      "Electrical Systems",
-      "Control Fundamentals",
-      "Relay Logic",
-      "Sensors",
-      "Industrial Automation Principles",
+      "Introduction to Control Circuits",
+      "Robotics",
+      "Mechatronics",
+      "Industrial Pneumatics",
+      "Statics",
+      "Engineering Graphics",
+      "Engineering Materials",
+      "Workshop Practices",
     ],
   },
 ];
@@ -317,15 +320,6 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               >
                 Contact Me
                 <Send className="h-4 w-4" />
-              </a>
-              <a
-                href={content.hero.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent px-5 py-2.5 text-sm font-semibold text-accent transition hover:bg-accent/10 sm:w-auto"
-              >
-                View Resume
-                <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
           </motion.article>

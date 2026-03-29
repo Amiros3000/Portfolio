@@ -33,7 +33,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a Computer Engineering graduate from York University (2025). He builds products end-to-end \u2014 from the UI down to the infrastructure. He co-founded KonnectTaps (a live SaaS platform with 100+ users), managed a 13-person team at March\u00e9 Adonis for 7+ years, and developed his full-stack skills by architecting and shipping a production system. He\u2019s an independent, self-driven engineer who figures things out fast.",
+      "Amir Ibrahim is a Computer Engineering graduate from York University (2025) with additional electromechanical engineering studies at Humber College. He builds products end-to-end \u2014 from the UI down to the infrastructure. He co-founded KonnectTaps (a live SaaS platform with 100+ users), managed a 13-person team at March\u00e9 Adonis for 7+ years, and developed his full-stack skills by architecting and shipping a production system. His background spans software, systems, and controls engineering. He\u2019s an independent, self-driven engineer who figures things out fast.",
     followUps: ["experience", "skills", "fit"],
   },
   {
@@ -48,7 +48,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his skills?",
     answer:
-      "Languages: Java, Python, SQL, Bash, JavaScript (ES6+). Backend & Web: Node.js, Express, React, RESTful APIs. Infrastructure: Docker, Linux/Unix, MySQL, Git/GitHub. Concepts: Distributed Systems, System Design, TCP/IP, HTTP/DNS. He\u2019s especially passionate about full-stack product development and building clean UIs.",
+      "Languages: Java, Python, SQL, Bash, JavaScript (ES6+). Backend & Web: Node.js, Express, React, RESTful APIs. Infrastructure: Docker, Linux/Unix, MySQL, Git/GitHub. Concepts: Distributed Systems, System Design, TCP/IP, HTTP/DNS. Controls & Domain Knowledge: Control Systems Fundamentals, Electromechanical Systems, Ladder Logic, Real-Time Operational Systems, IT/OT Networking. He bridges software and systems engineering \u2014 comfortable with both cloud infrastructure and industrial controls.",
     followUps: ["projects", "currently-learning"],
   },
   {
@@ -91,16 +91,17 @@ const knowledgeBase: KnowledgeEntry[] = [
   },
   {
     id: "education",
-    keywords: ["education", "degree", "university", "school", "york", "lassonde", "graduated", "courses"],
+    keywords: ["education", "degree", "university", "school", "york", "lassonde", "humber", "graduated", "courses"],
     patterns: [
       /where did (he|you|amir) (study|go to school|graduate)/i,
       /education/i,
       /(degree|university|college)/i,
       /what did (he|amir) study/i,
+      /humber/i,
     ],
     question: "Where did he study?",
     answer:
-      "B.Eng. in Computer Engineering from York University\u2019s Lassonde School of Engineering, graduated June 2025. Coursework includes: OOP (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, and Software Engineering Principles.",
+      "Two programs: (1) B.Eng. in Computer Engineering from York University\u2019s Lassonde School of Engineering, graduated June 2025. Coursework: OOP (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, and Software Engineering Principles. (2) Electromechanical Engineering Technician at Humber College (2022\u20132023, completed Year 1). Coursework: Introduction to Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials, and Workshop Practices. This dual background gives him a bridge between software and physical systems.",
     followUps: ["skills", "experience"],
   },
   {
@@ -128,7 +129,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What roles is he targeting?",
     answer:
-      "Software Developer, Junior Engineer, Full-Stack Developer, and Systems Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend infrastructure. He thrives in environments where he can take ownership and ship. He\u2019s open to both startup and structured environments.",
+      "Software Developer, Junior Engineer, Full-Stack Developer, and Systems Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend infrastructure. His Computer Engineering degree plus electromechanical studies at Humber mean he can also work at the intersection of software and physical systems (controls, automation, IT/OT). He thrives in environments where he can take ownership and ship. Open to both startup and structured environments.",
     followUps: ["availability", "contact", "fit"],
   },
   {
@@ -194,6 +195,10 @@ const knowledgeBase: KnowledgeEntry[] = [
         "Amir can ramp up on new stacks fast \u2014 he picked up Node.js, MySQL, React, and system design while building a live product. He\u2019s used to context-switching (he balanced a full engineering degree with co-founding a company and managing a team). He picks things up quickly and ships reliably.",
       enterprise:
         "Amir brings a systems-thinking mindset from his Computer Engineering degree \u2014 networking, distributed systems, and software architecture. He also has 7+ years of operational discipline from managing teams at March\u00e9 Adonis. He understands process, accountability, and delivering consistently under pressure.",
+      controls:
+        "Amir has a unique crossover: a Computer Engineering degree from York plus electromechanical engineering studies at Humber College covering control systems, relay logic, sensors, and industrial automation. He understands both the software and physical systems side \u2014 IT/OT networking, real-time operational systems, and ladder logic. Combined with his production software experience, he can bridge the gap between controls engineering and modern software infrastructure.",
+      systems:
+        "Amir\u2019s background is built for systems work. His Computer Engineering degree covers networking, distributed systems, and OS fundamentals. His Humber College studies add control systems, electromechanical systems, and industrial automation. And he\u2019s proven he can build and operate production infrastructure \u2014 he runs KonnectTaps on a Ubuntu VPS with Nginx, MySQL, and a Python backend. He thinks in systems, not just code.",
       _default:
         "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping a live product (KonnectTaps, 100+ users). He built the full stack by shipping real systems, not following tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
     },
@@ -263,7 +268,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/resume/i, /\bcv\b/i, /download.*(resume|cv)/i],
     question: "Can I see his resume?",
     answer:
-      "Yes! Click the \u201cView Resume\u201d button in the hero section at the top of the page, or scroll up to find it next to the \u201cContact Me\u201d button.",
+      "Amir tailors his resume for each opportunity, so there isn\u2019t a generic one posted here. This portfolio covers his full background, skills, projects, and experience. If you\u2019d like a resume tailored to your role, reach out via the contact form or email him at amir.ibrahim3000@gmail.com and he\u2019ll send one over.",
     followUps: ["contact", "background"],
   },
   {
