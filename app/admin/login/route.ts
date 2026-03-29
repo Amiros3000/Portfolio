@@ -7,6 +7,9 @@ import {
 } from "@/app/lib/admin-auth";
 
 export async function POST(request: Request) {
+  if (process.env.NODE_ENV === "production") {
+    return new NextResponse(null, { status: 404 });
+  }
   const formData = await request.formData();
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
@@ -22,7 +25,7 @@ export async function POST(request: Request) {
     value: createSessionToken(),
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: false,
     path: "/",
     maxAge: SESSION_TTL_SECONDS,
   });

@@ -5,7 +5,10 @@ import { isSupabaseConfigured } from "@/app/lib/supabase-rest";
 
 export const runtime = "nodejs";
 
+const notFoundResponse = () => new NextResponse(null, { status: 404 });
+
 export async function GET(request: NextRequest) {
+  if (process.env.NODE_ENV === "production") return notFoundResponse();
   if (!isAdminRequestAuthenticated(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -15,18 +18,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  if (process.env.NODE_ENV === "production") return notFoundResponse();
   if (!isAdminRequestAuthenticated(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  if (process.env.NODE_ENV === "production" && !isSupabaseConfigured()) {
-    return NextResponse.json(
-      {
-        error:
-          "Supabase is required for admin saves in production. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
-      },
-      { status: 503 },
-    );
   }
 
   try {

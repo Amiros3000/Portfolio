@@ -11,18 +11,11 @@ import { updatePortfolioResumeUrl } from "@/app/lib/portfolio-content";
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (process.env.NODE_ENV === "production") {
+    return new NextResponse(null, { status: 404 });
+  }
   if (!isAdminRequestAuthenticated(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  if (process.env.NODE_ENV === "production" && !isSupabaseConfigured()) {
-    return NextResponse.json(
-      {
-        error:
-          "Supabase is required for resume uploads in production. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
-      },
-      { status: 503 },
-    );
   }
 
   try {

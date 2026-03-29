@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import AdminTabs from "@/app/components/admin-tabs";
 import {
@@ -15,7 +16,7 @@ const inputClass =
   "rounded-xl border border-accent/25 bg-surface/70 px-4 py-3 text-sm text-foreground placeholder:text-muted/70 backdrop-blur-md transition focus:border-accent focus:outline-none";
 
 export default async function AdminPage({ searchParams }: AdminPageProps) {
-  const isProduction = process.env.NODE_ENV === "production";
+  if (process.env.NODE_ENV === "production") notFound();
   const params = searchParams ? await searchParams : {};
   const errorValue = params.error;
   const hasAuthError =
@@ -40,9 +41,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
 
           {credentials.usingDefaultCredentials && (
             <p className="mt-3 rounded-lg border border-accent/25 bg-accent/8 px-3 py-2 text-sm text-accent">
-              {isProduction
-                ? "Admin environment variables are missing. Set PORTFOLIO_ADMIN_EMAIL and PORTFOLIO_ADMIN_PASSWORD to enable login."
-                : "Default local credentials are active. Set PORTFOLIO_ADMIN_EMAIL and PORTFOLIO_ADMIN_PASSWORD before production deployment."}
+              Default local credentials are active. Set PORTFOLIO_ADMIN_EMAIL and PORTFOLIO_ADMIN_PASSWORD before production deployment.
             </p>
           )}
 
