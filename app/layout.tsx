@@ -6,9 +6,9 @@ import ChatbotWidget from "./components/chatbot/chatbot-widget";
 import SiteFooter from "./components/site-footer";
 
 export const metadata: Metadata = {
-  title: "Amir Ibrahim | Computer Engineer | Software Developer",
+  title: "Amir Ibrahim | Computer & Systems Engineer",
   description:
-    "Portfolio of Amir Ibrahim, Computer Engineer focused on scalable systems, language-agnostic engineering, and reliable software delivery.",
+    "Computer Engineering graduate (York, 2025) with hands-on experience building and deploying production systems. Open to software, systems, and controls engineering roles across Ontario.",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: ["/icon.svg"],
@@ -27,16 +27,16 @@ export const metadata: Metadata = {
     "Site Reliability Engineering",
   ],
   openGraph: {
-    title: "Amir Ibrahim | Computer Engineer | Software Developer",
+    title: "Amir Ibrahim | Computer & Systems Engineer",
     description:
-      "Scalable systems, robust backend architecture, and impact-driven engineering delivery.",
+      "Computer Engineering graduate (York, 2025) with hands-on experience building and deploying production systems. Open to software, systems, and controls engineering roles across Ontario.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amir Ibrahim | Computer Engineer",
+    title: "Amir Ibrahim | Computer & Systems Engineer",
     description:
-      "Scalable systems and language-agnostic software engineering.",
+      "Computer Engineering graduate building and deploying production systems.",
   },
 };
 

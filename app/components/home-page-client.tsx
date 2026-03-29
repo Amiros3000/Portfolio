@@ -73,14 +73,14 @@ type ExperienceEntry = {
 
 const experience: ExperienceEntry[] = [
   {
-    title: "Co-Founder & Frontend Engineer",
+    title: "Co-Founder & Lead Engineer",
     company: "KonnectTaps",
     location: "Remote",
     period: "Jan 2024 – Present",
     bullets: [
-      "Co-founded a digital networking platform serving 100+ active users — taught myself the full stack from scratch while building the product.",
+      "Co-founded a live SaaS platform serving 100+ active users — architected and own the full production stack from frontend to infrastructure.",
       "Built and own the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
-      "Contribute across the stack including Node.js and MySQL, driving product decisions end-to-end with my co-founder.",
+      "Led backend migration to Python, manage system reliability on a Ubuntu VPS with Nginx, and drive product decisions end-to-end with my co-founder.",
     ],
   },
   {
@@ -106,18 +106,32 @@ const experience: ExperienceEntry[] = [
   },
 ];
 
-const education = {
-  degree: "B.Eng. Computer Engineering",
-  institution: "York University — Lassonde School of Engineering",
-  period: "Graduated Jun 2025",
-  courses: [
-    "Object-Oriented Programming (Java)",
-    "Data Structures & Algorithms",
-    "Operating Systems",
-    "Communication Networks",
-    "Software Engineering Principles",
-  ],
-};
+const educationEntries = [
+  {
+    degree: "B.Eng. Computer Engineering",
+    institution: "York University — Lassonde School of Engineering",
+    period: "Graduated Jun 2025",
+    courses: [
+      "Object-Oriented Programming (Java)",
+      "Data Structures & Algorithms",
+      "Operating Systems",
+      "Communication Networks",
+      "Software Engineering Principles",
+    ],
+  },
+  {
+    degree: "Electromechanical Engineering Technician (Completed Year 1)",
+    institution: "Humber College",
+    period: "2022 – 2023",
+    courses: [
+      "Electrical Systems",
+      "Control Fundamentals",
+      "Relay Logic",
+      "Sensors",
+      "Industrial Automation Principles",
+    ],
+  },
+];
 
 const skillCategories = [
   {
@@ -136,10 +150,14 @@ const skillCategories = [
     label: "Concepts",
     skills: ["Distributed Systems", "System Design", "TCP/IP", "HTTP/DNS"],
   },
+  {
+    label: "Controls & Domain Knowledge",
+    skills: ["Control Systems Fundamentals", "Electromechanical Systems", "Ladder Logic", "Real-Time Operational Systems", "IT/OT Networking"],
+  },
 ];
 
 const lookingFor = {
-  roles: ["Software Developer", "Junior Engineer", "Full-Stack Developer"],
+  roles: ["Software Developer", "Junior Engineer", "Full-Stack Developer", "Systems Engineer"],
   location: "Remote or Hybrid — GTA, Ontario",
   values:
     "Teams that value clean code, clear communication, and engineering ownership.",
@@ -574,38 +592,42 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       {/* ── Education ── */}
       <section id="education" className={`${sectionWrap} mt-14 sm:mt-18`}>
         <FadeInSection>
-          <div className={`${glassPanel} p-5 sm:p-8`}>
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <p className="text-xs tracking-[0.16em] text-muted uppercase">
-                  Education
-                </p>
-                <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
-                  {education.degree}
-                </h2>
-                <p className="mt-1 text-base font-medium text-muted">
-                  {education.institution}
-                </p>
-              </div>
-              <span className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-muted">
-                {education.period}
-              </span>
-            </div>
-            <div className="mt-5">
-              <p className="mb-3 text-xs tracking-[0.14em] text-muted uppercase">
-                Relevant Coursework
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {education.courses.map((course) => (
-                  <span
-                    key={course}
-                    className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-foreground"
-                  >
-                    {course}
+          <div className="grid gap-4">
+            {educationEntries.map((education) => (
+              <div key={education.institution} className={`${glassPanel} p-5 sm:p-8`}>
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs tracking-[0.16em] text-muted uppercase">
+                      Education
+                    </p>
+                    <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
+                      {education.degree}
+                    </h2>
+                    <p className="mt-1 text-base font-medium text-muted">
+                      {education.institution}
+                    </p>
+                  </div>
+                  <span className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-muted">
+                    {education.period}
                   </span>
-                ))}
+                </div>
+                <div className="mt-5">
+                  <p className="mb-3 text-xs tracking-[0.14em] text-muted uppercase">
+                    Relevant Coursework
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {education.courses.map((course) => (
+                      <span
+                        key={course}
+                        className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-foreground"
+                      >
+                        {course}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </FadeInSection>
       </section>

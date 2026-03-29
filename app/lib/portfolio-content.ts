@@ -62,7 +62,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       title: "KonnectTaps",
       stack: "Next.js / React / MySQL",
       description:
-        "Co-founded a digital networking platform serving 100+ active users. Built the frontend experience and contribute across the full stack. Taught myself the entire technology stack while shipping a real product.",
+        "Co-founded a live SaaS platform serving 100+ active users. Architected and own the full production stack — Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. Led backend migration, system reliability, and a pivot to enterprise B2B.",
       href: "https://konnecttaps.com",
       hrefLabel: "Main Site",
       secondaryHref: "https://ktaps.me",
@@ -83,14 +83,6 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       stack: "High-Availability",
       description:
         "Engineered a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
-      href: "",
-      hrefLabel: "",
-    },
-    {
-      title: "MacTidy",
-      stack: "Swift / SwiftUI / macOS",
-      description:
-        "A native macOS system manager built with SwiftUI. Features 11 tools including file organization, storage analysis, duplicate detection, cache cleaning, memory monitoring, and battery health — all in one polished desktop app.",
       href: "",
       hrefLabel: "",
     },

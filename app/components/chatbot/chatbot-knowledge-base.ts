@@ -33,7 +33,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a Computer Engineering graduate from York University (2025). He\u2019s passionate about building products end-to-end \u2014 from the UI down to the infrastructure. He co-founded KonnectTaps (a digital networking platform with 100+ users), managed a 13-person team at March\u00e9 Adonis for 7+ years, and taught himself full-stack development by shipping a real product. He\u2019s an independent, self-driven builder who figures things out fast.",
+      "Amir Ibrahim is a Computer Engineering graduate from York University (2025). He builds products end-to-end \u2014 from the UI down to the infrastructure. He co-founded KonnectTaps (a live SaaS platform with 100+ users), managed a 13-person team at March\u00e9 Adonis for 7+ years, and developed his full-stack skills by architecting and shipping a production system. He\u2019s an independent, self-driven engineer who figures things out fast.",
     followUps: ["experience", "skills", "fit"],
   },
   {
@@ -62,8 +62,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What has he built?",
     answer:
-      "Key projects: (1) KonnectTaps \u2014 a digital networking platform he co-founded with 100+ users. He taught himself the entire stack from scratch and built it into a real product. (2) SOSO Capstone \u2014 a satellite telemetry visualization tool for the Canadian Space Agency. (3) MIX Registration System \u2014 handled 400+ concurrent requests with zero downtime. (4) MacTidy \u2014 a native macOS system manager built with Swift and SwiftUI, featuring 11 tools for file organization, storage analysis, and system optimization. Check the Projects section for live demos!",
-    followUps: ["konnecttaps", "mactidy", "experience"],
+      "Key projects: (1) KonnectTaps \u2014 a live SaaS platform he co-founded with 100+ users, where he architected and owns the full production stack. (2) SOSO Capstone \u2014 a satellite telemetry visualization tool for the Canadian Space Agency. (3) MIX Registration System \u2014 handled 400+ concurrent requests with zero downtime. Check the Projects section for live demos!",
+    followUps: ["konnecttaps", "experience"],
   },
   {
     id: "konnecttaps",
@@ -71,23 +71,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/konnect\s?taps/i, /ktaps/i, /co-?found/i, /networking (platform|app|tool)/i],
     question: "Tell me about KonnectTaps",
     answer:
-      "KonnectTaps is a digital networking and contact-sharing platform Amir co-founded in January 2024. Here\u2019s what makes it impressive: it was his first real project. He had no prior engineering experience at that scale \u2014 he taught himself Node.js, MySQL, system design, and deployment while building a live product that now serves 100+ active users. He makes all engineering decisions end-to-end: architecture, data modeling, and production ops. Visit konnecttaps.com or the app at ktaps.me.",
+      "KonnectTaps is a live SaaS platform Amir co-founded in January 2024. He architected and owns the full production stack \u2014 Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS \u2014 serving 100+ active users. He led the backend migration, manages system reliability, and drove a pivot to enterprise B2B. He makes all engineering decisions end-to-end: architecture, data modeling, and production ops. Visit konnecttaps.com or the app at ktaps.me.",
     followUps: ["projects", "strengths", "skills"],
-  },
-  {
-    id: "mactidy",
-    keywords: ["mactidy", "mac tidy", "desktop", "organizer", "swift", "swiftui", "macos", "native"],
-    patterns: [
-      /mac\s?tidy/i,
-      /desktop (organizer|manager|app)/i,
-      /swift\s?ui/i,
-      /native (mac|macos|app)/i,
-      /system (manager|optimizer|utility)/i,
-    ],
-    question: "Tell me about MacTidy",
-    answer:
-      "MacTidy is a native macOS system manager Amir built with Swift and SwiftUI. It\u2019s a full-featured desktop utility with 11 tools: file organizer, storage analyzer with charts, large file finder, duplicate detector, cache cleaner, system info dashboard, startup manager, app uninstaller, memory monitor, battery health, and network speed test. It demonstrates his ability to pick up a completely new technology (Swift/SwiftUI) and deliver a polished, production-quality native Mac app.",
-    followUps: ["projects", "skills", "self-taught"],
   },
   {
     id: "experience",
@@ -101,7 +86,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What\u2019s his experience?",
     answer:
-      "Two key threads: (1) Co-Founder & Frontend Engineer at KonnectTaps (Jan 2024 \u2013 Present) \u2014 co-founded a digital networking platform, built the frontend, and contributes across the full stack. Taught himself everything while building. (2) 7+ years at March\u00e9 Adonis (Nov 2017 \u2013 Present) \u2014 started as a Clerk, earned a promotion to Assistant Manager after graduating, now leading a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
+      "Two key threads: (1) Co-Founder & Lead Engineer at KonnectTaps (Jan 2024 \u2013 Present) \u2014 co-founded a live SaaS platform, architected the full production stack, and leads all engineering decisions end-to-end. (2) 7+ years at March\u00e9 Adonis (Nov 2017 \u2013 Present) \u2014 started as a Clerk, earned a promotion to Assistant Manager after graduating, now leading a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
     followUps: ["education", "fit"],
   },
   {
@@ -129,7 +114,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Is he available?",
     answer:
-      "Yes! Amir is available immediately. He\u2019s looking for Software Developer, Junior Engineer, or Full-Stack Developer roles. Open to remote or hybrid positions in the GTA, Ontario area. What kind of role are you hiring for? I can tell you more about how he\u2019d fit.",
+      "Yes! Amir is available immediately. He\u2019s looking for Software Developer, Junior Engineer, Full-Stack Developer, or Systems Engineer roles. Open to remote or hybrid positions in the GTA, Ontario area. What kind of role are you hiring for? I can tell you more about how he\u2019d fit.",
     followUps: ["fit", "roles", "contact"],
   },
   {
@@ -143,7 +128,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What roles is he targeting?",
     answer:
-      "Software Developer, Junior Engineer, and Full-Stack Developer positions. He\u2019s passionate about building products end-to-end \u2014 from the frontend UI to the backend infrastructure. He thrives in environments where he can take ownership and ship. He\u2019s open to both startup and structured environments.",
+      "Software Developer, Junior Engineer, Full-Stack Developer, and Systems Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend infrastructure. He thrives in environments where he can take ownership and ship. He\u2019s open to both startup and structured environments.",
     followUps: ["availability", "contact", "fit"],
   },
   {
@@ -183,7 +168,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What is he learning?",
     answer:
-      "Currently exploring AWS (cloud infrastructure), TypeScript, Next.js, Kubernetes, and CI/CD pipelines. He\u2019s the kind of person who learns by doing \u2014 he taught himself the entire stack behind KonnectTaps while building it. He picks things up fast because he\u2019s not afraid to dive in.",
+      "Currently exploring AWS (cloud infrastructure), TypeScript, Next.js, Kubernetes, and CI/CD pipelines. He\u2019s the kind of engineer who learns by building \u2014 he developed the entire stack behind KonnectTaps while shipping it to production. He picks things up fast because he\u2019s not afraid to dive in.",
     followUps: ["skills", "projects"],
   },
   {
@@ -202,15 +187,15 @@ const knowledgeBase: KnowledgeEntry[] = [
       "Great question! To give you the best answer \u2014 what kind of role or team is this for? For example: startup, product team, agency, enterprise, etc.",
     contextResponses: {
       startup:
-        "Amir is a natural startup fit. He co-founded KonnectTaps and built the entire product from scratch \u2014 from system design to deployment \u2014 with no prior experience at that scale. He\u2019s used to wearing every hat, making fast decisions, and shipping with limited resources. He\u2019s independent, self-driven, and learns on the fly. That\u2019s exactly the kind of person early-stage teams need.",
+        "Amir is a natural startup fit. He co-founded KonnectTaps and built the entire product from scratch \u2014 from system design to deployment \u2014 growing it to 100+ active users. He\u2019s used to wearing every hat, making fast decisions, and shipping with limited resources. He\u2019s independent, self-driven, and learns on the fly. That\u2019s exactly the kind of person early-stage teams need.",
       product:
         "Amir is product-minded at his core. He didn\u2019t just build KonnectTaps as a side project \u2014 he co-founded it and ships features to 100+ real users. He thinks about the full user experience, from the UI to the backend reliability. He\u2019s passionate about building things people actually use. He\u2019d slot right into a product team that values ownership.",
       agency:
-        "Amir can ramp up on new stacks fast \u2014 he taught himself Node.js, MySQL, React, and system design while building a live product. He\u2019s used to context-switching (he balanced a full engineering degree with co-founding a company and managing a team). He picks things up quickly and ships reliably.",
+        "Amir can ramp up on new stacks fast \u2014 he picked up Node.js, MySQL, React, and system design while building a live product. He\u2019s used to context-switching (he balanced a full engineering degree with co-founding a company and managing a team). He picks things up quickly and ships reliably.",
       enterprise:
         "Amir brings a systems-thinking mindset from his Computer Engineering degree \u2014 networking, distributed systems, and software architecture. He also has 7+ years of operational discipline from managing teams at March\u00e9 Adonis. He understands process, accountability, and delivering consistently under pressure.",
       _default:
-        "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping a live product (KonnectTaps, 100+ users). He taught himself the full stack by building \u2014 not tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
+        "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping a live product (KonnectTaps, 100+ users). He built the full stack by shipping real systems, not following tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
     },
     followUps: ["strengths", "experience", "projects"],
   },
@@ -225,7 +210,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his strengths?",
     answer:
-      "His key strengths: (1) Self-taught builder \u2014 he learned the entire stack by shipping a real product, not watching tutorials. (2) Ownership mindset \u2014 he co-founded KonnectTaps and handles every engineering decision. (3) Reliability under pressure \u2014 7+ years of managing high-volume operations. (4) Speed of learning \u2014 he went from zero product experience to a live platform with 100+ users. (5) Product thinking \u2014 he cares about what users actually experience, not just the code.",
+      "His key strengths: (1) Builder who ships \u2014 he architected a full production stack and grew it to 100+ users. (2) Ownership mindset \u2014 he co-founded KonnectTaps and handles every engineering decision. (3) Reliability under pressure \u2014 7+ years of managing high-volume operations. (4) Speed of learning \u2014 he went from zero product experience to a live platform with 100+ users. (5) Product thinking \u2014 he cares about what users actually experience, not just the code.",
     followUps: ["fit", "skills", "weaknesses"],
   },
   {
@@ -269,7 +254,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Good for startups?",
     answer:
-      "Yes \u2014 Amir already operates like a startup founder. At KonnectTaps he handles system design, data modeling, deployment, and production operations by himself. He taught himself the full stack on the job because that\u2019s what the product needed. He\u2019s comfortable wearing every hat, making fast decisions, and shipping with limited resources. That\u2019s exactly the mindset startups need.",
+      "Yes \u2014 Amir already operates like a startup founder. At KonnectTaps he handles system design, data modeling, deployment, and production operations by himself. He built the full stack on the job because that\u2019s what the product needed. He\u2019s comfortable wearing every hat, making fast decisions, and shipping with limited resources. That\u2019s exactly the mindset startups need.",
     followUps: ["konnecttaps", "fit", "strengths"],
   },
   {
@@ -305,7 +290,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "How did he learn?",
     answer:
-      "Amir is a learn-by-doing person. He didn\u2019t follow a bootcamp or tutorial path \u2014 he co-founded KonnectTaps as his first real project and taught himself the entire stack (Node.js, MySQL, React, system design, deployment) while building a live product. He went from basic coding knowledge to running a production platform with 100+ users. That ability to learn on the fly is core to who he is as an engineer.",
+      "Amir is a learn-by-building engineer. He didn\u2019t follow a bootcamp or tutorial path \u2014 he co-founded KonnectTaps as his first real project and developed the entire stack (Node.js, MySQL, React, system design, deployment) while shipping a live product. He went from basic coding knowledge to running a production platform with 100+ users. That ability to ramp up fast is core to who he is as an engineer.",
     followUps: ["konnecttaps", "currently-learning", "strengths"],
   },
 ];

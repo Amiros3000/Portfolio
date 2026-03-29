@@ -8,16 +8,16 @@
     "githubUrl": "https://github.com/Amiros3000",
     "websiteUrl": ""
   },
-  "summary": "Computer Engineering graduate from York University with 7+ years of professional experience managing operations and co-founding a live product. Passionate about building software end-to-end — from frontend UI to backend infrastructure. Self-taught full-stack developer who ships real products.",
+  "summary": "Computer Engineering graduate from York University with 7+ years of professional experience managing operations and co-founding a live product. Builds software end-to-end — from frontend UI to backend infrastructure. Full-stack engineer who ships production systems.",
   "experience": [
     {
-      "title": "Co-Founder & Frontend Engineer",
+      "title": "Co-Founder & Lead Engineer",
       "company": "KonnectTaps",
       "location": "Remote",
       "startDate": "Jan 2024",
       "endDate": "Present",
       "bullets": [
-        "Co-founded a digital networking platform serving 100+ active users, teaching myself the full stack from scratch.",
+        "Co-founded a live SaaS platform serving 100+ active users — architected and own the full production stack from frontend to infrastructure.",
         "Built and own the frontend experience in React/Next.js, turning product ideas into polished features.",
         "Contribute across the stack including Node.js and MySQL, driving product decisions end-to-end."
       ]
@@ -59,6 +59,20 @@
         "Communication Networks",
         "Software Engineering Principles"
       ]
+    },
+    {
+      "degree": "Electromechanical Engineering Technician (Completed Year 1)",
+      "institution": "Humber College",
+      "location": "Toronto, ON",
+      "graduationDate": "2023",
+      "gpa": "",
+      "relevantCourses": [
+        "Electrical Systems",
+        "Control Fundamentals",
+        "Relay Logic",
+        "Sensors",
+        "Industrial Automation Principles"
+      ]
     }
   ],
   "skills": [
@@ -88,12 +102,6 @@
       "title": "CSA Capstone — SOSO",
       "stack": "System Design",
       "description": "Satellite telemetry visualization tool for the Canadian Space Agency.",
-      "url": ""
-    },
-    {
-      "title": "MacTidy",
-      "stack": "Swift / SwiftUI / macOS",
-      "description": "Native macOS system manager with 11 tools for file organization, storage analysis, and optimization.",
       "url": ""
     }
   ]
