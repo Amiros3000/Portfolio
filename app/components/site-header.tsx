@@ -67,9 +67,12 @@ export default function SiteHeader() {
     const updateActiveSection = () => {
       const anchorLine = window.innerHeight * 0.33;
       let nextActive = "";
+      let bestTop = -Infinity;
 
       for (const section of sectionElements) {
-        if (section.getBoundingClientRect().top <= anchorLine) {
+        const top = section.getBoundingClientRect().top;
+        if (top <= anchorLine && top > bestTop) {
+          bestTop = top;
           nextActive = section.id;
         }
       }
