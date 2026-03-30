@@ -12,7 +12,7 @@ const projects: Project[] = [
     title: "KonnectTaps",
     techStack: "Next.js, Python, MySQL",
     result:
-      "Rebuilt the backend architecture to support 100+ active users with stronger data integrity and stable production performance.",
+      "Rebuilt the backend architecture to serve enterprise clients with stronger data integrity and stable production performance.",
     href: "https://github.com/Amiros3000",
   },
   {

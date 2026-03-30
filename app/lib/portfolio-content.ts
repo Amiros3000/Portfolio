@@ -62,7 +62,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       title: "KonnectTaps",
       stack: "Next.js / React / MySQL",
       description:
-        "Co-founded a live SaaS platform serving 100+ active users. Architected and own the full production stack — Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. Led backend migration, system reliability, and a pivot to enterprise B2B.",
+        "Co-founded a production platform serving enterprise clients. Architected and own the full stack — Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. Led backend migration, system reliability, and a pivot to enterprise B2B.",
       href: "https://konnecttaps.com",
       hrefLabel: "Main Site",
       secondaryHref: "https://ktaps.me",

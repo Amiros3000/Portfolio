@@ -17,7 +17,7 @@
       "startDate": "Jan 2024",
       "endDate": "Present",
       "bullets": [
-        "Co-founded a live SaaS platform serving 100+ active users — architected and own the full production stack from frontend to infrastructure.",
+        "Co-founded a production platform serving enterprise clients — architected and own the full stack from frontend to infrastructure.",
         "Built and own the frontend experience in React/Next.js, turning product ideas into polished features.",
         "Contribute across the stack including Node.js and MySQL, driving product decisions end-to-end."
       ]
@@ -98,7 +98,7 @@
     {
       "title": "KonnectTaps",
       "stack": "Next.js / React / MySQL",
-      "description": "Digital networking platform with 100+ users. Built frontend, contribute across full stack.",
+      "description": "Production platform serving enterprise clients. Architected full stack, lead all engineering decisions.",
       "url": "https://ktaps.me"
     },
     {

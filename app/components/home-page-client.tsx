@@ -58,7 +58,7 @@ type MetricItem = {
 };
 
 const signatureMetrics: MetricItem[] = [
-  { numericValue: 100, suffix: "+", label: "Active Users Supported" },
+  { displayValue: "Live", label: "Production SaaS Platform" },
   { numericValue: 400, suffix: "+", label: "Concurrent Requests" },
   { displayValue: "Private", label: "Production Codebases" },
 ];
@@ -78,7 +78,7 @@ const experience: ExperienceEntry[] = [
     location: "Remote",
     period: "Jan 2024 – Present",
     bullets: [
-      "Co-founded a live SaaS platform serving 100+ active users — architected and own the full production stack from frontend to infrastructure.",
+      "Co-founded a production platform serving enterprise clients — architected and own the full stack from frontend to infrastructure.",
       "Built and own the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
       "Led backend migration to Python, manage system reliability on a Ubuntu VPS with Nginx, and drive product decisions end-to-end with my co-founder.",
     ],
