@@ -3,9 +3,11 @@
 import { useState, useCallback, useMemo } from "react";
 import { pdf } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
+import { Sparkles } from "lucide-react";
 import type { ResumeContent } from "@/app/lib/resume-content";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import ResumeForm from "./resume-form";
+import ResumeAssistant from "./resume-assistant";
 import ResumePdfDocument from "./resume-pdf-document";
 
 const ResumePreview = dynamic(() => import("./resume-preview"), { ssr: false });
@@ -17,9 +19,17 @@ type ResumeBuilderProps = {
 
 type SaveStatus = "idle" | "saving" | "success" | "error";
 type DownloadStatus = "idle" | "generating" | "done" | "error";
+type RightPanel = "preview" | "assistant";
 
 const actionBtnClass =
   "rounded-full px-5 py-2.5 text-sm font-medium transition disabled:opacity-50";
+
+const tabBtnBase =
+  "rounded-full px-4 py-2 text-sm font-medium transition";
+const tabBtnActive =
+  "bg-accent text-on-accent shadow-sm";
+const tabBtnInactive =
+  "border border-accent/20 bg-surface/60 text-muted hover:text-foreground hover:bg-accent/10";
 
 export default function ResumeBuilder({
   initialResumeContent,
@@ -31,6 +41,8 @@ export default function ResumeBuilder({
   const [downloadStatus, setDownloadStatus] = useState<DownloadStatus>("idle");
   const [setAsResumeStatus, setSetAsResumeStatus] = useState<SaveStatus>("idle");
   const [setAsResumeMessage, setSetAsResumeMessage] = useState("");
+  const [rightPanel, setRightPanel] = useState<RightPanel>("preview");
+  const [showMobileAssistant, setShowMobileAssistant] = useState(false);
 
   /* ── Debounced content for preview ── */
   const [previewContent, setPreviewContent] = useState<ResumeContent>(initialResumeContent);
@@ -52,6 +64,26 @@ export default function ResumeBuilder({
       });
     },
     [schedulePreviewUpdate],
+  );
+
+  /* ── Update a specific bullet (used by AI assistant) ── */
+  const handleUpdateBullet = useCallback(
+    (expIndex: number, bulletIndex: number, newText: string) => {
+      handleDraftChange((prev) => ({
+        ...prev,
+        experience: prev.experience.map((exp, i) =>
+          i === expIndex
+            ? {
+                ...exp,
+                bullets: exp.bullets.map((b, j) =>
+                  j === bulletIndex ? newText : b,
+                ),
+              }
+            : exp,
+        ),
+      }));
+    },
+    [handleDraftChange],
   );
 
   /* ── Save Draft ── */
@@ -245,16 +277,63 @@ export default function ResumeBuilder({
         )}
       </div>
 
-      {/* Split layout: form + preview */}
+      {/* Split layout: form + right panel */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Left: Form */}
         <div>
           <ResumeForm draft={draft} setDraft={handleDraftChange} />
+
+          {/* Mobile: AI Assistant toggle */}
+          <div className="mt-6 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setShowMobileAssistant((v) => !v)}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-accent/25 bg-surface/60 px-4 py-3.5 text-sm font-medium text-foreground shadow-sm backdrop-blur-md transition hover:bg-accent/10"
+            >
+              <Sparkles className="h-4 w-4 text-accent" />
+              {showMobileAssistant ? "Hide AI Assistant" : "AI Resume Assistant"}
+            </button>
+            {showMobileAssistant && (
+              <div className="mt-3">
+                <ResumeAssistant
+                  resume={draft}
+                  onUpdateBullet={handleUpdateBullet}
+                />
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Right: Live Preview */}
+        {/* Right: Preview / AI Assistant (desktop) */}
         <div className="hidden lg:block">
-          <ResumePreview resumeContent={previewContent} />
+          {/* Tab switcher */}
+          <div className="mb-3 flex gap-2">
+            <button
+              type="button"
+              onClick={() => setRightPanel("preview")}
+              className={`${tabBtnBase} ${rightPanel === "preview" ? tabBtnActive : tabBtnInactive}`}
+            >
+              Preview
+            </button>
+            <button
+              type="button"
+              onClick={() => setRightPanel("assistant")}
+              className={`${tabBtnBase} ${rightPanel === "assistant" ? tabBtnActive : tabBtnInactive} flex items-center gap-1.5`}
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              AI Assistant
+            </button>
+          </div>
+
+          {/* Panel content */}
+          {rightPanel === "preview" ? (
+            <ResumePreview resumeContent={previewContent} />
+          ) : (
+            <ResumeAssistant
+              resume={draft}
+              onUpdateBullet={handleUpdateBullet}
+            />
+          )}
         </div>
       </div>
     </div>

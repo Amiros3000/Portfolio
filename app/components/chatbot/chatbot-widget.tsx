@@ -21,6 +21,8 @@ type ChatMessage = {
 function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
   const [displayed, setDisplayed] = useState("");
   const idx = useRef(0);
+  const onDoneRef = useRef(onDone);
+  onDoneRef.current = onDone;
 
   useEffect(() => {
     idx.current = 0;
@@ -30,13 +32,13 @@ function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
       if (idx.current >= text.length) {
         setDisplayed(text);
         clearInterval(interval);
-        onDone();
+        onDoneRef.current();
       } else {
         setDisplayed(text.slice(0, idx.current));
       }
     }, 18);
     return () => clearInterval(interval);
-  }, [text, onDone]);
+  }, [text]);
 
   return (
     <span>
