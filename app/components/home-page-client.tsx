@@ -365,52 +365,8 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </div>
       </section>
 
-      {/* ── Skills ── */}
-      <section id="skills" className={sectionWrap}>
-        <FadeInSection>
-          <div className="mb-4 sm:mb-5">
-            <p className="text-xs tracking-[0.16em] text-secondary uppercase">
-              Technical Skills
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              Tools I work with regularly
-            </h2>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {skillCategories.map((category) => (
-              <div
-                key={category.label}
-                className={`${glassPanel} p-5`}
-              >
-                <p className="text-xs font-semibold tracking-[0.14em] text-secondary uppercase">
-                  {category.label}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-full border border-accent/15 bg-surface/70 px-3 py-1.5 text-sm font-medium text-foreground"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeInSection>
-      </section>
-
-      {/* ── Currently Learning ── */}
-      <section className={`${sectionWrap} mt-10 sm:mt-14`}>
-        <FadeInSection>
-          <CurrentlyLearning />
-        </FadeInSection>
-      </section>
-
       {/* ── Experience ── */}
-      <section id="experience" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="experience" className={sectionWrap}>
         <FadeInSection>
           <div className="mb-6">
             <p className="text-xs tracking-[0.16em] text-muted uppercase">
@@ -580,6 +536,50 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </article>
             ))}
           </div>
+        </FadeInSection>
+      </section>
+
+      {/* ── Skills ── */}
+      <section id="skills" className={`${sectionWrap} mt-14 sm:mt-18`}>
+        <FadeInSection>
+          <div className="mb-4 sm:mb-5">
+            <p className="text-xs tracking-[0.16em] text-secondary uppercase">
+              Technical Skills
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
+              Tools I work with regularly
+            </h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {skillCategories.map((category) => (
+              <div
+                key={category.label}
+                className={`${glassPanel} p-5`}
+              >
+                <p className="text-xs font-semibold tracking-[0.14em] text-secondary uppercase">
+                  {category.label}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-full border border-accent/15 bg-surface/70 px-3 py-1.5 text-sm font-medium text-foreground"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </FadeInSection>
+      </section>
+
+      {/* ── Currently Learning ── */}
+      <section className={`${sectionWrap} mt-10 sm:mt-14`}>
+        <FadeInSection>
+          <CurrentlyLearning />
         </FadeInSection>
       </section>
 
