@@ -5,16 +5,13 @@ import { motion, useInView } from "framer-motion";
 import {
   ArrowUpRight,
   BrainCircuit,
-  Compass,
   Gauge,
-  MapPin,
   Send,
   ShieldCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import FadeInSection from "./fade-in-section";
-import CurrentlyLearning from "./currently-learning";
 import ProjectCarousel from "./project-carousel";
 
 type HomePageClientProps = {
@@ -159,13 +156,6 @@ const skillCategories = [
   },
 ];
 
-const lookingFor = {
-  roles: ["Software Developer", "Junior Engineer", "Full-Stack Developer", "Systems Engineer"],
-  location: "Remote or Hybrid — GTA, Ontario",
-  values:
-    "Teams that value clean code, clear communication, and engineering ownership.",
-  availability: "Immediately",
-};
 
 const sectionWrap = "mx-auto max-w-6xl px-4 sm:px-6 lg:px-8";
 const glassPanel =
@@ -281,9 +271,9 @@ export default function HomePageClient({ content }: HomePageClientProps) {
   }
 
   return (
-    <main className="pb-14 sm:pb-16">
+    <main className="pb-10 sm:pb-16">
       {/* ── Hero ── */}
-      <section className={`${sectionWrap} pb-10 pt-8 sm:pb-14 sm:pt-12`}>
+      <section className={`${sectionWrap} pb-8 pt-5 sm:pb-14 sm:pt-12`}>
         <div className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
           <motion.article
             initial={{ opacity: 0, y: 24 }}
@@ -377,7 +367,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
             </h2>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
             {skillCategories.map((category) => (
               <div
                 key={category.label}
@@ -402,15 +392,8 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </FadeInSection>
       </section>
 
-      {/* ── Currently Learning ── */}
-      <section className={`${sectionWrap} mt-10 sm:mt-14`}>
-        <FadeInSection>
-          <CurrentlyLearning />
-        </FadeInSection>
-      </section>
-
       {/* ── Experience ── */}
-      <section id="experience" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="experience" className={`${sectionWrap} mt-10 sm:mt-18`}>
         <FadeInSection>
           <div className="mb-6">
             <p className="text-xs tracking-[0.16em] text-muted uppercase">
@@ -421,11 +404,11 @@ export default function HomePageClient({ content }: HomePageClientProps) {
             </h2>
           </div>
 
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+          <div className="grid gap-3 sm:gap-6 md:grid-cols-2">
             {experience.map((entry) => (
               <article
                 key={`${entry.company}-${entry.title}`}
-                className={`${glassPanel} p-5 sm:p-7`}
+                className={`${glassPanel} p-4 sm:p-7`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
@@ -458,9 +441,9 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       </section>
 
       {/* ── Approach ── */}
-      <section id="approach" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="approach" className={`${sectionWrap} mt-10 sm:mt-18`}>
         <FadeInSection>
-          <div className={`${glassPanel} p-6 sm:p-8`}>
+          <div className={`${glassPanel} p-5 sm:p-8`}>
             <p className="text-xs tracking-[0.16em] text-muted uppercase">
               Approach
             </p>
@@ -500,7 +483,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       </section>
 
       {/* ── Projects ── */}
-      <section id="projects" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="projects" className={`${sectionWrap} mt-10 sm:mt-18`}>
         <FadeInSection>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -517,7 +500,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+          <div className="grid gap-3 sm:gap-6 md:grid-cols-2">
             {content.projects.map((project) => (
               <article
                 key={project.title}
@@ -538,7 +521,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
                     />
                   </div>
                 ) : null}
-                <div className="p-5 sm:p-7">
+                <div className="p-4 sm:p-7">
                   <p className="text-xs tracking-[0.12em] text-muted uppercase">
                     {project.stack}
                   </p>
@@ -584,11 +567,11 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       </section>
 
       {/* ── Education ── */}
-      <section id="education" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="education" className={`${sectionWrap} mt-10 sm:mt-18`}>
         <FadeInSection>
           <div className="grid gap-4">
             {educationEntries.map((education) => (
-              <div key={education.institution} className={`${glassPanel} p-5 sm:p-8`}>
+              <div key={education.institution} className={`${glassPanel} p-4 sm:p-8`}>
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <p className="text-xs tracking-[0.16em] text-muted uppercase">
@@ -626,74 +609,10 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </FadeInSection>
       </section>
 
-      {/* ── What I'm Looking For ── */}
-      <section className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className={`${glassPanel} p-6 sm:p-8`}>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              What I&apos;m Looking For
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              The right team, the right problems
-            </h2>
-
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              <div>
-                <div className="inline-flex rounded-xl bg-secondary/10 p-2.5">
-                  <Compass className="h-4 w-4 text-secondary" />
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
-                  Target Roles
-                </h3>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {lookingFor.roles.map((role) => (
-                    <span
-                      key={role}
-                      className="rounded-full border border-secondary/25 bg-secondary/8 px-3 py-1.5 text-sm font-medium text-foreground"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="inline-flex rounded-xl bg-secondary/10 p-2.5">
-                  <MapPin className="h-4 w-4 text-secondary" />
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
-                  Location
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {lookingFor.location}
-                </p>
-              </div>
-
-              <div className="sm:col-span-2">
-                <h3 className="text-lg font-semibold text-foreground">
-                  What Matters to Me
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {lookingFor.values}
-                </p>
-                <p className="mt-3 text-sm">
-                  <span className="font-medium text-foreground">
-                    Availability:
-                  </span>{" "}
-                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                    {lookingFor.availability}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </FadeInSection>
-      </section>
-
       {/* ── Contact ── */}
-      <section id="contact" className={`${sectionWrap} mt-14 sm:mt-18`}>
+      <section id="contact" className={`${sectionWrap} mt-10 sm:mt-18`}>
         <FadeInSection>
-          <div id="contact-form" className={`${glassPanel} p-6 sm:p-8`}>
+          <div id="contact-form" className={`${glassPanel} p-5 sm:p-8`}>
             <p className="text-xs tracking-[0.16em] text-muted uppercase">
               Contact
             </p>

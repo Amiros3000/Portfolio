@@ -20,27 +20,30 @@
   ],
   "projects": [
     {
-      "title": "KonnectTaps",
-      "stack": "Next.js / React / MySQL",
-      "description": "Co-founded a production platform serving enterprise clients. Architected and own the full stack — Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. Led backend migration, system reliability, and a pivot to enterprise B2B.",
-      "href": "https://konnecttaps.com",
-      "hrefLabel": "Main Site",
-      "secondaryHref": "https://ktaps.me",
-      "secondaryHrefLabel": "Open App"
-    },
-    {
-      "title": "CSA Capstone - SOSO",
-      "stack": "System Design",
-      "description": "Built a satellite telemetry visualization tool that converted complex operational constraints into clear technical workflows. This improved scheduling visibility and reduced planning conflicts.",
-      "href": "https://master.d31pgqxunb4wwx.amplifyapp.com",
-      "hrefLabel": "Live Demo",
-      "secondaryHref": "https://github.com/ENG4000-SOSO",
-      "secondaryHrefLabel": "GitHub"
+      "title": "KonnectTaps — Digital Business Card Platform",
+      "stack": "Next.js, Python, MySQL, Ubuntu VPS, Nginx, PM2",
+      "description": "Deployed a full production stack on Ubuntu VPS (Nginx reverse proxy, Next.js frontend, Python backend, PM2, SSL via certbot). Built and iterated on the business card editor — element rendering, drag-and-drop positioning, per-element settings controls (100+ active users). Ran end-to-end QA and regression testing across production releases.",
+      "href": "https://ktaps.me",
+      "hrefLabel": "Open App"
     },
     {
       "title": "MIX Registration System",
-      "stack": "High-Availability",
-      "description": "Engineered a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
+      "stack": "Frontend UI",
+      "description": "Built and iterated on the user-facing registration interface for an annual peak-traffic event. Implemented form flows, input validation states, and real-time feedback for the live registration window. Codebase is private.",
+      "href": "",
+      "hrefLabel": ""
+    },
+    {
+      "title": "Automated Plant Watering System",
+      "stack": "Arduino, Java, MOSFET, Moisture Sensor, DC Water Pump",
+      "description": "Capacitive moisture sensor continuously monitors soil conditions. MOSFET-controlled DC water pump activates when moisture drops below threshold. Control logic written in Java via an Arduino-Java bridge library.",
+      "href": "",
+      "hrefLabel": ""
+    },
+    {
+      "title": "Embedded Combination Lock",
+      "stack": "Arduino, Java, Potentiometer, Servo Motor, Push Buttons",
+      "description": "Potentiometer handles rotary code entry; push buttons confirm each input. Servo motor drives the physical lock mechanism based on validated input. State tracking, input validation, and hardware output control in Java.",
       "href": "",
       "hrefLabel": ""
     }
