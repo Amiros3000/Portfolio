@@ -33,7 +33,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a Computer Engineering graduate from York University (2025) with additional electromechanical engineering studies at Humber College. He builds products end-to-end \u2014 from the UI down to the infrastructure. He co-founded KonnectTaps (a production platform serving enterprise clients), managed a 13-person team at March\u00e9 Adonis for 7+ years, and developed his full-stack skills by architecting and shipping a production system. His background spans software, systems, and controls engineering. He\u2019s an independent, self-driven engineer who figures things out fast.",
+      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025). He builds products end-to-end \u2014 from the UI down to the backend and deployment \u2014 shipping in TypeScript, Next.js, React, and Node.js. He co-founded KonnectTaps (a full-stack SaaS platform he grew to over 100 users), built FootPal (a soccer-scheduling PWA now used weekly by ~24 people), and managed a 13-person team at March\u00e9 Adonis for 7+ years. He\u2019s an independent, self-driven engineer who figures things out fast.",
     followUps: ["experience", "skills", "fit"],
   },
   {
@@ -48,7 +48,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his skills?",
     answer:
-      "Languages: Java, Python, SQL, Bash, JavaScript (ES6+). Backend & Web: Node.js, Express, React, RESTful APIs. Infrastructure: Docker, Linux/Unix, MySQL, Git/GitHub. Concepts: Distributed Systems, System Design, TCP/IP, HTTP/DNS. Controls & Domain Knowledge: Control Systems Fundamentals, Electromechanical Systems, Ladder Logic, Real-Time Operational Systems, IT/OT Networking. He bridges software and systems engineering \u2014 comfortable with both cloud infrastructure and industrial controls.",
+      "Languages: JavaScript (ES6+), TypeScript, Python, Java, SQL, Bash. Frontend: React, Next.js (App Router/RSC), Tailwind, PWA (Service Workers, Web Push). Backend: Node.js, Express, FastAPI, PostgreSQL, Prisma, MySQL. DevOps & Infrastructure: Docker, CI/CD (GitHub Actions), Git/GitHub, Vercel, Linux/Ubuntu, Nginx. He\u2019s a full-stack developer who ships web apps end-to-end. He\u2019s also familiar with hardware/controls concepts (Ladder Logic, IT/OT networking) from his engineering studies, though software is his focus.",
     followUps: ["projects", "currently-learning"],
   },
   {
@@ -62,7 +62,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What has he built?",
     answer:
-      "Key projects: (1) KonnectTaps \u2014 a production platform serving enterprise clients, where he architected and owns the full stack. (2) SOSO Capstone \u2014 a satellite telemetry visualization tool for the Canadian Space Agency. (3) MIX Registration System \u2014 handled 400+ concurrent requests with zero downtime. Check the Projects section for live demos!",
+      "Key projects: (1) KonnectTaps \u2014 a full-stack digital business card SaaS he co-founded and grew to over 100 users (wound down as the team moved on). (2) FootPal \u2014 a soccer-scheduling PWA (Next.js/TypeScript/PostgreSQL) built solo in about a month, now used weekly by ~24 people. (3) SOSO Capstone \u2014 a satellite telemetry visualization tool for the Canadian Space Agency. (4) MIX Registration System \u2014 handled 400+ concurrent requests with zero downtime. Check the Projects section for live demos!",
     followUps: ["konnecttaps", "experience"],
   },
   {
@@ -71,8 +71,17 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/konnect\s?taps/i, /ktaps/i, /co-?found/i, /networking (platform|app|tool)/i],
     question: "Tell me about KonnectTaps",
     answer:
-      "KonnectTaps is a production platform Amir co-founded in January 2024, now serving enterprise clients. He architected and owns the full stack \u2014 Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. He led the backend migration, manages system reliability, and drove the pivot from consumer to enterprise B2B. He makes all engineering decisions end-to-end: architecture, data modeling, and production ops. Visit konnecttaps.com or the app at ktaps.me.",
-    followUps: ["projects", "strengths", "skills"],
+      "KonnectTaps is a full-stack digital business card platform Amir co-founded in January 2024 (Next.js frontend, Python backend, MySQL, Shopify Billing API). He owned the product and the full stack end-to-end and grew it to over 100 users. The platform ran until 2026, when the team moved on to other things. Visit konnecttaps.com or the app at ktaps.me.",
+    followUps: ["projects", "footpal", "strengths"],
+  },
+  {
+    id: "footpal",
+    keywords: ["footpal", "soccer", "scheduling", "pwa", "football"],
+    patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
+    question: "Tell me about FootPal",
+    answer:
+      "FootPal is a mobile-first PWA (Next.js / TypeScript / PostgreSQL) that Amir built solo in about a month by directing AI coding tools while owning the product vision, UX, scope, and prioritization. It solves a real problem from his own life \u2014 a friend group that could never lock down a game time \u2014 with availability voting, RSVPs, automatic team generation, a cost-splitting ledger, group chat, and player ratings. It\u2019s now in weekly use by ~24 people who joined on their own. Live at footpal.vercel.app.",
+    followUps: ["projects", "skills", "konnecttaps"],
   },
   {
     id: "experience",
@@ -86,7 +95,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What\u2019s his experience?",
     answer:
-      "Two key threads: (1) Co-Founder & Lead Engineer at KonnectTaps (Jan 2024 \u2013 Present) \u2014 co-founded a live SaaS platform, architected the full production stack, and leads all engineering decisions end-to-end. (2) 7+ years at March\u00e9 Adonis (Nov 2017 \u2013 Present) \u2014 started as a Clerk, earned a promotion to Assistant Manager after graduating, now leading a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
+      "Two key threads: (1) Co-Founder at KonnectTaps (Jan 2024 \u2013 2026) \u2014 co-founded a full-stack SaaS platform, owned the stack end-to-end, and grew it to over 100 users before the team moved on. (2) 7+ years at March\u00e9 Adonis (Nov 2017 \u2013 Present) \u2014 started as a Clerk, earned a promotion to Assistant Manager after graduating, now leading a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
     followUps: ["education", "fit"],
   },
   {
@@ -115,7 +124,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Is he available?",
     answer:
-      "Yes! Amir is available immediately. He\u2019s looking for Software Developer, Junior Engineer, Full-Stack Developer, or Systems Engineer roles. Open to remote or hybrid positions in the GTA, Ontario area. What kind of role are you hiring for? I can tell you more about how he\u2019d fit.",
+      "Yes! Amir is available immediately. He\u2019s looking for Software Developer, Full-Stack Developer, Frontend Engineer, or Junior Software Engineer roles. Open to remote or hybrid positions in the GTA, Ontario area. What kind of role are you hiring for? I can tell you more about how he\u2019d fit.",
     followUps: ["fit", "roles", "contact"],
   },
   {
@@ -129,7 +138,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What roles is he targeting?",
     answer:
-      "Software Developer, Junior Engineer, Full-Stack Developer, and Systems Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend infrastructure. His Computer Engineering degree plus electromechanical studies at Humber mean he can also work at the intersection of software and physical systems (controls, automation, IT/OT). He thrives in environments where he can take ownership and ship. Open to both startup and structured environments.",
+      "Software Developer, Full-Stack Developer, Frontend Engineer, and Junior Software Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend and deployment \u2014 in TypeScript, Next.js, React, and Node.js. He thrives in environments where he can take ownership and ship. Open to both startup and structured environments.",
     followUps: ["availability", "contact", "fit"],
   },
   {
@@ -169,7 +178,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What is he learning?",
     answer:
-      "Currently exploring AWS (cloud infrastructure), TypeScript, Next.js, Kubernetes, and CI/CD pipelines. He\u2019s the kind of engineer who learns by building \u2014 he developed the entire stack behind KonnectTaps while shipping it to production. He picks things up fast because he\u2019s not afraid to dive in.",
+      "Currently exploring AWS (cloud infrastructure) and Kubernetes. TypeScript, Next.js, and CI/CD aren\u2019t exploratory anymore \u2014 he ships production apps with them. He\u2019s the kind of engineer who learns by building \u2014 he developed the entire stack behind KonnectTaps and FootPal while shipping them to production. He picks things up fast because he\u2019s not afraid to dive in.",
     followUps: ["skills", "projects"],
   },
   {
@@ -188,9 +197,9 @@ const knowledgeBase: KnowledgeEntry[] = [
       "Great question! To give you the best answer \u2014 what kind of role or team is this for? For example: startup, product team, agency, enterprise, etc.",
     contextResponses: {
       startup:
-        "Amir is a natural startup fit. He co-founded KonnectTaps and built the entire product from scratch \u2014 from system design to deployment \u2014 now serving enterprise clients. He\u2019s used to wearing every hat, making fast decisions, and shipping with limited resources. He\u2019s independent, self-driven, and learns on the fly. That\u2019s exactly the kind of person early-stage teams need.",
+        "Amir is a natural startup fit. He co-founded KonnectTaps and built the product end-to-end \u2014 from product vision to deployment \u2014 growing it to over 100 users, and built FootPal solo in about a month. He\u2019s used to wearing every hat, making fast decisions, and shipping with limited resources. He\u2019s independent, self-driven, and learns on the fly. That\u2019s exactly the kind of person early-stage teams need.",
       product:
-        "Amir is product-minded at his core. He didn\u2019t just build KonnectTaps as a side project \u2014 he co-founded it and ships features to real enterprise clients. He thinks about the full user experience, from the UI to the backend reliability. He\u2019s passionate about building things people actually use. He\u2019d slot right into a product team that values ownership.",
+        "Amir is product-minded at his core. He didn\u2019t just build KonnectTaps as a side project \u2014 he co-founded it and grew it to over 100 real users, and built FootPal for a real problem in his own life (now used weekly by ~24 people). He thinks about the full user experience, from the UI to the backend. He\u2019s passionate about building things people actually use. He\u2019d slot right into a product team that values ownership.",
       agency:
         "Amir can ramp up on new stacks fast \u2014 he picked up Node.js, MySQL, React, and system design while building a live product. He\u2019s used to context-switching (he balanced a full engineering degree with co-founding a company and managing a team). He picks things up quickly and ships reliably.",
       enterprise:
@@ -198,9 +207,9 @@ const knowledgeBase: KnowledgeEntry[] = [
       controls:
         "Amir has a unique crossover: a Computer Engineering degree from York plus electromechanical engineering studies at Humber College covering control systems, relay logic, sensors, and industrial automation. He understands both the software and physical systems side \u2014 IT/OT networking, real-time operational systems, and ladder logic. Combined with his production software experience, he can bridge the gap between controls engineering and modern software infrastructure.",
       systems:
-        "Amir\u2019s background is built for systems work. His Computer Engineering degree covers networking, distributed systems, and OS fundamentals. His Humber College studies add control systems, electromechanical systems, and industrial automation. And he\u2019s proven he can build and operate production infrastructure \u2014 he runs KonnectTaps on a Ubuntu VPS with Nginx, MySQL, and a Python backend. He thinks in systems, not just code.",
+        "Amir\u2019s Computer Engineering degree covers networking, distributed systems, and OS fundamentals, and his Humber College studies add control systems and industrial automation. He\u2019s also proven he can build and operate production infrastructure \u2014 he ran KonnectTaps on a Ubuntu VPS with Nginx, MySQL, and a Python backend. That said, his focus is full-stack software development. He thinks in systems, not just code.",
       _default:
-        "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping a live product (KonnectTaps, serving enterprise clients). He built the full stack by shipping real systems, not following tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
+        "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping live products (KonnectTaps, which he grew to over 100 users, and FootPal). He built the full stack by shipping real software, not following tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
     },
     followUps: ["strengths", "experience", "projects"],
   },
@@ -215,7 +224,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his strengths?",
     answer:
-      "His key strengths: (1) Builder who ships \u2014 he architected a full production stack now serving enterprise clients. (2) Ownership mindset \u2014 he co-founded KonnectTaps and handles every engineering decision. (3) Reliability under pressure \u2014 7+ years of managing high-volume operations. (4) Speed of learning \u2014 he went from zero product experience to running a live enterprise platform. (5) Product thinking \u2014 he cares about what users actually experience, not just the code.",
+      "His key strengths: (1) Builder who ships \u2014 he built and owns full production stacks (KonnectTaps, FootPal). (2) Ownership mindset \u2014 he co-founded KonnectTaps and owned every product and engineering decision. (3) Reliability under pressure \u2014 7+ years of managing high-volume operations. (4) Speed of learning \u2014 he went from zero product experience to running live products used by real people. (5) Product thinking \u2014 he cares about what users actually experience, not just the code.",
     followUps: ["fit", "skills", "weaknesses"],
   },
   {
@@ -231,7 +240,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Any areas for growth?",
     answer:
-      "Being transparent: Amir graduated in 2025 and doesn\u2019t have years of industry software engineering experience yet. He\u2019s also honest that a lot of his coding has been AI-assisted. But here\u2019s the thing \u2014 that\u2019s the reality of modern engineering, and he understands the code he ships. He offset the experience gap significantly by co-founding and shipping a real product, managing large teams, and actively upskilling into AWS, TypeScript, and Kubernetes. He\u2019s the kind of developer who fills gaps fast because he\u2019s done it his whole career.",
+      "Being transparent: Amir graduated in 2025 and doesn\u2019t have years of industry software engineering experience yet. He\u2019s also honest that a lot of his coding has been AI-assisted. But here\u2019s the thing \u2014 that\u2019s the reality of modern engineering, and he understands the code he ships. He offset the experience gap significantly by co-founding and shipping a real product, managing large teams, and actively upskilling into AWS and Kubernetes. He\u2019s the kind of developer who fills gaps fast because he\u2019s done it his whole career.",
     followUps: ["currently-learning", "fit", "strengths"],
   },
   {
@@ -245,7 +254,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Is he a team player?",
     answer:
-      "Amir is independent and self-driven \u2014 give him a problem and he\u2019ll figure it out. But he also knows how to lead: he manages a 13-person team at March\u00e9 Adonis, handling scheduling, escalations, and cross-functional coordination daily. At KonnectTaps he drives engineering decisions while coordinating with his co-founder. He\u2019s open to both startup energy and structured environments with mentorship. The common thread: he takes ownership.",
+      "Amir is independent and self-driven \u2014 give him a problem and he\u2019ll figure it out. But he also knows how to lead: he manages a 13-person team at March\u00e9 Adonis, handling scheduling, escalations, and cross-functional coordination daily. At KonnectTaps he drove engineering decisions while coordinating with his co-founder. He\u2019s open to both startup energy and structured environments with mentorship. The common thread: he takes ownership.",
     followUps: ["fit", "experience", "strengths"],
   },
   {
@@ -259,7 +268,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Good for startups?",
     answer:
-      "Yes \u2014 Amir already operates like a startup founder. At KonnectTaps he handles system design, data modeling, deployment, and production operations by himself. He built the full stack on the job because that\u2019s what the product needed. He\u2019s comfortable wearing every hat, making fast decisions, and shipping with limited resources. That\u2019s exactly the mindset startups need.",
+      "Yes \u2014 Amir already operates like a startup founder. At KonnectTaps he owned product, data modeling, deployment, and operations, and he built FootPal solo in about a month. He builds the full stack because that\u2019s what the product needs. He\u2019s comfortable wearing every hat, making fast decisions, and shipping with limited resources. That\u2019s exactly the mindset startups need.",
     followUps: ["konnecttaps", "fit", "strengths"],
   },
   {
@@ -295,7 +304,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "How did he learn?",
     answer:
-      "Amir is a learn-by-building engineer. He didn\u2019t follow a bootcamp or tutorial path \u2014 he co-founded KonnectTaps as his first real project and developed the entire stack (Node.js, MySQL, React, system design, deployment) while shipping a live product. He went from basic coding knowledge to running a production platform serving enterprise clients. That ability to ramp up fast is core to who he is as an engineer.",
+      "Amir is a learn-by-building engineer. He didn\u2019t follow a bootcamp or tutorial path \u2014 he co-founded KonnectTaps as his first real project and built the whole stack (Node.js, MySQL, React, deployment) while shipping a live product. He went from basic coding knowledge to running a production platform he grew to over 100 users, then built FootPal solo. That ability to ramp up fast is core to who he is as an engineer.",
     followUps: ["konnecttaps", "currently-learning", "strengths"],
   },
 ];

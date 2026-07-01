@@ -31,9 +31,10 @@ type Differentiator = {
 
 const differentiators: Differentiator[] = [
   {
-    title: "Systems-First Thinking",
+    // Retargeted from "Systems-First Thinking" to product/full-stack framing.
+    title: "Product-Minded Engineering",
     description:
-      "I map architecture decisions to long-term maintainability, not short-term hacks.",
+      "I own features from UI to backend and map decisions to real user outcomes, not short-term hacks.",
     icon: BrainCircuit,
   },
   {
@@ -59,7 +60,8 @@ type MetricItem = {
 
 const signatureMetrics: MetricItem[] = [
   { displayValue: "Live", label: "Production SaaS Platform" },
-  { numericValue: 400, suffix: "+", label: "Concurrent Requests" },
+  // 400+ is the MIX Registration System's peak concurrent load (was a broken "0+" in prod).
+  { numericValue: 400, suffix: "+", label: "Concurrent Requests (MIX)" },
   { displayValue: "Private", label: "Production Codebases" },
 ];
 
@@ -73,14 +75,15 @@ type ExperienceEntry = {
 
 const experience: ExperienceEntry[] = [
   {
-    title: "Co-Founder & Lead Engineer",
+    // Wound down — framed as past work with a closed date and the honest "100+ users" metric.
+    title: "Co-Founder",
     company: "KonnectTaps",
     location: "Remote",
-    period: "Jan 2024 – Present",
+    period: "Jan 2024 – 2026",
     bullets: [
-      "Co-founded a production platform serving enterprise clients — architected and own the full stack from frontend to infrastructure.",
-      "Built and own the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
-      "Led backend migration to Python, manage system reliability on a Ubuntu VPS with Nginx, and drive product decisions end-to-end with my co-founder.",
+      "Co-founded and built a full-stack digital business card platform, growing it to over 100 users before the team moved on.",
+      "Built the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
+      "Owned the stack end-to-end — Python backend, MySQL, and Shopify Billing API — and drove product decisions with my co-founder.",
     ],
   },
   {
@@ -136,31 +139,36 @@ const educationEntries = [
   },
 ];
 
+// Full-stack skill set mirroring the résumé. TypeScript, Next.js, and CI/CD are
+// active/known skills here (not "Currently Exploring"). Controls/domain knowledge
+// is demoted to a single "Also familiar with" line below the grid (secondaryFamiliar).
 const skillCategories = [
   {
     label: "Languages",
-    skills: ["Java", "Python", "SQL", "Bash", "JavaScript (ES6+)"],
+    skills: ["JavaScript (ES6+)", "TypeScript", "Python", "Java", "SQL", "Bash"],
   },
   {
-    label: "Backend & Web",
-    skills: ["Node.js", "Express", "React.js", "RESTful APIs"],
+    label: "Frontend",
+    skills: ["React", "Next.js (App Router/RSC)", "Tailwind", "PWA (Service Workers, Web Push)"],
   },
   {
-    label: "Infrastructure",
-    skills: ["Docker", "Linux/Unix", "MySQL", "Git/GitHub"],
+    label: "Backend",
+    skills: ["Node.js", "Express", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
   },
   {
-    label: "Concepts",
-    skills: ["Distributed Systems", "System Design", "TCP/IP", "HTTP/DNS"],
-  },
-  {
-    label: "Controls & Domain Knowledge",
-    skills: ["Control Systems Fundamentals", "Electromechanical Systems", "Ladder Logic", "Real-Time Operational Systems", "IT/OT Networking"],
+    label: "DevOps & Infrastructure",
+    skills: ["Docker", "CI/CD (GitHub Actions)", "Git/GitHub", "Vercel", "Linux/Ubuntu", "Nginx"],
   },
 ];
 
+// Secondary, non-competing line — keeps the hardware/controls crossover visible
+// without letting it dilute the full-stack SWE positioning.
+const secondaryFamiliar =
+  "Also familiar with: Ladder Logic, IT/OT Networking, Electromechanical Systems, and Real-Time Operational Systems (from Computer & Electromechanical Engineering studies).";
+
 const lookingFor = {
-  roles: ["Software Developer", "Junior Engineer", "Full-Stack Developer", "Systems Engineer"],
+  // Retargeted to full-stack / product SWE roles (dropped "Systems Engineer").
+  roles: ["Software Developer", "Full-Stack Developer", "Frontend Engineer", "Junior Software Engineer"],
   location: "Remote or Hybrid — GTA, Ontario",
   values:
     "Teams that value clean code, clear communication, and engineering ownership.",
@@ -301,7 +309,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </span>
             </div>
             <p className="text-xs tracking-[0.16em] text-muted uppercase sm:text-sm">
-              Computer Engineer
+              Full-Stack Software Developer
             </p>
             <h1 className="mt-3 text-3xl leading-tight font-semibold text-foreground sm:text-5xl lg:text-6xl">
               {content.hero.headline}
@@ -399,6 +407,11 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </div>
             ))}
           </div>
+
+          {/* Demoted controls/domain knowledge — small secondary line, not a skill card. */}
+          <p className="mt-4 text-xs leading-relaxed text-muted sm:text-sm">
+            {secondaryFamiliar}
+          </p>
         </FadeInSection>
       </section>
 
@@ -512,8 +525,8 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               </h2>
             </div>
             <p className="max-w-lg text-sm text-muted">
-              Selected projects focused on stability, throughput, and practical
-              engineering outcomes.
+              Full-stack products I&apos;ve built and shipped end-to-end, from UI
+              and UX to backend and deployment.
             </p>
           </div>
 

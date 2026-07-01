@@ -4,39 +4,43 @@ import Providers from "./providers";
 import SiteHeader from "./components/site-header";
 import ChatbotWidget from "./components/chatbot/chatbot-widget";
 import SiteFooter from "./components/site-footer";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
+// Retargeted to full-stack / product software engineering (was "Computer & Systems
+// Engineer" with controls/SRE keywords).
 export const metadata: Metadata = {
-  title: "Amir Ibrahim | Computer & Systems Engineer",
+  title: "Amir Ibrahim | Full-Stack Software Developer",
   description:
-    "Computer Engineering graduate (York, 2025) with hands-on experience building and deploying production systems. Open to software, systems, and controls engineering roles across Ontario.",
+    "Full-stack software developer and Computer Engineering graduate (York, 2025) who builds and ships web apps end-to-end in TypeScript, Next.js, React, and Node.js. Open to software, full-stack, and frontend roles across Ontario.",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: ["/icon.svg"],
     apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
   keywords: [
-    "Computer Engineer",
     "Software Developer",
-    "Java",
-    "Node.js",
-    "Python",
-    "MySQL",
+    "Full-Stack Developer",
+    "Frontend Engineer",
+    "TypeScript",
+    "Next.js",
     "React",
-    "System Design",
-    "Distributed Systems",
-    "Site Reliability Engineering",
+    "Node.js",
+    "PostgreSQL",
+    "Web Development",
+    "Junior Software Engineer",
   ],
   openGraph: {
-    title: "Amir Ibrahim | Computer & Systems Engineer",
+    title: "Amir Ibrahim | Full-Stack Software Developer",
     description:
-      "Computer Engineering graduate (York, 2025) with hands-on experience building and deploying production systems. Open to software, systems, and controls engineering roles across Ontario.",
+      "Full-stack software developer who builds and ships web apps end-to-end in TypeScript, Next.js, React, and Node.js. Open to software, full-stack, and frontend roles across Ontario.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amir Ibrahim | Computer & Systems Engineer",
+    title: "Amir Ibrahim | Full-Stack Software Developer",
     description:
-      "Computer Engineering graduate building and deploying production systems.",
+      "Full-stack software developer building and shipping web apps end-to-end in TypeScript, Next.js, React, and Node.js.",
   },
 };
 
@@ -56,6 +60,8 @@ export default function RootLayout({
           </div>
           <ChatbotWidget />
         </Providers>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -2,13 +2,9 @@
 
 import { motion } from "framer-motion";
 
-const learningItems = [
-  "AWS",
-  "TypeScript",
-  "Next.js",
-  "Kubernetes",
-  "CI/CD Pipelines",
-];
+// Only genuinely exploratory tech. TypeScript, Next.js, and CI/CD moved to
+// known/active skills — they ship in production apps, not "currently exploring".
+const learningItems = ["AWS", "Kubernetes"];
 
 const container = {
   hidden: { opacity: 0 },

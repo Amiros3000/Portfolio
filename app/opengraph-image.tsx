@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Amir Ibrahim — Computer Engineer";
+export const alt = "Amir Ibrahim — Full-Stack Software Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -70,7 +70,7 @@ export default function Image() {
             marginTop: "12px",
           }}
         >
-          Computer Engineer
+          Full-Stack Software Developer
         </div>
 
         <div
@@ -82,8 +82,8 @@ export default function Image() {
             lineHeight: 1.5,
           }}
         >
-          I build scalable systems that stay reliable when real-world pressure
-          hits.
+          I build and ship full-stack web apps end-to-end — from polished UI to
+          reliable backend.
         </div>
 
         <div
@@ -119,7 +119,7 @@ export default function Image() {
               gap: "6px",
             }}
           >
-            {["Java", "Node.js", "Python", "MySQL", "Docker"].map((skill) => (
+            {["TypeScript", "Next.js", "React", "Node.js", "PostgreSQL"].map((skill) => (
               <span
                 key={skill}
                 style={{

@@ -8,7 +8,7 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Amir Ibrahim",
-    jobTitle: "Computer Engineer",
+    jobTitle: "Full-Stack Software Developer",
     alumniOf: "York University",
     email: `mailto:${content.contact.directEmail}`,
     url: "/",

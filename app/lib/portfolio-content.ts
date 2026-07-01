@@ -38,35 +38,56 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
-    headline: "Amir Ibrahim | Computer Engineer",
+    headline: "Amir Ibrahim | Full-Stack Software Developer",
     subheadline:
-      "I build scalable systems that stay reliable when real-world pressure hits.",
-    bio: "Computer Engineering grad from York University (2025). I worked professionally for 7+ years — managing a 13-person operations team and co-founding a live product — while earning my degree. I build software in Java, Python, and JavaScript, focused on reliability, clean architecture, and code that teams can actually extend.",
+      "I build and ship full-stack web apps end-to-end — from polished UI to reliable backend.",
+    bio: "Computer Engineering grad from York University (2025) building full-stack web apps end-to-end. I co-founded a live SaaS product and ship in TypeScript, Next.js, React, and Node.js — owning everything from UI and UX to the backend, database, and deployment. I care about product outcomes, clean code, and shipping software people actually use.",
     resumeUrl: "/resume.pdf",
   },
   skills: [
-    "Java",
+    "JavaScript (ES6+)",
+    "TypeScript",
     "Python",
-    "Node.js",
-    "React.js",
-    "MySQL",
-    "Docker",
-    "Linux",
-    "Bash",
+    "Java",
     "SQL",
-    "RESTful APIs",
-    "Distributed Systems",
+    "Bash",
+    "React",
+    "Next.js",
+    "Tailwind",
+    "Node.js",
+    "Express",
+    "FastAPI",
+    "PostgreSQL",
+    "Prisma",
+    "MySQL",
+    "PWA",
+    "Docker",
+    "Git/GitHub",
+    "CI/CD (GitHub Actions)",
+    "Vercel",
+    "Linux/Ubuntu",
+    "Nginx",
   ],
   projects: [
     {
       title: "KonnectTaps",
-      stack: "Next.js / React / MySQL",
+      stack: "Next.js / Python / MySQL",
+      // Wound down: past tense, honest "over 100 users" metric, no "enterprise clients".
       description:
-        "Co-founded a production platform serving enterprise clients. Architected and own the full stack — Next.js frontend, Python backend, MySQL, Nginx on a Ubuntu VPS. Led backend migration, system reliability, and a pivot to enterprise B2B.",
+        "Co-founded and built a full-stack digital business card platform — Next.js frontend, Python backend, MySQL, Shopify Billing API. Owned the product and full stack end-to-end and grew it to over 100 users before the team moved on.",
       href: "https://konnecttaps.com",
       hrefLabel: "Main Site",
       secondaryHref: "https://ktaps.me",
       secondaryHrefLabel: "Open App",
+    },
+    {
+      // FootPal — verbatim copy provided by owner; no GitHub link (repo is private).
+      title: "FootPal — Soccer Scheduling PWA",
+      stack: "Next.js / TypeScript / PostgreSQL / PWA",
+      description:
+        "A mobile-first PWA that fixes a real problem from my own life — a friend group that could never lock down a game time. Built solo in about a month (June 2026) by directing AI coding tools, owning product vision, UX, scope, and prioritization across scheduling with availability voting, RSVPs, automatic team generation, a cost-splitting ledger, group chat, and player ratings. Now in weekly use by ~24 people who joined on their own.",
+      href: "https://footpal.vercel.app",
+      hrefLabel: "Live",
     },
     {
       title: "CSA Capstone - SOSO",
@@ -81,8 +102,9 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     {
       title: "MIX Registration System",
       stack: "High-Availability",
+      // "Built and shipped" (not "engineered") per honesty guardrail; 400+ metric kept.
       description:
-        "Engineered a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
+        "Built and shipped a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
       href: "",
       hrefLabel: "",
     },
@@ -151,7 +173,8 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
       return {
         title: cleanString(record.title, fallback.title, 80),
         stack: cleanString(record.stack, fallback.stack, 90),
-        description: cleanString(record.description, fallback.description, 380),
+        // 600 (was 380) so longer, verbatim project copy (e.g. FootPal) isn't truncated.
+        description: cleanString(record.description, fallback.description, 600),
         href: cleanString(record.href, fallback.href, 200),
         hrefLabel: cleanString(record.hrefLabel, fallback.hrefLabel, 40),
         secondaryHref: cleanOptionalString(
