@@ -12,14 +12,12 @@ export default async function SiteFooter() {
   ].filter((l) => l.href);
 
   return (
-    <footer className="border-t border-accent/10 bg-surface/40 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between lg:px-8">
-        {/* Copyright */}
-        <p className="text-sm text-muted">
-          &copy; {new Date().getFullYear()} Amir Ibrahim
+    <footer className="border-t border-line">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+          &copy; {new Date().getFullYear()} Amir Ibrahim — built with Next.js
         </p>
 
-        {/* Social links */}
         <nav aria-label="Social links" className="flex items-center gap-4">
           {links.map(({ href, label, icon: Icon }) => (
             <a
@@ -28,17 +26,12 @@ export default async function SiteFooter() {
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
               aria-label={label}
-              className="rounded-full p-2 text-muted transition hover:bg-accent/10 hover:text-foreground"
+              className="text-muted transition-colors hover:text-accent-ink"
             >
               <Icon className="h-4 w-4" />
             </a>
           ))}
         </nav>
-
-        {/* Built with */}
-        <p className="text-xs text-muted/60">
-          Built with Next.js
-        </p>
       </div>
     </footer>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send } from "lucide-react";
 import {
   findBestMatch,
@@ -178,165 +177,154 @@ export default function ChatbotWidget() {
 
   return (
     <>
-      {/* Floating bubble */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            onClick={() => setIsOpen(true)}
-            aria-label="Open chat"
-            className="accent-glow fixed right-6 bottom-6 z-[60] flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-accent text-white transition-transform hover:scale-105 active:scale-95"
-          >
-            <MessageCircle className="h-6 w-6" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/*
+        No animation library here. Framer Motion is a no-op in this build, and
+        because the trigger declared initial={{scale:0, opacity:0}} it shipped
+        an invisible, unclickable button to production. These elements are
+        visible by default; `.rise` only animates them in when it runs.
+      */}
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          aria-label="Open chat"
+          className="rise fixed right-5 bottom-5 z-[60] flex h-12 w-12 cursor-pointer items-center justify-center bg-accent text-on-accent transition-opacity hover:opacity-90"
+        >
+          <MessageCircle className="h-5 w-5" />
+        </button>
+      )}
 
-      {/* Chat panel */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed right-4 bottom-4 left-4 z-[60] flex max-h-[min(520px,calc(100vh-2rem))] flex-col overflow-hidden rounded-3xl border border-accent/20 bg-surface/90 shadow-[0_24px_60px_-20px_var(--shadow-accent)] backdrop-blur-xl sm:left-auto sm:right-6 sm:bottom-6 sm:w-[380px]"
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-label="Portfolio assistant"
+          className="rise fixed right-4 bottom-4 left-4 z-[60] flex max-h-[min(520px,calc(100vh-2rem))] flex-col overflow-hidden border border-line bg-surface sm:right-5 sm:bottom-5 sm:left-auto sm:w-[380px]"
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-line px-4 py-3">
+            <div>
+              <p className="font-mono text-[0.7rem] tracking-wide text-accent-ink uppercase">
+                Ask about Amir
+              </p>
+              <p className="mt-0.5 text-[0.7rem] text-muted">
+                Background, stack, and projects
+              </p>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              aria-label="Close chat"
+              className="p-1 text-muted transition-colors hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div
+            ref={scrollRef}
+            role="log"
+            aria-live="polite"
+            className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-line/60 px-5 py-3.5">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/15">
-                  <MessageCircle className="h-4 w-4 text-accent" />
+            {messages.map((msg) => (
+              <div key={msg.id}>
+                <div
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] px-3 py-2 text-sm leading-relaxed ${
+                      msg.role === "user"
+                        ? "bg-accent text-on-accent"
+                        : "border border-line bg-background text-foreground"
+                    }`}
+                  >
+                    {msg.role === "bot" && !typingDone.has(msg.id) ? (
+                      <TypingText
+                        text={msg.text}
+                        onDone={() => handleTypingDone(msg.id)}
+                      />
+                    ) : (
+                      msg.text
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    Ask me anything
-                  </p>
-                  <p className="text-[11px] text-muted">
-                    About Amir&apos;s background
-                  </p>
+
+                {/* Follow-up chips */}
+                {msg.role === "bot" &&
+                  msg.followUps &&
+                  typingDone.has(msg.id) && (
+                    <div className="mt-2 flex flex-wrap gap-1.5 pl-1">
+                      {msg.followUps.map((fId) => {
+                        const entry = getEntryById(fId);
+                        if (!entry) return null;
+                        return (
+                          <button
+                            key={fId}
+                            onClick={() => handleSuggestion(fId)}
+                            disabled={isTyping}
+                            className="border border-line px-2 py-1 font-mono text-[0.68rem] text-muted transition-colors hover:border-line-strong hover:text-foreground disabled:opacity-50"
+                          >
+                            {entry.question}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+              </div>
+            ))}
+
+            {messages.length === 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {suggestions.map((entry) => (
+                  <button
+                    key={entry.id}
+                    onClick={() => handleSuggestion(entry.id)}
+                    className="border border-line px-2 py-1 font-mono text-[0.68rem] text-muted transition-colors hover:border-line-strong hover:text-foreground"
+                  >
+                    {entry.question}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="flex gap-1 border border-line bg-background px-3.5 py-2.5">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:0ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:150ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:300ms]" />
                 </div>
               </div>
+            )}
+          </div>
+
+          {/* Input bar */}
+          <div className="border-t border-line px-4 py-3">
+            <div className="flex items-center gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={
+                  pendingEntry
+                    ? "Tell me about your team..."
+                    : "Ask about Amir..."
+                }
+                className="flex-1 border border-line bg-background px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted/60 focus:border-accent-ink focus:outline-none"
+              />
               <button
-                onClick={() => setIsOpen(false)}
-                aria-label="Close chat"
-                className="rounded-full p-1.5 text-muted transition hover:bg-surface/80 hover:text-foreground"
+                onClick={() => handleSend()}
+                disabled={!input.trim() || isTyping}
+                aria-label="Send message"
+                className="flex h-9 w-9 shrink-0 items-center justify-center bg-accent text-on-accent transition-opacity hover:opacity-90 disabled:opacity-40"
               >
-                <X className="h-4 w-4" />
+                <Send className="h-4 w-4" />
               </button>
             </div>
-
-            {/* Messages */}
-            <div
-              ref={scrollRef}
-              role="log"
-              aria-live="polite"
-              className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
-            >
-              {messages.map((msg) => (
-                <div key={msg.id}>
-                  <div
-                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                        msg.role === "user"
-                          ? "bg-accent text-white"
-                          : "border border-line/60 bg-surface/70 text-foreground"
-                      }`}
-                    >
-                      {msg.role === "bot" && !typingDone.has(msg.id) ? (
-                        <TypingText
-                          text={msg.text}
-                          onDone={() => handleTypingDone(msg.id)}
-                        />
-                      ) : (
-                        msg.text
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Follow-up chips */}
-                  {msg.role === "bot" &&
-                    msg.followUps &&
-                    typingDone.has(msg.id) && (
-                      <div className="mt-2 flex flex-wrap gap-1.5 pl-1">
-                        {msg.followUps.map((fId) => {
-                          const entry = getEntryById(fId);
-                          if (!entry) return null;
-                          return (
-                            <button
-                              key={fId}
-                              onClick={() => handleSuggestion(fId)}
-                              disabled={isTyping}
-                              className="rounded-full border border-secondary/25 bg-secondary/8 px-2.5 py-1 text-xs font-medium text-foreground transition hover:bg-secondary/15 disabled:opacity-50"
-                            >
-                              {entry.question}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                </div>
-              ))}
-
-              {messages.length === 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {suggestions.map((entry) => (
-                    <button
-                      key={entry.id}
-                      onClick={() => handleSuggestion(entry.id)}
-                      className="rounded-full border border-secondary/25 bg-secondary/8 px-2.5 py-1 text-xs font-medium text-foreground transition hover:bg-secondary/15"
-                    >
-                      {entry.question}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="flex gap-1 rounded-2xl border border-line/60 bg-surface/70 px-4 py-3">
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:0ms]" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:150ms]" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-muted [animation-delay:300ms]" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Input bar */}
-            <div className="border-t border-line/60 px-4 py-3">
-              <div className="flex items-center gap-2">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder={
-                    pendingEntry
-                      ? "Tell me about your team..."
-                      : "Ask about Amir..."
-                  }
-                  className="flex-1 rounded-xl border border-accent/20 bg-surface/60 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted/60 backdrop-blur-md transition focus:border-accent/40 focus:outline-none"
-                />
-                <button
-                  onClick={() => handleSend()}
-                  disabled={!input.trim() || isTyping}
-                  aria-label="Send message"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-white transition hover:bg-accent/90 disabled:opacity-40"
-                >
-                  <Send className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </>
   );
 }

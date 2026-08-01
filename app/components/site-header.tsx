@@ -12,19 +12,20 @@ type NavItem = {
   label: string;
 };
 
+// `id` must match the section element's id — scroll-spy resolves by element id.
 const homeNavItems: NavItem[] = [
+  { id: "work", href: "/#work", label: "Work" },
   { id: "experience", href: "/#experience", label: "Experience" },
-  { id: "projects", href: "/#projects", label: "Projects" },
-  { id: "skills", href: "/#skills", label: "Skills" },
+  { id: "skills", href: "/#skills", label: "Stack" },
   { id: "contact", href: "/#contact", label: "Contact" },
 ];
 
 function navItemClasses(isActive: boolean): string {
   return [
-    "rounded-full px-4 py-2 text-sm transition-all duration-200",
-    "hover:bg-accent/10 hover:text-foreground",
-    "active:scale-95 active:bg-accent/20",
-    isActive ? "bg-accent/15 text-foreground accent-glow" : "text-muted",
+    "border-b-[1.5px] pb-0.5 font-mono text-[0.75rem] tracking-wide transition-colors",
+    isActive
+      ? "border-accent text-foreground"
+      : "border-transparent text-muted hover:text-foreground",
   ].join(" ");
 }
 
@@ -103,39 +104,17 @@ export default function SiteHeader() {
   }, [onHomePage]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-background/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-line bg-background/90 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
         <Link
           href="/"
-          className="rounded-full px-3 py-2 text-xs font-semibold tracking-[0.2em] text-foreground uppercase transition-all duration-200 hover:bg-accent/10 hover:text-accent active:scale-95 active:bg-accent/20 sm:text-sm"
+          className="font-mono text-[0.75rem] tracking-[0.14em] text-foreground uppercase"
         >
-          Portfolio
+          Amir Ibrahim
         </Link>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-label="Toggle theme"
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-surface/70 text-muted transition hover:bg-accent/10 hover:text-foreground active:scale-95"
-          >
-            {mounted && resolvedTheme === "dark" ? (
-              <Sun className="h-4 w-4" />
-            ) : (
-              <Moon className="h-4 w-4" />
-            )}
-          </button>
-
-          <button
-            type="button"
-            aria-label="Toggle navigation"
-            onClick={() => setMobileOpen((previous) => !previous)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-surface/70 text-muted transition hover:bg-accent/10 hover:text-foreground active:scale-95 md:hidden"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-
-          <nav className="hidden items-center gap-1 rounded-full border border-accent/20 bg-surface/75 px-2 py-1 backdrop-blur-md md:flex">
+        <div className="flex items-center gap-5">
+          <nav className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.id}
@@ -147,30 +126,63 @@ export default function SiteHeader() {
               </Link>
             ))}
           </nav>
+
+          <button
+            type="button"
+            aria-label={
+              mounted && resolvedTheme === "dark"
+                ? "Switch to light theme"
+                : "Switch to dark theme"
+            }
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="inline-flex h-8 w-8 items-center justify-center border border-line text-muted transition-colors hover:border-line-strong hover:text-foreground"
+          >
+            {mounted && resolvedTheme === "dark" ? (
+              <Sun className="h-3.5 w-3.5" />
+            ) : (
+              <Moon className="h-3.5 w-3.5" />
+            )}
+          </button>
+
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((previous) => !previous)}
+            className="inline-flex h-8 w-8 items-center justify-center border border-line text-muted transition-colors hover:border-line-strong hover:text-foreground md:hidden"
+          >
+            {mobileOpen ? (
+              <X className="h-3.5 w-3.5" />
+            ) : (
+              <Menu className="h-3.5 w-3.5" />
+            )}
+          </button>
         </div>
       </div>
 
-      <div
-        className={`mx-auto max-w-6xl px-4 pb-4 transition-all duration-200 sm:px-6 md:hidden ${
-          mobileOpen ? "block" : "hidden"
-        }`}
-      >
-        <nav className="grid gap-2 rounded-2xl border border-accent/20 bg-surface/75 p-2 backdrop-blur-md">
-          {navItems.map((item) => (
-            <Link
-              key={`mobile-${item.id}`}
-              href={item.href}
-              onClick={() => {
-                setActiveSection(item.id);
-                setMobileOpen(false);
-              }}
-              className={navItemClasses(item.id === activeSection)}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      {mobileOpen ? (
+        <div className="border-t border-line md:hidden">
+          <nav className="mx-auto flex w-full max-w-5xl flex-col px-5 sm:px-8">
+            {navItems.map((item) => (
+              <Link
+                key={`mobile-${item.id}`}
+                href={item.href}
+                onClick={() => {
+                  setActiveSection(item.id);
+                  setMobileOpen(false);
+                }}
+                className={`border-b border-line py-3 font-mono text-[0.8125rem] tracking-wide last:border-b-0 ${
+                  item.id === activeSection
+                    ? "text-accent-ink"
+                    : "text-muted"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

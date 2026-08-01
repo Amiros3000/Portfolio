@@ -1,8 +1,8 @@
 {
   "hero": {
-    "headline": "Amir Ibrahim | Full-Stack Software Developer",
-    "subheadline": "I build and ship full-stack web apps end-to-end — from polished UI to reliable backend.",
-    "bio": "Computer Engineering grad from York University (2025) building full-stack web apps end-to-end. I co-founded a live SaaS product and ship in TypeScript, Next.js, React, and Node.js — owning everything from UI and UX to the backend, database, and deployment. I care about product outcomes, clean code, and shipping software people actually use.",
+    "headline": "FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and 175 tests.",
+    "subheadline": "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
+    "bio": "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     "resumeUrl": "/resume.pdf"
   },
   "skills": [
@@ -15,52 +15,44 @@
     "React",
     "Next.js",
     "Tailwind",
+    "PWA (Web Push, installable)",
     "Node.js",
-    "Express",
     "FastAPI",
     "PostgreSQL",
     "Prisma",
     "MySQL",
-    "PWA",
+    "Vitest",
+    "Sentry",
     "Docker",
+    "GitHub Actions",
     "Git/GitHub",
-    "CI/CD (GitHub Actions)",
     "Vercel",
     "Linux/Ubuntu",
     "Nginx"
   ],
   "projects": [
     {
-      "title": "KonnectTaps",
-      "stack": "Next.js / Python / MySQL",
-      "description": "Co-founded and built a full-stack digital business card platform — Next.js frontend, Python backend, MySQL, Shopify Billing API. Owned the product and full stack end-to-end and grew it to over 100 users before the team moved on.",
-      "href": "https://konnecttaps.com",
-      "hrefLabel": "Main Site",
-      "secondaryHref": "https://ktaps.me",
-      "secondaryHrefLabel": "Open App"
-    },
-    {
-      "title": "FootPal — Soccer Scheduling PWA",
-      "stack": "Next.js / TypeScript / PostgreSQL / PWA",
-      "description": "A mobile-first PWA that fixes a real problem from my own life — a friend group that could never lock down a game time. Built solo in about a month (June 2026) by directing AI coding tools, owning product vision, UX, scope, and prioritization across scheduling with availability voting, RSVPs, automatic team generation, a cost-splitting ledger, group chat, and player ratings. Now in weekly use by ~24 people who joined on their own.",
-      "href": "https://footpal.vercel.app",
+      "title": "FootPal FC",
+      "stack": "Next.js 15 / TypeScript / PostgreSQL / Prisma",
+      "description": "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
+      "href": "https://footpalfc.amiribrahim3000.com",
       "hrefLabel": "Live"
     },
     {
-      "title": "CSA Capstone - SOSO",
+      "title": "KonnectTaps",
+      "stack": "Next.js / React / JavaScript",
+      "description": "Digital business card platform I co-founded and built the frontend for, working with two other developers. Reached 100+ signups. Wound down in May 2026.",
+      "href": "https://konnecttaps.com",
+      "hrefLabel": "Site"
+    },
+    {
+      "title": "CSA Capstone — SOSO",
       "stack": "System Design",
-      "description": "Built a satellite telemetry visualization tool that converted complex operational constraints into clear technical workflows. This improved scheduling visibility and reduced planning conflicts.",
+      "description": "Satellite telemetry visualization tool built for a Canadian Space Agency capstone project, turning operational scheduling constraints into readable technical workflows.",
       "href": "https://master.d31pgqxunb4wwx.amplifyapp.com",
       "hrefLabel": "Live Demo",
       "secondaryHref": "https://github.com/ENG4000-SOSO",
       "secondaryHrefLabel": "GitHub"
-    },
-    {
-      "title": "MIX Registration System",
-      "stack": "High-Availability",
-      "description": "Built and shipped a registration platform that handled 400+ concurrent requests during peak windows with zero downtime. The codebase is private, and the platform runs during the annual registration period.",
-      "href": "",
-      "hrefLabel": ""
     }
   ],
   "contact": {

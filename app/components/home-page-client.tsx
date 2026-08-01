@@ -1,21 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  ArrowUpRight,
-  BrainCircuit,
-  Compass,
-  Gauge,
-  MapPin,
-  Send,
-  ShieldCheck,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
-import FadeInSection from "./fade-in-section";
-import CurrentlyLearning from "./currently-learning";
-import ProjectCarousel from "./project-carousel";
+import {
+  FOOTPAL_AUDIT_DATE,
+  footpalDecisions,
+  footpalRelease,
+  footpalSpec,
+  footpalStack,
+} from "@/app/lib/footpal-fc";
 
 type HomePageClientProps = {
   content: PortfolioContent;
@@ -23,78 +17,26 @@ type HomePageClientProps = {
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-type Differentiator = {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-};
-
-const differentiators: Differentiator[] = [
+const experience = [
   {
-    // Retargeted from "Systems-First Thinking" to product/full-stack framing.
-    title: "Product-Minded Engineering",
-    description:
-      "I own features from UI to backend and map decisions to real user outcomes, not short-term hacks.",
-    icon: BrainCircuit,
-  },
-  {
-    title: "Performance Under Pressure",
-    description:
-      "I design for reliability during peak load and edge-case traffic, not only happy paths.",
-    icon: Gauge,
-  },
-  {
-    title: "Execution You Can Trust",
-    description:
-      "I prioritize clear communication, practical tradeoffs, and shipping outcomes that hold up.",
-    icon: ShieldCheck,
-  },
-];
-
-type MetricItem = {
-  numericValue?: number;
-  suffix?: string;
-  displayValue?: string;
-  label: string;
-};
-
-const signatureMetrics: MetricItem[] = [
-  { displayValue: "Live", label: "Production SaaS Platform" },
-  // 400+ is the MIX Registration System's peak concurrent load (was a broken "0+" in prod).
-  { numericValue: 400, suffix: "+", label: "Concurrent Requests (MIX)" },
-  { displayValue: "Private", label: "Production Codebases" },
-];
-
-type ExperienceEntry = {
-  title: string;
-  company: string;
-  location: string;
-  period: string;
-  bullets: string[];
-};
-
-const experience: ExperienceEntry[] = [
-  {
-    // Wound down — framed as past work with a closed date and the honest "100+ users" metric.
     title: "Co-Founder",
     company: "KonnectTaps",
     location: "Remote",
-    period: "Jan 2024 – 2026",
+    period: "Jan 2024 – May 2026",
     bullets: [
-      "Co-founded and built a full-stack digital business card platform, growing it to over 100 users before the team moved on.",
-      "Built the frontend experience in React/Next.js, turning product ideas into polished, user-facing features.",
-      "Owned the stack end-to-end — Python backend, MySQL, and Shopify Billing API — and drove product decisions with my co-founder.",
+      "Built the frontend for a digital business card platform in React and Next.js, from component work through to the shipped product.",
+      "Worked alongside two other developers on scope and product direction.",
+      "The platform reached 100+ signups. It wound down in May 2026.",
     ],
   },
   {
-    title: "Assistant Manager, Operations",
+    title: "Assistant Deli Manager",
     company: "Marché Adonis",
     location: "Mississauga, ON",
     period: "Jun 2025 – Present",
     bullets: [
-      "Promoted from Clerk after 7 years — now leading daily operations and scheduling for a 13-person team.",
-      "Serve as primary escalation contact, resolving real-time issues under high-volume, time-sensitive conditions.",
-      "Drive cross-functional coordination, stakeholder communication, and consistent service delivery.",
+      "Run daily operations and scheduling for a 13-person team, after a promotion from Clerk at the seven-year mark.",
+      "Act as primary escalation contact through high-volume, time-sensitive shifts.",
     ],
   },
   {
@@ -103,128 +45,116 @@ const experience: ExperienceEntry[] = [
     location: "Mississauga, ON",
     period: "Nov 2017 – Jun 2025",
     bullets: [
-      "Managed inventory, customer service, and floor operations while completing a full-time engineering degree.",
-      "Built strong fundamentals in accountability, time management, and execution under pressure across 7 years.",
+      "Ran inventory, customer service, and floor operations across seven years while completing a full-time engineering degree.",
     ],
   },
 ];
 
-const educationEntries = [
+const education = [
   {
     degree: "B.Eng. Computer Engineering",
     institution: "York University — Lassonde School of Engineering",
     period: "Graduated Jun 2025",
-    courses: [
-      "Object-Oriented Programming (Java)",
-      "Data Structures & Algorithms",
-      "Operating Systems",
-      "Communication Networks",
-      "Software Engineering Principles",
-    ],
+    courses:
+      "Object-Oriented Programming (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, Software Engineering Principles",
   },
   {
-    degree: "Electromechanical Engineering Technician (Completed Year 1)",
+    degree: "Electromechanical Engineering Technician — Year 1",
     institution: "Humber College",
     period: "2022 – 2023",
-    courses: [
-      "Introduction to Control Circuits",
-      "Robotics",
-      "Mechatronics",
-      "Industrial Pneumatics",
-      "Statics",
-      "Engineering Graphics",
-      "Engineering Materials",
-      "Workshop Practices",
-    ],
+    courses:
+      "Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials",
   },
 ];
 
-// Full-stack skill set mirroring the résumé. TypeScript, Next.js, and CI/CD are
-// active/known skills here (not "Currently Exploring"). Controls/domain knowledge
-// is demoted to a single "Also familiar with" line below the grid (secondaryFamiliar).
 const skillCategories = [
   {
     label: "Languages",
-    skills: ["JavaScript (ES6+)", "TypeScript", "Python", "Java", "SQL", "Bash"],
+    skills: [
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "Python",
+      "Java",
+      "SQL",
+      "Bash",
+    ],
   },
   {
     label: "Frontend",
-    skills: ["React", "Next.js (App Router/RSC)", "Tailwind", "PWA (Service Workers, Web Push)"],
+    skills: [
+      "React",
+      "Next.js (App Router/RSC)",
+      "Tailwind",
+      "PWA (Web Push, installable)",
+    ],
   },
   {
+    // Express removed — backend work is Next.js API routes and FastAPI.
     label: "Backend",
-    skills: ["Node.js", "Express", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
+    skills: ["Node.js", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
   },
   {
-    label: "DevOps & Infrastructure",
-    skills: ["Docker", "CI/CD (GitHub Actions)", "Git/GitHub", "Vercel", "Linux/Ubuntu", "Nginx"],
+    label: "Testing & observability",
+    skills: ["Vitest", "Sentry"],
+  },
+  {
+    label: "Infrastructure",
+    skills: [
+      "Docker",
+      "GitHub Actions",
+      "Git/GitHub",
+      "Vercel",
+      "Linux/Ubuntu",
+      "Nginx",
+    ],
   },
 ];
 
-// Secondary, non-competing line — keeps the hardware/controls crossover visible
-// without letting it dilute the full-stack SWE positioning.
-const secondaryFamiliar =
-  "Also familiar with: Ladder Logic, IT/OT Networking, Electromechanical Systems, and Real-Time Operational Systems (from Computer & Electromechanical Engineering studies).";
+const lookingFor = [
+  {
+    key: "Roles",
+    value: "Software Developer, Full-Stack Developer, Frontend Engineer",
+  },
+  { key: "Location", value: "Remote or hybrid — GTA, Ontario" },
+  { key: "Availability", value: "Immediately" },
+];
 
-const lookingFor = {
-  // Retargeted to full-stack / product SWE roles (dropped "Systems Engineer").
-  roles: ["Software Developer", "Full-Stack Developer", "Frontend Engineer", "Junior Software Engineer"],
-  location: "Remote or Hybrid — GTA, Ontario",
-  values:
-    "Teams that value clean code, clear communication, and engineering ownership.",
-  availability: "Immediately",
-};
+const shell = "mx-auto w-full max-w-5xl px-5 sm:px-8";
+const railGrid = "grid gap-x-12 gap-y-6 lg:grid-cols-[9rem_minmax(0,1fr)]";
+const linkStyle =
+  "inline-flex items-center gap-1.5 font-mono text-[0.8125rem] text-accent-ink underline decoration-accent-ink/35 underline-offset-[5px] transition-colors hover:decoration-accent-ink";
+const fieldStyle =
+  "w-full border border-line bg-surface px-3.5 py-2.5 font-sans text-sm text-foreground transition-colors placeholder:text-muted/60 focus:border-accent-ink focus:outline-none";
 
-const sectionWrap = "mx-auto max-w-6xl px-4 sm:px-6 lg:px-8";
-const glassPanel =
-  "rounded-3xl border border-accent/20 bg-surface/55 backdrop-blur-md";
-const formFieldClass =
-  "rounded-xl border border-accent/20 bg-surface/60 px-4 py-3 text-sm text-foreground backdrop-blur-md transition";
-
-function AnimatedCounter({
-  target,
-  suffix = "",
+/** Section shell: hairline rule, sticky mono label in the left rail, content right. */
+function Section({
+  id,
+  label,
+  children,
 }: {
-  target: number;
-  suffix?: string;
+  id?: string;
+  label: string;
+  children: React.ReactNode;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const duration = 1.5;
-    const totalFrames = Math.round(duration * 60);
-    let frame = 0;
-
-    const timer = setInterval(() => {
-      frame++;
-      const progress = frame / totalFrames;
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-
-      if (frame >= totalFrames) {
-        setCount(target);
-        clearInterval(timer);
-      }
-    }, 1000 / 60);
-
-    return () => clearInterval(timer);
-  }, [isInView, target]);
-
   return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
+    <section id={id} className="scroll-mt-16 border-t border-line">
+      <div className={shell}>
+        <div className={`${railGrid} py-14 sm:py-20`}>
+          <p className="meta text-accent-ink lg:sticky lg:top-24 lg:self-start">
+            {label}
+          </p>
+          <div>{children}</div>
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default function HomePageClient({ content }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
+
+  const [flagship, ...alsoBuilt] = content.projects;
 
   async function handleContactSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -261,7 +191,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       });
 
       if (!response.ok) {
-        let errorMessage = "Unable to send your message right now.";
+        let errorMessage = "That didn't send. Try again, or email me directly.";
 
         try {
           const responseBody = (await response.json()) as {
@@ -271,7 +201,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
           const firstError = responseBody.errors?.[0]?.message;
           if (firstError) errorMessage = firstError;
         } catch {
-          // Keep fallback error message when response parsing fails.
+          // Keep the fallback message when the error body isn't JSON.
         }
 
         setFormStatus("error");
@@ -280,551 +210,412 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       }
 
       setFormStatus("success");
-      setFormMessage("Message sent successfully.");
+      setFormMessage("Message sent. I'll get back to you.");
       form.reset();
     } catch {
       setFormStatus("error");
-      setFormMessage("Network issue detected. Please try again.");
+      setFormMessage(
+        "That didn't send — check your connection, or email me directly.",
+      );
     }
   }
 
   return (
-    <main className="pb-14 sm:pb-16">
-      {/* ── Hero ── */}
-      <section className={`${sectionWrap} pb-10 pt-8 sm:pb-14 sm:pt-12`}>
-        <div className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
-          <motion.article
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
-            className={`${glassPanel} p-6 sm:p-10 lg:p-12`}
-          >
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+    <main>
+      {/* ── Hero ─────────────────────────────────────────────────────────
+          The thesis is the artifact, not the person: the headline states what
+          FootPal FC actually is, in counts. The name sits in the mono eyebrow
+          as metadata.
+
+          The load sequence is the CSS `.rise` animation, not a JS one. These
+          elements are visible by default and the keyframes only hide them while
+          running, so a stalled animation can never blank the hero — which is
+          exactly how the old stat row shipped a permanent "0+". */}
+      <section className={`${shell} pt-14 pb-16 sm:pt-24 sm:pb-24`}>
+        <p className="meta rise text-muted">
+          Amir Ibrahim
+          <span className="mx-2 text-line-strong">/</span>
+          Full-stack developer
+          <span className="mx-2 text-line-strong">/</span>
+          GTA, Ontario
+        </p>
+
+        <h1
+          className="display rise mt-6 max-w-4xl text-[2.1rem] text-foreground sm:text-5xl lg:text-[3.85rem]"
+          style={{ animationDelay: "80ms" }}
+        >
+          {content.hero.headline}
+        </h1>
+
+        <p
+          className="prose-body rise mt-6 max-w-2xl text-muted sm:text-lg"
+          style={{ animationDelay: "160ms" }}
+        >
+          {content.hero.subheadline}
+        </p>
+
+        {/* Release state only — the counts live in the Flagship section. */}
+        <dl
+          className="rise mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-3 border-t border-line pt-5"
+          style={{ animationDelay: "240ms" }}
+        >
+          {footpalRelease.map((figure) => (
+            <div key={figure.label} className="flex items-baseline gap-2">
+              <dt className="sr-only">{figure.label}</dt>
+              <dd className="font-mono text-base font-medium text-foreground">
+                {figure.value}
+              </dd>
+              <span aria-hidden className="font-mono text-xs text-muted">
+                {figure.label}
               </span>
-              <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
-                Open to opportunities
-              </span>
             </div>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase sm:text-sm">
-              Full-Stack Software Developer
-            </p>
-            <h1 className="mt-3 text-3xl leading-tight font-semibold text-foreground sm:text-5xl lg:text-6xl">
-              {content.hero.headline}
-            </h1>
-            <p className="mt-4 text-base font-medium text-muted sm:text-xl">
-              {content.hero.subheadline}
-            </p>
-            <p className="mt-6 max-w-4xl text-sm leading-relaxed text-muted sm:text-base">
-              {content.hero.bio}
-            </p>
+          ))}
+        </dl>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a
-                href="#contact-form"
-                className="accent-glow inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90 sm:w-auto"
-              >
-                Contact Me
-                <Send className="h-4 w-4" />
-              </a>
-            </div>
-          </motion.article>
-
-          <motion.aside
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
-            className={`${glassPanel} p-6 sm:p-8`}
+        <div
+          className="rise mt-9 flex flex-wrap items-center gap-x-7 gap-y-3"
+          style={{ animationDelay: "320ms" }}
+        >
+          <a
+            href="#work"
+            className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
           >
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              What Sets Me Apart
-            </p>
-            <h2 className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
-              Engineering with ownership and clarity
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              I combine engineering fundamentals with practical product thinking. My focus
-              is shipping reliable software that teams can confidently extend.
-            </p>
-
-            <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-1">
-              {signatureMetrics.map((metric) => (
-                <div
-                  key={metric.label}
-                  className="rounded-2xl border border-accent/20 bg-surface/70 px-4 py-3"
-                >
-                  <p className="text-lg font-semibold text-foreground">
-                    {metric.numericValue != null ? (
-                      <AnimatedCounter
-                        target={metric.numericValue}
-                        suffix={metric.suffix}
-                      />
-                    ) : (
-                      metric.displayValue
-                    )}
-                  </p>
-                  <p className="text-xs text-muted">{metric.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.aside>
+            Read the decisions
+          </a>
+          {flagship?.href ? (
+            <a
+              href={flagship.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyle}
+            >
+              Open FootPal FC
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ) : null}
         </div>
       </section>
 
-      {/* ── Skills ── */}
-      <section id="skills" className={sectionWrap}>
-        <FadeInSection>
-          <div className="mb-4 sm:mb-5">
-            <p className="text-xs tracking-[0.16em] text-secondary uppercase">
-              Technical Skills
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              Tools I work with regularly
-            </h2>
-          </div>
+      {/* ── About ── */}
+      <Section label="About">
+        <p className="prose-body max-w-2xl text-foreground">
+          {content.hero.bio}
+        </p>
+      </Section>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {skillCategories.map((category) => (
-              <div
-                key={category.label}
-                className={`${glassPanel} p-5`}
-              >
-                <p className="text-xs font-semibold tracking-[0.14em] text-secondary uppercase">
-                  {category.label}
+      {/* ── Flagship ── */}
+      <Section id="work" label="Flagship">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h2 className="display text-3xl text-foreground sm:text-4xl">
+            {flagship?.title}
+          </h2>
+          {flagship?.href ? (
+            <a
+              href={flagship.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyle}
+            >
+              footpalfc.amiribrahim3000.com
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ) : null}
+        </div>
+
+        <p className="prose-body mt-5 max-w-2xl text-muted">
+          {flagship?.description}
+        </p>
+
+        <ul className="mt-6 flex flex-wrap gap-x-3 gap-y-2">
+          {footpalStack.map((item) => (
+            <li
+              key={item}
+              className="border border-line px-2.5 py-1 font-mono text-[0.7rem] tracking-wide text-muted"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <dl className="mt-8 divide-y divide-line border-t border-b border-line">
+          {footpalSpec.map((figure) => (
+            <div
+              key={figure.label}
+              className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-6 py-2.5"
+            >
+              <dt className="font-mono text-sm font-medium text-foreground">
+                {figure.value}
+              </dt>
+              <dd className="font-mono text-[0.7rem] leading-6 tracking-wide text-muted">
+                {figure.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* Signature device: claim, then the cost of the claim. */}
+        <h3 className="meta mt-14 text-accent-ink">Decisions</h3>
+        <ul className="mt-6 space-y-9">
+          {footpalDecisions.map((decision) => (
+            <li key={decision.title} className="decision">
+              <h4 className="font-sans text-[1.05rem] leading-snug font-semibold tracking-[-0.01em] text-foreground sm:text-lg">
+                {decision.title}
+              </h4>
+              <p className="prose-body mt-2 max-w-2xl text-muted">
+                {decision.body}
+              </p>
+              <p className="mt-3 max-w-2xl font-mono text-[0.8125rem] leading-[1.65] text-muted">
+                <span className="text-accent-ink">Tradeoff — </span>
+                {decision.tradeoff}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
+          Counts verified by code audit, {FOOTPAL_AUDIT_DATE}.
+        </p>
+      </Section>
+
+      {/* ── Also built (compressed) ── */}
+      <Section label="Also built">
+        <ul className="divide-y divide-line border-t border-b border-line">
+          {alsoBuilt.map((project) => (
+            <li
+              key={project.title}
+              className="grid gap-x-8 gap-y-2 py-6 sm:grid-cols-[minmax(0,1fr)_auto]"
+            >
+              <div>
+                <h3 className="font-sans text-base font-semibold text-foreground">
+                  {project.title}
+                </h3>
+                <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-muted">
+                  {project.stack}
                 </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-full border border-accent/15 bg-surface/70 px-3 py-1.5 text-sm font-medium text-foreground"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                <p className="prose-body mt-2.5 max-w-xl text-muted">
+                  {project.description}
+                </p>
               </div>
-            ))}
-          </div>
-
-          {/* Demoted controls/domain knowledge — small secondary line, not a skill card. */}
-          <p className="mt-4 text-xs leading-relaxed text-muted sm:text-sm">
-            {secondaryFamiliar}
-          </p>
-        </FadeInSection>
-      </section>
-
-      {/* ── Currently Learning ── */}
-      <section className={`${sectionWrap} mt-10 sm:mt-14`}>
-        <FadeInSection>
-          <CurrentlyLearning />
-        </FadeInSection>
-      </section>
+              <div className="flex flex-wrap items-start gap-x-5 gap-y-2 sm:justify-end">
+                {project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkStyle}
+                  >
+                    {project.hrefLabel || "Open"}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : null}
+                {project.secondaryHref ? (
+                  <a
+                    href={project.secondaryHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkStyle}
+                  >
+                    {project.secondaryHrefLabel || "Open"}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       {/* ── Experience ── */}
-      <section id="experience" className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className="mb-6">
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              Experience
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              Where I&apos;ve built and shipped
-            </h2>
-          </div>
-
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            {experience.map((entry) => (
-              <article
-                key={`${entry.company}-${entry.title}`}
-                className={`${glassPanel} p-5 sm:p-7`}
-              >
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <p className="text-xs tracking-[0.12em] text-muted uppercase">
-                      {entry.company} &middot; {entry.location}
-                    </p>
-                    <h3 className="mt-1 text-xl font-semibold text-foreground">
-                      {entry.title}
-                    </h3>
-                  </div>
-                  <span className="shrink-0 rounded-full border border-accent/20 bg-surface/70 px-3 py-1 text-xs text-muted">
-                    {entry.period}
-                  </span>
-                </div>
-                <ul className="mt-4 space-y-2">
-                  {entry.bullets.map((bullet, i) => (
-                    <li
-                      key={i}
-                      className="flex gap-2.5 text-sm leading-relaxed text-muted"
-                    >
-                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </FadeInSection>
-      </section>
-
-      {/* ── Approach ── */}
-      <section id="approach" className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className={`${glassPanel} p-6 sm:p-8`}>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              Approach
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              How I build software differently
-            </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-              Most portfolios list tools. Mine is built around delivery
-              behavior: structure, reliability, and communication that reduces
-              risk for the team.
-            </p>
-
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              {differentiators.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <article
-                    key={item.title}
-                    className="rounded-2xl border border-accent/20 bg-surface/70 p-5"
-                  >
-                    <div className="inline-flex rounded-xl bg-accent/10 p-2.5">
-                      <Icon className="h-4 w-4 text-accent" />
-                    </div>
-                    <h3 className="mt-3 text-lg font-semibold text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">
-                      {item.description}
-                    </p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </FadeInSection>
-      </section>
-
-      {/* ── Projects ── */}
-      <section id="projects" className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <p className="text-xs tracking-[0.16em] text-muted uppercase">
-                Featured Projects
+      <Section id="experience" label="Experience">
+        <ul className="space-y-10">
+          {experience.map((entry) => (
+            <li key={`${entry.company}-${entry.title}`}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <h3 className="font-sans text-lg font-semibold text-foreground">
+                  {entry.title}
+                </h3>
+                <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+                  {entry.period}
+                </p>
+              </div>
+              <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-accent-ink">
+                {entry.company} — {entry.location}
               </p>
-              <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-                Work that proves execution
-              </h2>
-            </div>
-            <p className="max-w-lg text-sm text-muted">
-              Full-stack products I&apos;ve built and shipped end-to-end, from UI
-              and UX to backend and deployment.
-            </p>
-          </div>
+              <ul className="mt-3 space-y-2">
+                {entry.bullets.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="prose-body max-w-2xl text-muted before:mr-2.5 before:text-accent-ink before:content-['—']"
+                  >
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
 
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            {content.projects.map((project) => (
-              <article
-                key={project.title}
-                className={`${glassPanel} overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_16px_40px_-20px_var(--shadow-accent)]`}
-              >
-                {(project.images?.length ?? 0) > 0 ? (
-                  <ProjectCarousel
-                    images={project.images!}
-                    alt={`Screenshot of ${project.title}`}
-                  />
-                ) : project.imageUrl ? (
-                  <div className="relative aspect-video w-full overflow-hidden bg-surface/80">
-                    <img
-                      src={project.imageUrl}
-                      alt={`Screenshot of ${project.title}`}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ) : null}
-                <div className="p-5 sm:p-7">
-                  <p className="text-xs tracking-[0.12em] text-muted uppercase">
-                    {project.stack}
-                  </p>
-                  <h3 className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-                    {project.description}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.href ? (
-                      <a
-                        href={project.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
-                      >
-                        {project.hrefLabel || "Open Link"}
-                        <ArrowUpRight className="h-4 w-4" />
-                      </a>
-                    ) : (
-                      <span className="inline-flex items-center rounded-full border border-accent/25 bg-surface/70 px-3 py-1.5 text-xs text-muted">
-                        Private codebase
-                      </span>
-                    )}
-                    {project.secondaryHref && (
-                      <a
-                        href={project.secondaryHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent hover:text-accent sm:w-auto"
-                      >
-                        {project.secondaryHrefLabel || "Open Link"}
-                        <ArrowUpRight className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </FadeInSection>
-      </section>
-
-      {/* ── Education ── */}
-      <section id="education" className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className="grid gap-4">
-            {educationEntries.map((education) => (
-              <div key={education.institution} className={`${glassPanel} p-5 sm:p-8`}>
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs tracking-[0.16em] text-muted uppercase">
-                      Education
-                    </p>
-                    <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
-                      {education.degree}
-                    </h2>
-                    <p className="mt-1 text-base font-medium text-muted">
-                      {education.institution}
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-muted">
-                    {education.period}
-                  </span>
-                </div>
-                <div className="mt-5">
-                  <p className="mb-3 text-xs tracking-[0.14em] text-muted uppercase">
-                    Relevant Coursework
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {education.courses.map((course) => (
-                      <span
-                        key={course}
-                        className="rounded-full border border-accent/20 bg-surface/70 px-3 py-1.5 text-sm text-foreground"
-                      >
-                        {course}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeInSection>
-      </section>
-
-      {/* ── What I'm Looking For ── */}
-      <section className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div className={`${glassPanel} p-6 sm:p-8`}>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              What I&apos;m Looking For
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              The right team, the right problems
-            </h2>
-
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              <div>
-                <div className="inline-flex rounded-xl bg-secondary/10 p-2.5">
-                  <Compass className="h-4 w-4 text-secondary" />
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
-                  Target Roles
-                </h3>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {lookingFor.roles.map((role) => (
-                    <span
-                      key={role}
-                      className="rounded-full border border-secondary/25 bg-secondary/8 px-3 py-1.5 text-sm font-medium text-foreground"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="inline-flex rounded-xl bg-secondary/10 p-2.5">
-                  <MapPin className="h-4 w-4 text-secondary" />
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
-                  Location
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {lookingFor.location}
+        <h3 className="meta mt-14 text-accent-ink">Education</h3>
+        <ul className="mt-5 space-y-6">
+          {education.map((entry) => (
+            <li key={entry.institution}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <h4 className="font-sans text-base font-semibold text-foreground">
+                  {entry.degree}
+                </h4>
+                <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+                  {entry.period}
                 </p>
               </div>
+              <p className="prose-body mt-1 text-muted">{entry.institution}</p>
+              <p className="mt-2 max-w-2xl font-mono text-[0.7rem] leading-[1.7] text-muted">
+                {entry.courses}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-              <div className="sm:col-span-2">
-                <h3 className="text-lg font-semibold text-foreground">
-                  What Matters to Me
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {lookingFor.values}
-                </p>
-                <p className="mt-3 text-sm">
-                  <span className="font-medium text-foreground">
-                    Availability:
-                  </span>{" "}
-                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                    {lookingFor.availability}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </FadeInSection>
-      </section>
+      {/* ── Skills ── */}
+      <Section id="skills" label="Stack">
+        <ul className="divide-y divide-line border-t border-b border-line">
+          {skillCategories.map((category) => (
+            <li
+              key={category.label}
+              className="grid gap-x-8 gap-y-2 py-4 sm:grid-cols-[10rem_minmax(0,1fr)]"
+            >
+              <p className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+                {category.label}
+              </p>
+              <p className="font-sans text-sm leading-relaxed text-foreground">
+                {category.skills.join(", ")}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-5 max-w-2xl font-mono text-[0.7rem] leading-[1.7] text-muted">
+          Currently learning: AWS, Kubernetes. Also familiar with Ladder Logic,
+          IT/OT networking, and electromechanical systems from Computer and
+          Electromechanical Engineering studies.
+        </p>
+      </Section>
 
       {/* ── Contact ── */}
-      <section id="contact" className={`${sectionWrap} mt-14 sm:mt-18`}>
-        <FadeInSection>
-          <div id="contact-form" className={`${glassPanel} p-6 sm:p-8`}>
-            <p className="text-xs tracking-[0.16em] text-muted uppercase">
-              Contact
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-4xl">
-              Let&apos;s build something dependable
-            </h2>
+      <Section id="contact" label="Contact">
+        <h2 className="display max-w-xl text-3xl text-foreground sm:text-4xl">
+          Open to full-stack and frontend roles.
+        </h2>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-              <div>
-                <form
-                  action="https://formspree.io/f/mwvndwea"
-                  method="POST"
-                  className="grid gap-4"
-                  onSubmit={handleContactSubmit}
-                >
-                  <input
-                    type="text"
-                    name="_gotcha"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    className="hidden"
-                    aria-hidden
-                  />
-
-                  <label className="grid gap-2">
-                    <span className="text-sm font-medium text-foreground">
-                      Name
-                    </span>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      className={formFieldClass}
-                    />
-                  </label>
-
-                  <label className="grid gap-2">
-                    <span className="text-sm font-medium text-foreground">
-                      Email
-                    </span>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className={formFieldClass}
-                    />
-                  </label>
-
-                  <label className="grid gap-2">
-                    <span className="text-sm font-medium text-foreground">
-                      Message
-                    </span>
-                    <textarea
-                      name="message"
-                      rows={5}
-                      required
-                      className={formFieldClass}
-                    />
-                  </label>
-
-                  <button
-                    type="submit"
-                    disabled={formStatus === "sending"}
-                    className="accent-glow mt-2 inline-flex w-full items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
-                  >
-                    {formStatus === "sending" ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
-
-                <p aria-live="polite" className="mt-4 min-h-5 text-sm">
-                  {formStatus === "success" && (
-                    <span className="text-emerald-500">{formMessage}</span>
-                  )}
-                  {formStatus === "error" && (
-                    <span className="text-accent">{formMessage}</span>
-                  )}
-                </p>
-              </div>
-
-              <aside className="rounded-2xl border border-accent/20 bg-surface/70 p-5 sm:p-6">
-                <h3 className="text-lg font-semibold text-foreground">
-                  Direct Contact
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  Prefer a direct conversation? Reach out by email or connect
-                  through your preferred platform.
-                </p>
-
-                <a
-                  href={`mailto:${content.contact.directEmail}`}
-                  className="mt-4 inline-flex text-sm font-medium text-accent underline decoration-accent/60 underline-offset-4"
-                >
-                  {content.contact.directEmail}
-                </a>
-
-                <div className="mt-5 flex flex-wrap gap-3 text-sm">
-                  <a
-                    href={content.contact.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-accent/20 px-3 py-1.5 text-muted transition hover:bg-accent/10 hover:text-foreground"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href={content.contact.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-accent/20 px-3 py-1.5 text-muted transition hover:bg-accent/10 hover:text-foreground"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-              </aside>
+        <dl className="mt-8 divide-y divide-line border-t border-b border-line">
+          {lookingFor.map((row) => (
+            <div
+              key={row.key}
+              className="grid gap-x-8 gap-y-1 py-3 sm:grid-cols-[10rem_minmax(0,1fr)]"
+            >
+              <dt className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+                {row.key}
+              </dt>
+              <dd className="font-sans text-sm text-foreground">{row.value}</dd>
             </div>
+          ))}
+        </dl>
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_14rem]">
+          <form
+            id="contact-form"
+            action="https://formspree.io/f/mwvndwea"
+            method="POST"
+            className="grid max-w-lg gap-4"
+            onSubmit={handleContactSubmit}
+          >
+            <input
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden
+            />
+
+            <label className="grid gap-1.5">
+              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+                Name
+              </span>
+              <input type="text" name="name" required className={fieldStyle} />
+            </label>
+
+            <label className="grid gap-1.5">
+              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+                Email
+              </span>
+              <input
+                type="email"
+                name="email"
+                required
+                className={fieldStyle}
+              />
+            </label>
+
+            <label className="grid gap-1.5">
+              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+                Message
+              </span>
+              <textarea
+                name="message"
+                rows={5}
+                required
+                className={fieldStyle}
+              />
+            </label>
+
+            <div className="mt-1 flex flex-wrap items-center gap-4">
+              <button
+                type="submit"
+                disabled={formStatus === "sending"}
+                className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {formStatus === "sending" ? "Sending" : "Send message"}
+              </button>
+              <p aria-live="polite" className="font-mono text-[0.75rem]">
+                {formStatus === "success" ? (
+                  <span className="text-foreground">{formMessage}</span>
+                ) : null}
+                {formStatus === "error" ? (
+                  <span className="text-accent-ink">{formMessage}</span>
+                ) : null}
+              </p>
+            </div>
+          </form>
+
+          <div className="flex flex-col gap-2.5 lg:pt-1">
+            <a
+              href={`mailto:${content.contact.directEmail}`}
+              className={linkStyle}
+            >
+              {content.contact.directEmail}
+            </a>
+            <a
+              href={content.contact.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyle}
+            >
+              GitHub
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href={content.contact.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyle}
+            >
+              LinkedIn
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           </div>
-        </FadeInSection>
-      </section>
+        </div>
+      </Section>
     </main>
   );
 }

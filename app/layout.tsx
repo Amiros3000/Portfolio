@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Archivo, IBM_Plex_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import SiteHeader from "./components/site-header";
@@ -6,6 +7,31 @@ import ChatbotWidget from "./components/chatbot/chatbot-widget";
 import SiteFooter from "./components/site-footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+// Display: a squarish industrial grotesque for headings and UI chrome.
+// Body: a screen-cut serif — prose on this page is read, not skimmed.
+// Mono: metadata, counts, versions, and the tradeoff lines on decision entries.
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
 
 // Retargeted to full-stack / product software engineering (was "Computer & Systems
 // Engineer" with controls/SRE keywords).
@@ -50,7 +76,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`scroll-smooth ${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
+    >
       <body className="antialiased">
         <Providers>
           <div className="flex min-h-screen flex-col bg-background text-foreground">
