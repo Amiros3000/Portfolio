@@ -57,22 +57,21 @@ export type Decision = {
 
 export const footpalDecisions: Decision[] = [
   {
-    title: "Crew-scoped isolation enforced at every call site",
+    title: "Crew-scoped isolation enforced in the application layer",
     body: "Independent crews share one database. Access is gated by explicit guard functions — canAccessGame, canManageGame, getUserCrew — invoked per route.",
     tradeoff:
-      "No Postgres RLS and no Prisma middleware. All 109 handlers have to call a guard, and the database will not catch one that forgets.",
+      "No Postgres RLS and no Prisma middleware. Isolation depends on each crew-scoped route calling a guard, and nothing underneath catches one that skips it.",
   },
   {
     title: "Session auth written from scratch, no auth library",
     body: "The cookie carries the plaintext token; the database stores only the SHA-256 hash. Sessions are per-device. A three-tier resolution path — Session row, then legacy hash column, then legacy plaintext — migrated existing accounts on read, without logging anyone out.",
-    tradeoff:
-      "Three lookup paths to maintain until the legacy columns are retired.",
+    tradeoff: "Three lookup paths to maintain instead of one.",
   },
   {
     title: "Man-of-the-match awards that fire exactly once",
     body: "The award can be triggered by the final vote or by a fallback cron. Both paths run one conditional update guarded on a null timestamp, and the affected-row count decides which trigger won.",
     tradeoff:
-      "Correctness sits in a single UPDATE's WHERE clause and its row count. It leans on the database to serialize rather than on application-level locking.",
+      "The guarantee lives in one UPDATE's WHERE clause and its affected-row count, so it holds only as long as that stays a single statement.",
   },
   {
     title: "Batched the game page's reads, cutting load from ~3.3s to ~1.1s",
@@ -84,7 +83,7 @@ export const footpalDecisions: Decision[] = [
     title: "Kickoff times resolved to UTC without a date library",
     body: "Crew-local kickoff times resolve to UTC instants through Intl.DateTimeFormat.formatToParts, so daylight-saving shifts land on the right instant. package.json contains zero date libraries.",
     tradeoff:
-      "DST behaviour has to be tested directly against boundary dates rather than trusted to a library's tzdata.",
+      "The conversion logic is mine rather than a library's, including the DST transition days when a local time either does not exist or happens twice.",
   },
   {
     title: "Hand-written service worker serving a branded offline page",
@@ -102,6 +101,6 @@ export const footpalDecisions: Decision[] = [
     title: "Every Sentry event through one PII-scrubbing chokepoint",
     body: "All error reporting routes through a single scrubbing function before anything leaves the app.",
     tradeoff:
-      "One function to audit, and one function every new event type has to go through or it bypasses scrubbing.",
+      "Centralizing the scrubbing means one place to audit, and one place every error path has to keep routing through.",
   },
 ];
