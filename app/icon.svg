@@ -4,19 +4,24 @@
     Favicon. Constraints that drove this:
     - Letterforms are drawn as strokes, not <text>. Favicon renderers frequently
       lack the requested font and silently substitute another one.
-    - Bone on oxblood is 9.57:1. The previous icon put #880808 on a near-black
-      field at 1.95:1, which collapsed into an unreadable blob at 16px.
-    - Full-bleed square, no gradient, no corner radius, matching the page.
+    - Bone on ink is 15.9:1. The previous icon put #880808 on a near-black field
+      at 1.95:1, which collapsed into an unreadable blob at 16px.
+    - The oxblood bar is the page's decision marker, carried into the mark. It
+      also supplies the only hard edge when the tile sits on dark browser
+      chrome, where the ink field itself has almost no contrast against it.
+    - The "A" is centred on the field RIGHT of the bar (30..256, centre 143),
+      not on the full canvas, or it reads as misaligned at tab size.
     - A single "A" rather than "AI", which reads as "artificial intelligence".
   -->
-  <rect width="256" height="256" fill="#880808" />
+  <rect width="256" height="256" fill="#121110" />
+  <rect x="0" y="0" width="30" height="256" fill="#880808" />
   <path
-    d="M62 206 L128 54 L194 206"
+    d="M81 204 L143 58 L205 204"
     fill="none"
     stroke="#FAF9F7"
-    stroke-width="34"
+    stroke-width="32"
     stroke-linejoin="miter"
     stroke-miterlimit="8"
   />
-  <path d="M92 158 L164 158" stroke="#FAF9F7" stroke-width="28" />
+  <path d="M109 156 L177 156" stroke="#FAF9F7" stroke-width="26" />
 </svg>
