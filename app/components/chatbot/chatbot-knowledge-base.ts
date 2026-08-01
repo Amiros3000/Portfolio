@@ -11,6 +11,17 @@ export type KnowledgeEntry = {
   contextResponses?: Record<string, string>;
 };
 
+/*
+  Every claim here has to match the site copy and be defensible in an interview.
+  Standing corrections, do not reintroduce:
+   - KonnectTaps: Amir was FRONTEND. Three developers, not two. Payments were
+     Stripe and were built by the CEO — never attribute them to Amir. 100+
+     SIGNUPS (not active users). Wound down May 2026. ktaps.me is retired.
+   - FootPal FC: renamed from "FootPal". 25+ active users across three crews.
+     Its service worker is an OFFLINE FALLBACK — never "offline support".
+   - Marché Adonis title is Assistant Deli Manager.
+   - No Express anywhere; backend is Next.js API routes and FastAPI.
+*/
 const knowledgeBase: KnowledgeEntry[] = [
   {
     id: "greeting",
@@ -18,7 +29,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/^(hi|hello|hey|howdy|greetings|sup|yo)$/i, /what('s| is) up/i],
     question: "Say hello",
     answer:
-      "Hey! I\u2019m Amir\u2019s portfolio assistant. I can tell you about his background, skills, projects, or why he\u2019d be a great addition to your team. What would you like to know?",
+      "Hey! I’m Amir’s portfolio assistant. I can tell you about his background, skills, projects, or how he’d fit your team. What would you like to know?",
     followUps: ["background", "fit", "skills", "projects"],
   },
   {
@@ -33,8 +44,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025). He builds products end-to-end \u2014 from the UI down to the backend and deployment \u2014 shipping in TypeScript, Next.js, React, and Node.js. He co-founded KonnectTaps (a full-stack SaaS platform he grew to over 100 users), built FootPal (a soccer-scheduling PWA now used weekly by ~24 people), and managed a 13-person team at March\u00e9 Adonis for 7+ years. He\u2019s an independent, self-driven engineer who figures things out fast.",
-    followUps: ["experience", "skills", "fit"],
+      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is FootPal FC, which he’s been building since June 2026 — a 27-model Postgres schema, 109 HTTP handlers, and 175 test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
+    followUps: ["footpal", "experience", "skills"],
   },
   {
     id: "skills",
@@ -48,7 +59,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his skills?",
     answer:
-      "Languages: JavaScript (ES6+), TypeScript, Python, Java, SQL, Bash. Frontend: React, Next.js (App Router/RSC), Tailwind, PWA (Service Workers, Web Push). Backend: Node.js, Express, FastAPI, PostgreSQL, Prisma, MySQL. DevOps & Infrastructure: Docker, CI/CD (GitHub Actions), Git/GitHub, Vercel, Linux/Ubuntu, Nginx. He\u2019s a full-stack developer who ships web apps end-to-end. He\u2019s also familiar with hardware/controls concepts (Ladder Logic, IT/OT networking) from his engineering studies, though software is his focus.",
+      "Languages: JavaScript (ES6+), TypeScript, Python, Java, SQL, Bash. Frontend: React, Next.js (App Router/RSC), Tailwind, PWA (Web Push, installable). Backend: Node.js, FastAPI, PostgreSQL, Prisma, MySQL — his backend work is Next.js API routes and FastAPI. Testing and observability: Vitest, Sentry. Infrastructure: Docker, GitHub Actions, Git/GitHub, Vercel, Linux/Ubuntu, Nginx. He’s also familiar with Ladder Logic and IT/OT networking from his engineering studies, though software is his focus.",
     followUps: ["projects", "currently-learning"],
   },
   {
@@ -62,8 +73,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What has he built?",
     answer:
-      "Key projects: (1) KonnectTaps \u2014 a full-stack digital business card SaaS he co-founded and grew to over 100 users (wound down as the team moved on). (2) FootPal \u2014 a soccer-scheduling PWA (Next.js/TypeScript/PostgreSQL) built solo in about a month, now used weekly by ~24 people. (3) SOSO Capstone \u2014 a satellite telemetry visualization tool for the Canadian Space Agency. (4) MIX Registration System \u2014 handled 400+ concurrent requests with zero downtime. Check the Projects section for live demos!",
-    followUps: ["konnecttaps", "experience"],
+      "Three things worth knowing about: (1) FootPal FC — his flagship, a pickup-soccer logistics app he’s been building since June 2026, now at v2.43.0 across 457 commits. (2) KonnectTaps — a digital business card platform he co-founded and built the frontend for; it reached 100+ signups and wound down in May 2026. (3) SOSO — a satellite telemetry visualization tool built for a Canadian Space Agency capstone. The Flagship section of the site goes into the actual engineering decisions behind FootPal FC.",
+    followUps: ["footpal", "konnecttaps", "experience"],
   },
   {
     id: "konnecttaps",
@@ -71,17 +82,31 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/konnect\s?taps/i, /ktaps/i, /co-?found/i, /networking (platform|app|tool)/i],
     question: "Tell me about KonnectTaps",
     answer:
-      "KonnectTaps is a full-stack digital business card platform Amir co-founded in January 2024 (Next.js frontend, Python backend, MySQL, Shopify Billing API). He owned the product and the full stack end-to-end and grew it to over 100 users. The platform ran until 2026, when the team moved on to other things. Visit konnecttaps.com or the app at ktaps.me.",
-    followUps: ["projects", "footpal", "strengths"],
+      "KonnectTaps was a digital business card platform Amir co-founded in January 2024. He built the frontend in React and Next.js, working alongside two other developers, and contributed to scope and product direction. He did not build the payment integration — that was Stripe, and the CEO built it. The platform reached 100+ signups and wound down in May 2026. The site is konnecttaps.com.",
+    followUps: ["footpal", "projects", "strengths"],
   },
   {
     id: "footpal",
-    keywords: ["footpal", "soccer", "scheduling", "pwa", "football"],
+    keywords: ["footpal", "soccer", "scheduling", "pwa", "football", "crew"],
     patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
-    question: "Tell me about FootPal",
+    question: "Tell me about FootPal FC",
     answer:
-      "FootPal is a mobile-first PWA (Next.js / TypeScript / PostgreSQL) that Amir built solo in about a month by directing AI coding tools while owning the product vision, UX, scope, and prioritization. It solves a real problem from his own life \u2014 a friend group that could never lock down a game time \u2014 with availability voting, RSVPs, automatic team generation, a cost-splitting ledger, group chat, and player ratings. It\u2019s now in weekly use by ~24 people who joined on their own. Live at footpal.vercel.app.",
-    followUps: ["projects", "skills", "konnecttaps"],
+      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 15, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. As of the July 31, 2026 code audit: 27 Postgres models, 109 HTTP handlers across 81 route files, 175 test blocks across 15 suites, 457 commits, v2.43.0. Live at footpalfc.amiribrahim3000.com.",
+    followUps: ["footpal-engineering", "projects", "skills"],
+  },
+  {
+    id: "footpal-engineering",
+    keywords: ["auth", "multi-tenancy", "tenancy", "architecture", "engineering", "database", "schema", "performance", "idempotency"],
+    patterns: [
+      /how (does|did) .*(footpal|it) work/i,
+      /(technical|engineering) (detail|decision|depth)/i,
+      /(multi.?tenan|idempoten|service worker|session auth)/i,
+      /architecture/i,
+    ],
+    question: "What's technically interesting about FootPal FC?",
+    answer:
+      "A few decisions: crew-scoped data isolation is enforced by explicit application-layer guards called per route — no Postgres RLS, no Prisma middleware. Session auth is written from scratch with no auth library: the cookie carries the plaintext token and the database stores only the SHA-256 hash, with a three-tier resolution path that migrated existing accounts on read without logging anyone out. Man-of-the-match awards fire exactly once whether triggered by the final vote or a fallback cron. Game-page load went from ~3.3s to ~1.1s by batching 8 sequential Prisma reads into one parallel fetch and adding three indexes after EXPLAIN showed sequential scans — measured by hand, not by a benchmark harness. Kickoff times resolve to UTC through Intl.DateTimeFormat.formatToParts, with zero date libraries in package.json. The hand-written service worker serves a branded offline page and deliberately caches nothing — stale rosters and costs would be worse than a clear offline page.",
+    followUps: ["footpal", "skills", "fit"],
   },
   {
     id: "experience",
@@ -93,9 +118,9 @@ const knowledgeBase: KnowledgeEntry[] = [
       /career history/i,
       /previous (jobs|roles|positions)/i,
     ],
-    question: "What\u2019s his experience?",
+    question: "What’s his experience?",
     answer:
-      "Two key threads: (1) Co-Founder at KonnectTaps (Jan 2024 \u2013 2026) \u2014 co-founded a full-stack SaaS platform, owned the stack end-to-end, and grew it to over 100 users before the team moved on. (2) 7+ years at March\u00e9 Adonis (Nov 2017 \u2013 Present) \u2014 started as a Clerk, earned a promotion to Assistant Manager after graduating, now leading a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
+      "Two threads: (1) Co-Founder at KonnectTaps (Jan 2024 – May 2026) — built the frontend in React/Next.js alongside two other developers; the platform reached 100+ signups before winding down. (2) Marché Adonis (Nov 2017 – Present) — started as a Clerk, promoted to Assistant Deli Manager in June 2025 after seven years, now running daily operations and scheduling for a 13-person team. He balanced both while completing his Computer Engineering degree full-time.",
     followUps: ["education", "fit"],
   },
   {
@@ -110,7 +135,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Where did he study?",
     answer:
-      "Two programs: (1) B.Eng. in Computer Engineering from York University\u2019s Lassonde School of Engineering, graduated June 2025. Coursework: OOP (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, and Software Engineering Principles. (2) Electromechanical Engineering Technician at Humber College (2022\u20132023, completed Year 1). Coursework: Introduction to Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials, and Workshop Practices. This dual background gives him a bridge between software and physical systems.",
+      "Two programs: (1) B.Eng. in Computer Engineering from York University’s Lassonde School of Engineering, graduated June 2025. Coursework: OOP (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, and Software Engineering Principles. (2) Electromechanical Engineering Technician at Humber College (2022–2023, completed Year 1). Coursework: Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, and Engineering Materials.",
     followUps: ["skills", "experience"],
   },
   {
@@ -124,7 +149,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Is he available?",
     answer:
-      "Yes! Amir is available immediately. He\u2019s looking for Software Developer, Full-Stack Developer, Frontend Engineer, or Junior Software Engineer roles. Open to remote or hybrid positions in the GTA, Ontario area. What kind of role are you hiring for? I can tell you more about how he\u2019d fit.",
+      "Yes — Amir is available immediately. He’s looking for Software Developer, Full-Stack Developer, or Frontend Engineer roles, remote or hybrid in the GTA, Ontario. What kind of role are you hiring for? I can tell you more about how he’d fit.",
     followUps: ["fit", "roles", "contact"],
   },
   {
@@ -138,7 +163,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What roles is he targeting?",
     answer:
-      "Software Developer, Full-Stack Developer, Frontend Engineer, and Junior Software Engineer positions. He builds products end-to-end \u2014 from the frontend UI to the backend and deployment \u2014 in TypeScript, Next.js, React, and Node.js. He thrives in environments where he can take ownership and ship. Open to both startup and structured environments.",
+      "Software Developer, Full-Stack Developer, and Frontend Engineer positions. He builds products end-to-end, from the frontend UI to the backend and deployment, in TypeScript, Next.js, React, and PostgreSQL. Open to remote or hybrid in the GTA.",
     followUps: ["availability", "contact", "fit"],
   },
   {
@@ -152,7 +177,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "How to contact him?",
     answer:
-      "Email: amir.ibrahim3000@gmail.com \u2022 GitHub: github.com/Amiros3000 \u2022 LinkedIn: linkedin.com/in/amir3000. You can also use the contact form in the Contact section above!",
+      "Email: amir.ibrahim3000@gmail.com • GitHub: github.com/Amiros3000 • LinkedIn: linkedin.com/in/amir3000. There’s also a contact form in the Contact section.",
     followUps: ["availability"],
   },
   {
@@ -165,7 +190,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Where is he located?",
     answer:
-      "Based in the GTA (Greater Toronto Area), Ontario, Canada. Open to remote or hybrid work arrangements.",
+      "Based in the GTA (Greater Toronto Area), Ontario, Canada. Open to remote or hybrid work.",
     followUps: ["availability", "contact"],
   },
   {
@@ -178,8 +203,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What is he learning?",
     answer:
-      "Currently exploring AWS (cloud infrastructure) and Kubernetes. TypeScript, Next.js, and CI/CD aren\u2019t exploratory anymore \u2014 he ships production apps with them. He\u2019s the kind of engineer who learns by building \u2014 he developed the entire stack behind KonnectTaps and FootPal while shipping them to production. He picks things up fast because he\u2019s not afraid to dive in.",
-    followUps: ["skills", "projects"],
+      "Currently AWS and Kubernetes. TypeScript, Next.js, and CI/CD aren’t exploratory anymore — he ships production apps with them. He learns by building: the session auth, the multi-tenancy guards, and the DST handling in FootPal FC were all written from scratch rather than pulled from a library.",
+    followUps: ["skills", "footpal-engineering"],
   },
   {
     id: "fit",
@@ -194,24 +219,24 @@ const knowledgeBase: KnowledgeEntry[] = [
     question: "Why hire Amir?",
     answer: "",
     counterQuestion:
-      "Great question! To give you the best answer \u2014 what kind of role or team is this for? For example: startup, product team, agency, enterprise, etc.",
+      "Good question — what kind of role or team is this for? For example: startup, product team, agency, or enterprise.",
     contextResponses: {
       startup:
-        "Amir is a natural startup fit. He co-founded KonnectTaps and built the product end-to-end \u2014 from product vision to deployment \u2014 growing it to over 100 users, and built FootPal solo in about a month. He\u2019s used to wearing every hat, making fast decisions, and shipping with limited resources. He\u2019s independent, self-driven, and learns on the fly. That\u2019s exactly the kind of person early-stage teams need.",
+        "Amir works like an early-stage engineer. He’s been building FootPal FC since June 2026 — 457 commits, 109 route handlers, 175 test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
       product:
-        "Amir is product-minded at his core. He didn\u2019t just build KonnectTaps as a side project \u2014 he co-founded it and grew it to over 100 real users, and built FootPal for a real problem in his own life (now used weekly by ~24 people). He thinks about the full user experience, from the UI to the backend. He\u2019s passionate about building things people actually use. He\u2019d slot right into a product team that values ownership.",
+        "Amir builds for real use, not for a portfolio. FootPal FC came out of a problem in his own life and is now used by 25+ players in three crews, two of which he isn’t part of. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
       agency:
-        "Amir can ramp up on new stacks fast \u2014 he picked up Node.js, MySQL, React, and system design while building a live product. He\u2019s used to context-switching (he balanced a full engineering degree with co-founding a company and managing a team). He picks things up quickly and ships reliably.",
+        "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships (175 test blocks across 15 suites in FootPal FC).",
       enterprise:
-        "Amir brings a systems-thinking mindset from his Computer Engineering degree \u2014 networking, distributed systems, and software architecture. He also has 7+ years of operational discipline from managing teams at March\u00e9 Adonis. He understands process, accountability, and delivering consistently under pressure.",
+        "Amir brings a Computer Engineering degree plus seven-plus years of operational discipline at Marché Adonis, where he now runs daily operations for a 13-person team. On the engineering side he’s deliberate about correctness: per-route access guards for tenant isolation, exactly-once award processing under concurrent triggers, and a single PII-scrubbing chokepoint for all error reporting.",
       controls:
-        "Amir has a unique crossover: a Computer Engineering degree from York plus electromechanical engineering studies at Humber College covering control systems, relay logic, sensors, and industrial automation. He understands both the software and physical systems side \u2014 IT/OT networking, real-time operational systems, and ladder logic. Combined with his production software experience, he can bridge the gap between controls engineering and modern software infrastructure.",
+        "Amir has a crossover background: a Computer Engineering degree from York plus electromechanical engineering studies at Humber covering control circuits, robotics, mechatronics, and industrial pneumatics. He understands IT/OT networking and ladder logic alongside modern web development, though software is where he works day to day.",
       systems:
-        "Amir\u2019s Computer Engineering degree covers networking, distributed systems, and OS fundamentals, and his Humber College studies add control systems and industrial automation. He\u2019s also proven he can build and operate production infrastructure \u2014 he ran KonnectTaps on a Ubuntu VPS with Nginx, MySQL, and a Python backend. That said, his focus is full-stack software development. He thinks in systems, not just code.",
+        "Amir’s Computer Engineering degree covers networking, operating systems, and distributed systems, and his Humber studies add control circuits and industrial automation. In practice that shows up as systems thinking in his software: crew-scoped isolation enforced at every call site, idempotent award processing that leans on the database to serialize, and DST-correct time handling with no date library.",
       _default:
-        "Amir brings a rare combination: a Computer Engineering degree, 7+ years of professional accountability, and hands-on experience shipping live products (KonnectTaps, which he grew to over 100 users, and FootPal). He built the full stack by shipping real software, not following tutorials. He\u2019s independent, self-driven, and learns whatever he needs to get the job done. He\u2019s not just a new grad; he\u2019s someone who\u2019s been delivering results for years.",
+        "Amir combines a Computer Engineering degree, seven-plus years of professional accountability at Marché Adonis, and a substantial codebase he can talk through in depth. FootPal FC is 27 Postgres models, 109 HTTP handlers, and 175 test blocks, and he can explain why the session auth stores only a SHA-256 hash, why there’s no date library, and why the service worker caches nothing. He’s a 2025 grad, but he’s not short on things to defend in an interview.",
     },
-    followUps: ["strengths", "experience", "projects"],
+    followUps: ["strengths", "footpal-engineering", "projects"],
   },
   {
     id: "strengths",
@@ -224,7 +249,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his strengths?",
     answer:
-      "His key strengths: (1) Builder who ships \u2014 he built and owns full production stacks (KonnectTaps, FootPal). (2) Ownership mindset \u2014 he co-founded KonnectTaps and owned every product and engineering decision. (3) Reliability under pressure \u2014 7+ years of managing high-volume operations. (4) Speed of learning \u2014 he went from zero product experience to running live products used by real people. (5) Product thinking \u2014 he cares about what users actually experience, not just the code.",
+      "(1) Depth on one real codebase — FootPal FC is 457 commits deep and he can explain the reasoning behind the schema, the auth, and the caching policy. (2) Frontend craft — that was his role at KonnectTaps and it’s where he’s strongest. (3) Correctness over convenience — he writes things from scratch when a library would hide a behaviour he needs to control, like DST handling and session tokens. (4) Operational reliability — seven-plus years running high-volume shifts at Marché Adonis. (5) He tests: 175 test blocks across 15 suites.",
     followUps: ["fit", "skills", "weaknesses"],
   },
   {
@@ -240,7 +265,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Any areas for growth?",
     answer:
-      "Being transparent: Amir graduated in 2025 and doesn\u2019t have years of industry software engineering experience yet. He\u2019s also honest that a lot of his coding has been AI-assisted. But here\u2019s the thing \u2014 that\u2019s the reality of modern engineering, and he understands the code he ships. He offset the experience gap significantly by co-founding and shipping a real product, managing large teams, and actively upskilling into AWS and Kubernetes. He\u2019s the kind of developer who fills gaps fast because he\u2019s done it his whole career.",
+      "Straight answer: Amir graduated in 2025 and hasn’t worked on a large engineering team yet — most of his code has been written solo or in a group of three. He’s also open about using AI coding tools, and about where his own measurements stop: the FootPal FC performance numbers were taken by hand on one page, not from a benchmark harness. What he does have is a real codebase he can defend line by line, and a habit of naming the tradeoff rather than hiding it.",
     followUps: ["currently-learning", "fit", "strengths"],
   },
   {
@@ -254,7 +279,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Is he a team player?",
     answer:
-      "Amir is independent and self-driven \u2014 give him a problem and he\u2019ll figure it out. But he also knows how to lead: he manages a 13-person team at March\u00e9 Adonis, handling scheduling, escalations, and cross-functional coordination daily. At KonnectTaps he drove engineering decisions while coordinating with his co-founder. He\u2019s open to both startup energy and structured environments with mentorship. The common thread: he takes ownership.",
+      "He’s independent by default but he’s led people: he runs scheduling, escalations, and daily operations for a 13-person team at Marché Adonis. At KonnectTaps he worked with two other developers on a shared codebase and on product direction. He’s open to both startup pace and structured environments with mentorship — the latter is where he’d grow fastest right now.",
     followUps: ["fit", "experience", "strengths"],
   },
   {
@@ -268,8 +293,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Good for startups?",
     answer:
-      "Yes \u2014 Amir already operates like a startup founder. At KonnectTaps he owned product, data modeling, deployment, and operations, and he built FootPal solo in about a month. He builds the full stack because that\u2019s what the product needs. He\u2019s comfortable wearing every hat, making fast decisions, and shipping with limited resources. That\u2019s exactly the mindset startups need.",
-    followUps: ["konnecttaps", "fit", "strengths"],
+      "Yes. He co-founded KonnectTaps and built its frontend, and he’s been running FootPal FC end-to-end since June 2026 — schema, auth, routes, tests, releases. He’s comfortable deciding scope, shipping without much process, and living with the consequences of his own tradeoffs.",
+    followUps: ["konnecttaps", "footpal", "fit"],
   },
   {
     id: "resume",
@@ -277,7 +302,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/resume/i, /\bcv\b/i, /download.*(resume|cv)/i],
     question: "Can I see his resume?",
     answer:
-      "Amir tailors his resume for each opportunity, so there isn\u2019t a generic one posted here. This portfolio covers his full background, skills, projects, and experience. If you\u2019d like a resume tailored to your role, reach out via the contact form or email him at amir.ibrahim3000@gmail.com and he\u2019ll send one over.",
+      "Amir tailors his resume per opportunity, so there isn’t a generic one posted here. This site covers his background, stack, projects, and experience. For a resume matched to your role, use the contact form or email amir.ibrahim3000@gmail.com.",
     followUps: ["contact", "background"],
   },
   {
@@ -288,10 +313,10 @@ const knowledgeBase: KnowledgeEntry[] = [
       /what (drives|motivates) (him|amir)/i,
       /what does (he|amir) (love|enjoy|like) (doing|about|to)/i,
     ],
-    question: "What\u2019s he passionate about?",
+    question: "What’s he passionate about?",
     answer:
-      "Amir loves building products end-to-end \u2014 taking something from an idea to a deployed, working application. He\u2019s especially drawn to frontend/UI work and making things look and feel great for users, but he\u2019s comfortable across the full stack. What excites him most is seeing something he built being used by real people \u2014 that\u2019s why he co-founded KonnectTaps instead of just doing class projects.",
-    followUps: ["projects", "skills", "konnecttaps"],
+      "Building things people actually use, and being able to explain why each part works the way it does. FootPal FC started as a problem in his own life and is now run by three crews, two of which he isn’t part of. He’s especially drawn to frontend and UI work, but he’s built the schema, the auth, and the background jobs behind it too.",
+    followUps: ["footpal", "footpal-engineering", "skills"],
   },
   {
     id: "self-taught",
@@ -304,8 +329,8 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "How did he learn?",
     answer:
-      "Amir is a learn-by-building engineer. He didn\u2019t follow a bootcamp or tutorial path \u2014 he co-founded KonnectTaps as his first real project and built the whole stack (Node.js, MySQL, React, deployment) while shipping a live product. He went from basic coding knowledge to running a production platform he grew to over 100 users, then built FootPal solo. That ability to ramp up fast is core to who he is as an engineer.",
-    followUps: ["konnecttaps", "currently-learning", "strengths"],
+      "By building and shipping. He co-founded KonnectTaps as his first real product and built its frontend in React and Next.js. Since then he’s written FootPal FC’s session auth, tenancy guards, rating engine, and time handling from scratch rather than reaching for libraries — partly because that’s how he learns what a library would have been doing for him.",
+    followUps: ["footpal-engineering", "currently-learning", "strengths"],
   },
 ];
 
@@ -315,7 +340,7 @@ const fallbackEntry: KnowledgeEntry = {
   patterns: [],
   question: "",
   answer:
-    "Hmm, I\u2019m not sure about that one. But I\u2019d love to help! I can tell you about Amir\u2019s background, skills, projects, experience, availability, why he\u2019d be a great hire, or his strengths and growth areas. What interests you?",
+    "I’m not sure about that one. I can tell you about Amir’s background, stack, projects, the engineering behind FootPal FC, his experience, availability, or his strengths and growth areas. What would help?",
   followUps: ["background", "fit", "skills", "contact"],
 };
 
@@ -422,6 +447,6 @@ export function getEntryById(id: string): KnowledgeEntry | undefined {
 
 export function getSuggestedQuestions(): KnowledgeEntry[] {
   return knowledgeBase.filter((e) =>
-    ["background", "skills", "projects", "fit", "contact"].includes(e.id),
+    ["background", "footpal", "skills", "fit", "contact"].includes(e.id),
   );
 }

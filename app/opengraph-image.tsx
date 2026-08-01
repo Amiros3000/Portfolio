@@ -1,9 +1,12 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Amir Ibrahim — Full-Stack Software Developer";
+export const alt =
+  "Amir Ibrahim — full-stack developer. FootPal FC: 27 Postgres models, 109 HTTP handlers, 175 test blocks.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Mirrors the site: bone paper, warm ink, one oxblood rule. No gradient, no
+// status dot — the accent appears once, as a rule under the headline.
 export default function Image() {
   return new ImageResponse(
     (
@@ -14,126 +17,77 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#050505",
-          padding: "60px 80px",
+          backgroundColor: "#faf9f7",
+          padding: "72px 80px",
         }}
       >
         <div
           style={{
-            position: "absolute",
-            top: "-40px",
-            right: "-40px",
-            width: "360px",
-            height: "360px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(220,38,38,0.25) 0%, transparent 70%)",
+            fontSize: "17px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "#605a55",
+          }}
+        >
+          Amir Ibrahim / Full-stack developer / GTA, Ontario
+        </div>
+
+        <div
+          style={{
+            width: "64px",
+            height: "3px",
+            backgroundColor: "#880808",
+            marginTop: "34px",
           }}
         />
 
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "28px",
-          }}
-        >
-          <div
-            style={{
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              backgroundColor: "#22c55e",
-            }}
-          />
-          <span style={{ fontSize: "18px", color: "#86efac" }}>
-            Open to opportunities
-          </span>
-        </div>
-
-        <div
-          style={{
-            fontSize: "64px",
+            fontSize: "58px",
             fontWeight: 700,
-            color: "#f5f5f5",
-            lineHeight: 1.1,
+            color: "#191614",
+            lineHeight: 1.08,
+            letterSpacing: "-0.03em",
+            marginTop: "26px",
+            maxWidth: "980px",
           }}
         >
-          Amir Ibrahim
+          FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and
+          175 tests.
         </div>
 
         <div
           style={{
-            fontSize: "30px",
-            color: "#a3a3a3",
-            marginTop: "12px",
+            fontSize: "24px",
+            color: "#605a55",
+            marginTop: "22px",
+            maxWidth: "860px",
+            lineHeight: 1.45,
           }}
         >
-          Full-Stack Software Developer
-        </div>
-
-        <div
-          style={{
-            fontSize: "22px",
-            color: "#737373",
-            marginTop: "20px",
-            maxWidth: "780px",
-            lineHeight: 1.5,
-          }}
-        >
-          I build and ship full-stack web apps end-to-end — from polished UI to
-          reliable backend.
+          Pickup soccer logistics for 25+ players across three crews — RSVPs,
+          team drafting, cost splitting, and player ratings.
         </div>
 
         <div
           style={{
             position: "absolute",
-            bottom: "50px",
+            bottom: "56px",
             left: "80px",
             right: "80px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            borderTop: "1px solid #ddd8d1",
+            paddingTop: "22px",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              gap: "24px",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ fontSize: "16px", color: "#525252" }}>
-              github.com/Amiros3000
-            </span>
-            <span style={{ fontSize: "16px", color: "#DC2626" }}>|</span>
-            <span style={{ fontSize: "16px", color: "#525252" }}>
-              linkedin.com/in/amir3000
-            </span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "6px",
-            }}
-          >
-            {["TypeScript", "Next.js", "React", "Node.js", "PostgreSQL"].map((skill) => (
-              <span
-                key={skill}
-                style={{
-                  fontSize: "13px",
-                  color: "#a3a3a3",
-                  border: "1px solid rgba(220,38,38,0.3)",
-                  borderRadius: "9999px",
-                  padding: "4px 12px",
-                }}
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+          <span style={{ fontSize: "17px", color: "#605a55" }}>
+            v2.43.0 · 457 commits · building since Jun 2026
+          </span>
+          <span style={{ fontSize: "17px", color: "#880808" }}>
+            amiribrahim3000.com
+          </span>
         </div>
       </div>
     ),
