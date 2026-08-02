@@ -57,6 +57,42 @@ function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
   );
 }
 
+const SEMANTIC_TIMEOUT_MS = 4000;
+
+/**
+ * Ask the server which pre-written entry fits. Returns null on any failure —
+ * no key, timeout, rate limit, stale index — so the caller keeps whatever the
+ * keyword matcher decided. The server returns an id, never prose.
+ */
+async function semanticMatch(message: string): Promise<KnowledgeEntry | null> {
+  try {
+    const response = await fetch("/api/chat/match", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+      signal: AbortSignal.timeout(SEMANTIC_TIMEOUT_MS),
+    });
+
+    if (!response.ok) return null;
+
+    const { id } = (await response.json()) as { id: string | null };
+    return id ? (getEntryById(id) ?? null) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Keyword matching runs first: it is instant, free, and exact for the
+ * suggestion chips and common phrasings. The embedding call only fires when it
+ * comes up empty, which is the case that used to produce "I'm not sure".
+ */
+async function resolveEntry(message: string): Promise<KnowledgeEntry> {
+  const lexical = findBestMatch(message);
+  if (lexical.id !== "fallback") return lexical;
+  return (await semanticMatch(message)) ?? lexical;
+}
+
 let nextId = 1;
 
 export default function ChatbotWidget() {
@@ -98,62 +134,77 @@ export default function ChatbotWidget() {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  function addBotReply(text: string, followUps?: string[]) {
+  function pushBotReply(text: string, followUps?: string[]) {
+    setMessages((prev) => [
+      ...prev,
+      { id: nextId++, role: "bot", text, followUps },
+    ]);
+    setIsTyping(false);
+  }
+
+  /**
+   * Hold the typing indicator for a natural beat. Any time already spent
+   * waiting on the semantic lookup counts toward it, so the network round-trip
+   * hides inside the pause instead of adding to it.
+   */
+  async function think(startedAt: number) {
+    const target = 400 + Math.random() * 400;
+    const elapsed = Date.now() - startedAt;
+    if (elapsed < target) {
+      await new Promise((resolve) => setTimeout(resolve, target - elapsed));
+    }
+  }
+
+  async function respond(value: string) {
+    const startedAt = Date.now();
     setIsTyping(true);
-    const delay = 400 + Math.random() * 400;
-    setTimeout(() => {
-      const botMsg: ChatMessage = {
-        id: nextId++,
-        role: "bot",
-        text,
-        followUps,
-      };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, delay);
+
+    const counter = pendingEntry;
+    let entry: KnowledgeEntry;
+
+    if (counter) {
+      // Naming one of the branches answers the counter-question.
+      if (matchesCounterContext(counter, value)) {
+        setPendingEntry(null);
+        await think(startedAt);
+        pushBotReply(resolveCounterAnswer(counter, value), counter.followUps);
+        return;
+      }
+
+      entry = await resolveEntry(value);
+      setPendingEntry(null);
+
+      // Nothing else matched, so treat it as a vague answer to the counter.
+      if (entry.id === "fallback") {
+        await think(startedAt);
+        pushBotReply(resolveCounterAnswer(counter, value), counter.followUps);
+        return;
+      }
+    } else {
+      entry = await resolveEntry(value);
+    }
+
+    await think(startedAt);
+
+    if (entry.counterQuestion) {
+      setPendingEntry(entry);
+      pushBotReply(entry.counterQuestion);
+      return;
+    }
+
+    pushBotReply(entry.answer, entry.followUps);
   }
 
   function handleSend(text?: string) {
     const value = (text ?? input).trim();
     if (!value || isTyping) return;
 
-    const userMsg: ChatMessage = {
-      id: nextId++,
-      role: "user",
-      text: value,
-    };
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => [
+      ...prev,
+      { id: nextId++, role: "user", text: value },
+    ]);
     setInput("");
-
-    // A pending counter-question used to swallow whatever came next, so asking
-    // "how do I contact him" right after "why hire Amir" answered the hiring
-    // question instead. Only treat the reply as context when it actually names
-    // one, or when nothing else matches it.
-    if (pendingEntry) {
-      const answersCounter = matchesCounterContext(pendingEntry, value);
-      const newTopic = findBestMatch(value);
-
-      if (answersCounter || newTopic.id === "fallback") {
-        const tailored = resolveCounterAnswer(pendingEntry, value);
-        setPendingEntry(null);
-        addBotReply(tailored, pendingEntry.followUps);
-        return;
-      }
-
-      setPendingEntry(null);
-      // Fall through and answer the new question instead.
-    }
-
-    const match = findBestMatch(value);
-
-    // If this entry has a counter-question, ask it first instead of answering
-    if (match.counterQuestion) {
-      setPendingEntry(match);
-      addBotReply(match.counterQuestion);
-      return;
-    }
-
-    addBotReply(match.answer, match.followUps);
+    void respond(value);
   }
 
   function handleSuggestion(entryId: string) {
@@ -161,23 +212,26 @@ export default function ChatbotWidget() {
     const entry = getEntryById(entryId);
     if (!entry) return;
 
-    // Clear any pending counter-question when using suggestion chips
+    // Chips map to a known entry, so there is nothing to look up.
     setPendingEntry(null);
+    setMessages((prev) => [
+      ...prev,
+      { id: nextId++, role: "user", text: entry.question },
+    ]);
 
-    const userMsg: ChatMessage = {
-      id: nextId++,
-      role: "user",
-      text: entry.question,
-    };
-    setMessages((prev) => [...prev, userMsg]);
+    void (async () => {
+      const startedAt = Date.now();
+      setIsTyping(true);
+      await think(startedAt);
 
-    if (entry.counterQuestion) {
-      setPendingEntry(entry);
-      addBotReply(entry.counterQuestion);
-      return;
-    }
+      if (entry.counterQuestion) {
+        setPendingEntry(entry);
+        pushBotReply(entry.counterQuestion);
+        return;
+      }
 
-    addBotReply(entry.answer, entry.followUps);
+      pushBotReply(entry.answer, entry.followUps);
+    })();
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {

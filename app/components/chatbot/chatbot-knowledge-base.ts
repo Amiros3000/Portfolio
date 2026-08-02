@@ -520,6 +520,23 @@ export function getEntryById(id: string): KnowledgeEntry | undefined {
   );
 }
 
+/**
+ * Source text for the semantic index, consumed by scripts/build-chat-embeddings.mjs.
+ * Combines the canonical question, the keywords, and the answer so a paraphrase
+ * ("so what's this guy actually shipped") lands near the right entry.
+ *
+ * The "fit" entry has an empty answer — it opens with a counter-question — so
+ * fall back to that.
+ */
+export function getEmbeddableEntries(): Array<{ id: string; text: string }> {
+  return knowledgeBase.map((entry) => ({
+    id: entry.id,
+    text: [entry.question, entry.keywords.join(" "), entry.answer || entry.counterQuestion || ""]
+      .filter(Boolean)
+      .join(" — "),
+  }));
+}
+
 export function getSuggestedQuestions(): KnowledgeEntry[] {
   return knowledgeBase.filter((e) =>
     ["background", "footpal", "skills", "fit", "contact"].includes(e.id),
