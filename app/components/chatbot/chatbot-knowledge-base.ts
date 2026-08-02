@@ -65,11 +65,35 @@ const knowledgeBase: KnowledgeEntry[] = [
     followUps: ["background", "fit", "skills", "projects"],
   },
   {
+    // Must sit BEFORE "background". findBestMatch keeps the first entry with a
+    // strictly greater score, so on a tie the earlier entry wins — and
+    // "im not asking about amir, im asking about u" trips background's
+    // /about amir/ pattern at the same score.
+    id: "identity",
+    keywords: ["bot", "chatbot", "assistant", "ai", "llm", "chatgpt", "robot"],
+    patterns: [
+      /\bwho (is|are) (you|u)\b/i,
+      /\bwhat (are|r) (you|u)\b/i,
+      /\bwhat (is|are) this\b/i,
+      /\bare (you|u) (a |an )?(bot|ai|human|real|robot|person|amir|chatgpt|gpt|llm)\b/i,
+      /\bwho am i (talking|speaking|chatting) (to|with)\b/i,
+      /\bask(ing)? about (you|u)\b/i,
+      /\btell me about (you|u|yourself)\b/i,
+      /\bhow do (you|u) work\b/i,
+    ],
+    question: "What are you?",
+    answer:
+      "I'm a small assistant Amir built into this site — not an LLM. I match what you type against a hand-written set of answers about his background, stack, projects, and experience. That means I'm fast and I won't invent anything, but I only know what he's actually written down. If I miss your question, the Contact section reaches him directly.",
+    followUps: ["background", "footpal", "contact"],
+  },
+  {
     id: "background",
     keywords: ["background", "about", "who", "introduce", "bio", "summary", "overview"],
     patterns: [
-      /who (is|are) (amir|he|you)/i,
-      /tell me about (amir|him|yourself)/i,
+      // Deliberately no "you"/"yourself" alternative here — those belong to the
+      // identity entry above.
+      /who (is|are) (amir|he|him)/i,
+      /tell me about (amir|him|his background)/i,
       /what do you know/i,
       /about amir/i,
       /give me .*(summary|overview|background)/i,
