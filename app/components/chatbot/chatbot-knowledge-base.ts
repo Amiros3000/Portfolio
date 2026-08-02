@@ -25,8 +25,40 @@ export type KnowledgeEntry = {
 const knowledgeBase: KnowledgeEntry[] = [
   {
     id: "greeting",
-    keywords: ["hi", "hello", "hey", "sup", "yo", "greetings"],
-    patterns: [/^(hi|hello|hey|howdy|greetings|sup|yo)$/i, /what('s| is) up/i],
+    // Patterns run against normalizeInput() output: lowercased, punctuation
+    // stripped. So "what's up" arrives as "whats up" — an apostrophe in a
+    // pattern here can never match anything.
+    keywords: [
+      "hi",
+      "hello",
+      "hey",
+      "sup",
+      "yo",
+      "greetings",
+      "howdy",
+      "hiya",
+      "hallo",
+      // Non-English greetings. The GTA is multilingual and this is the first
+      // thing a lot of people type; falling through to the generic "not sure"
+      // reply on "hola" reads as broken.
+      "hola",
+      "ola",
+      "bonjour",
+      "salut",
+      "ciao",
+      "salam",
+      "salaam",
+      "marhaba",
+      "namaste",
+      "shalom",
+    ],
+    patterns: [
+      /^(hi+|hello+|hey+|howdy|hiya|heya|greetings|sup|yo+)$/i,
+      /^(hola|ola|bonjour|salut|ciao|hallo|guten tag|salam|salaam|assalamu? ?alaykum|marhaba|namaste|shalom|konnichiwa|privet|ni hao)\b/i,
+      /^good (morning|afternoon|evening|day)\b/i,
+      /^(hi|hey|hello) there\b/i,
+      /\bwhats? (is )?up\b/i,
+    ],
     question: "Say hello",
     answer:
       "Hey! I’m Amir’s portfolio assistant. I can tell you about his background, skills, projects, or how he’d fit your team. What would you like to know?",
@@ -414,6 +446,25 @@ export function findBestMatch(userInput: string): KnowledgeEntry {
   }
 
   return bestScore >= 5 ? bestEntry : fallbackEntry;
+}
+
+/**
+ * True when the reply actually answers the counter-question (i.e. names one of
+ * the contexts we branch on). Used to tell "startup" — an answer — apart from
+ * "how do I contact him" — a new question that happens to arrive next.
+ */
+export function matchesCounterContext(
+  entry: KnowledgeEntry,
+  userReply: string,
+): boolean {
+  const responses = entry.contextResponses;
+  if (!responses) return false;
+
+  const normalized = userReply.toLowerCase();
+
+  return Object.keys(responses).some(
+    (key) => key !== "_default" && normalized.includes(key),
+  );
 }
 
 /**

@@ -6,6 +6,7 @@ import {
   findBestMatch,
   getEntryById,
   getSuggestedQuestions,
+  matchesCounterContext,
   resolveCounterAnswer,
   type KnowledgeEntry,
 } from "./chatbot-knowledge-base";
@@ -19,23 +20,32 @@ type ChatMessage = {
 
 function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
   const [displayed, setDisplayed] = useState("");
-  const idx = useRef(0);
+
+  // The caller passes a fresh `onDone` closure on every render, and the input
+  // this widget owns re-renders the whole panel on each keystroke. Depending on
+  // `onDone` here restarted the reveal from zero every time someone typed or
+  // deleted a character while a reply was still being revealed. Hold it in a
+  // ref so the reveal effect depends only on the text itself.
+  const onDoneRef = useRef(onDone);
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  });
 
   useEffect(() => {
-    idx.current = 0;
+    let i = 0;
     setDisplayed("");
     const interval = setInterval(() => {
-      idx.current += 1;
-      if (idx.current >= text.length) {
+      i += 1;
+      if (i >= text.length) {
         setDisplayed(text);
         clearInterval(interval);
-        onDone();
+        onDoneRef.current();
       } else {
-        setDisplayed(text.slice(0, idx.current));
+        setDisplayed(text.slice(0, i));
       }
     }, 18);
     return () => clearInterval(interval);
-  }, [text, onDone]);
+  }, [text]);
 
   return (
     <span>
@@ -115,12 +125,23 @@ export default function ChatbotWidget() {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    // If there's a pending counter-question, resolve with the user's context
+    // A pending counter-question used to swallow whatever came next, so asking
+    // "how do I contact him" right after "why hire Amir" answered the hiring
+    // question instead. Only treat the reply as context when it actually names
+    // one, or when nothing else matches it.
     if (pendingEntry) {
-      const tailored = resolveCounterAnswer(pendingEntry, value);
+      const answersCounter = matchesCounterContext(pendingEntry, value);
+      const newTopic = findBestMatch(value);
+
+      if (answersCounter || newTopic.id === "fallback") {
+        const tailored = resolveCounterAnswer(pendingEntry, value);
+        setPendingEntry(null);
+        addBotReply(tailored, pendingEntry.followUps);
+        return;
+      }
+
       setPendingEntry(null);
-      addBotReply(tailored, pendingEntry.followUps);
-      return;
+      // Fall through and answer the new question instead.
     }
 
     const match = findBestMatch(value);
