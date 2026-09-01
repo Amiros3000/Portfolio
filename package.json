@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "chat:embeddings": "node scripts/build-chat-embeddings.mjs"
+    "chat:embeddings": "node scripts/build-chat-embeddings.mjs",
+    "sync:footpal": "node scripts/sync-footpal-metrics.mjs",
+    "sync:footpal:check": "node scripts/sync-footpal-metrics.mjs --check"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",

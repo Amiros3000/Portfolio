@@ -1,13 +1,16 @@
 /**
  * FootPal FC — flagship project detail.
  *
- * Every figure here comes from the code audit dated 2026-07-31. Nothing in this
- * file may be softened into a claim the code does not support. In particular:
- * the service worker is an OFFLINE FALLBACK, never "offline support" and never
- * "works offline" — it caches nothing, by design.
+ * Every figure here is COUNTED from the FootPal repository by
+ * `npm run sync:footpal` and re-counted weekly by a GitHub Action — never typed
+ * in by hand. Nothing in this file may be softened into a claim the code does
+ * not support. In particular: the service worker is an OFFLINE FALLBACK, never
+ * "offline support" and never "works offline" — it caches nothing, by design.
  */
+import { footpalCountedOn, footpalFigures } from "./footpal-metrics";
 
-export const FOOTPAL_AUDIT_DATE = "July 31, 2026";
+/** The day the figures below were last counted against the repo. */
+export const FOOTPAL_AUDIT_DATE = footpalCountedOn;
 
 export type SpecFigure = {
   value: string;
@@ -20,11 +23,17 @@ export type SpecFigure = {
  * value and shipped a literal "0+" whenever that animation didn't run.
  */
 export const footpalSpec: SpecFigure[] = [
-  { value: "27", label: "Postgres models" },
-  { value: "109", label: "HTTP handlers across 81 route files" },
-  { value: "175", label: "test blocks across 15 suites" },
-  { value: "457", label: "commits" },
-  { value: "v2.43.0", label: "current release" },
+  { value: footpalFigures.models, label: "Postgres models" },
+  {
+    value: footpalFigures.handlers,
+    label: `HTTP handlers across ${footpalFigures.routeFiles} route files`,
+  },
+  {
+    value: footpalFigures.testBlocks,
+    label: `test blocks across ${footpalFigures.testSuites} suites`,
+  },
+  { value: footpalFigures.commits, label: "commits" },
+  { value: footpalFigures.release, label: "current release" },
 ];
 
 /**
@@ -32,9 +41,9 @@ export const footpalSpec: SpecFigure[] = [
  * not already say — the release state, not the counts.
  */
 export const footpalRelease: SpecFigure[] = [
-  { value: "v2.43.0", label: "current release" },
-  { value: "457", label: "commits" },
-  { value: "Jun 2026", label: "building since" },
+  { value: footpalFigures.release, label: "current release" },
+  { value: footpalFigures.commits, label: "commits" },
+  { value: footpalFigures.buildingSince, label: "building since" },
 ];
 
 export const footpalStack = [

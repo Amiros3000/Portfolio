@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { cosineSimilarity, embed } from "ai";
-import { getEmbeddableEntries } from "@/app/components/chatbot/chatbot-knowledge-base";
+import { getIndexFingerprint } from "@/app/components/chatbot/chatbot-knowledge-base";
 import rawIndex from "@/app/components/chatbot/chat-embeddings.json";
 
 type ChatIndex = {
@@ -66,7 +66,7 @@ let indexIsCurrent: boolean | null = null;
 function isIndexCurrent(): boolean {
   if (indexIsCurrent === null) {
     const hash = createHash("sha256")
-      .update(JSON.stringify(getEmbeddableEntries()))
+      .update(getIndexFingerprint())
       .digest("hex")
       .slice(0, 16);
 

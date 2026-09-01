@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { footpalFigures } from "./footpal-metrics";
 import {
   getSupabasePortfolioContent,
   isSupabaseConfigured,
@@ -42,9 +43,12 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     headline:
-      "FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and 175 tests.",
+      `FootPal FC runs on a ${footpalFigures.models}-model Postgres schema, ` +
+      `${footpalFigures.handlers} route handlers, and ${footpalFigures.testBlocks} tests.`,
     subheadline:
-      "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
+      `It organizes recurring pickup soccer for ${footpalFigures.activePlayers} players ` +
+      `across ${footpalFigures.crews} crews — RSVPs, team drafting, cost splitting, ` +
+      `and player ratings.`,
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },

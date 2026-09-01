@@ -1,0 +1,82 @@
+# Keeps the portfolio's FootPal FC figures true without anyone remembering to.
+#
+# Counts the real repository every Monday and commits the result straight to
+# main, which redeploys the site. Only ever touches NUMBERS — the counts, the
+# release, the commit total — because those are mechanically verifiable. Prose
+# is not written here; a separate monthly Claude pass proposes that as a PR.
+#
+# SETUP (one time): this needs to read the private FootPal-FC repo, which the
+# default GITHUB_TOKEN cannot do. Create a fine-grained personal access token
+# with `Contents: read-only` on Amiros3000/FootPal-FC, then save it at
+#   Portfolio -> Settings -> Secrets and variables -> Actions -> New secret
+#   Name: FOOTPAL_REPO_TOKEN
+# Until that exists the job stops with a message instead of failing silently.
+name: Sync FootPal metrics
+
+on:
+  schedule:
+    # Mondays 08:00 UTC (04:00 Toronto in summer, 03:00 in winter).
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+# Needed to push the refreshed numbers back to main.
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-footpal-metrics
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the FootPal token is configured
+        env:
+          FOOTPAL_REPO_TOKEN: ${{ secrets.FOOTPAL_REPO_TOKEN }}
+        run: |
+          if [ -z "$FOOTPAL_REPO_TOKEN" ]; then
+            echo "::error::FOOTPAL_REPO_TOKEN is not set. See the setup note at the top of this workflow."
+            exit 1
+          fi
+
+      - name: Check out the portfolio
+        uses: actions/checkout@v4
+
+      - name: Check out FootPal FC
+        uses: actions/checkout@v4
+        with:
+          repository: Amiros3000/FootPal-FC
+          token: ${{ secrets.FOOTPAL_REPO_TOKEN }}
+          path: .footpal
+          # Full history: the commit count is one of the figures.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Recount
+        run: node scripts/sync-footpal-metrics.mjs
+        env:
+          FOOTPAL_REPO: ${{ github.workspace }}/.footpal
+
+      - name: Commit if anything moved
+        run: |
+          # .footpal is a sibling checkout, never part of a commit.
+          rm -rf .footpal
+
+          if git diff --quiet -- content; then
+            echo "Figures unchanged. Nothing to commit."
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The script only ever writes content/; app/ derives from it at build time.
+          git add content
+
+          version=$(node -p "require('./content/footpal-metrics.json').version")
+          git commit -m "Sync FootPal FC figures (v${version})" \
+                     -m "Counted from the FootPal repository by scripts/sync-footpal-metrics.mjs."
+          git push

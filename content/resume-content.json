@@ -8,7 +8,7 @@
     "githubUrl": "https://github.com/Amiros3000",
     "websiteUrl": ""
   },
-  "summary": "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: 27-model Postgres schema, 109 HTTP handlers, 175 test blocks, in use by 25+ players.",
+  "summary": "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: 27-model Postgres schema, 119 HTTP handlers, 399 test blocks, in use by 25+ players.",
   "experience": [
     {
       "title": "Co-Founder",
@@ -105,7 +105,7 @@
     {
       "title": "FootPal FC",
       "stack": "Next.js 15 / TypeScript / PostgreSQL / Prisma",
-      "description": "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. 27-model Postgres schema, 109 HTTP handlers, 175 test blocks. Used by 25+ players in three crews.",
+      "description": "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. 27-model Postgres schema, 119 HTTP handlers, 399 test blocks. Used by 25+ players in three crews.",
       "url": "https://footpalfc.amiribrahim3000.com"
     },
     {

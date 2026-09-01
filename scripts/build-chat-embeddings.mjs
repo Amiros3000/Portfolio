@@ -15,7 +15,10 @@ import { createHash } from "node:crypto";
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { embedMany } from "ai";
-import { getEmbeddableEntries } from "../app/components/chatbot/chatbot-knowledge-base.ts";
+import {
+  getEmbeddableEntries,
+  getIndexFingerprint,
+} from "../app/components/chatbot/chatbot-knowledge-base.ts";
 
 const MODEL = "openai/text-embedding-3-small";
 const OUT = path.join(process.cwd(), "app/components/chatbot/chat-embeddings.json");
@@ -30,8 +33,10 @@ if (!process.env.AI_GATEWAY_API_KEY) {
 }
 
 const entries = getEmbeddableEntries();
+// Digit-insensitive on purpose — see getIndexFingerprint. A weekly metrics sync
+// must not mark this index stale.
 const sourceHash = createHash("sha256")
-  .update(JSON.stringify(entries))
+  .update(getIndexFingerprint())
   .digest("hex")
   .slice(0, 16);
 

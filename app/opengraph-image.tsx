@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
+import { footpalFigures, footpalScaleSentence } from "@/app/lib/footpal-metrics";
 
 export const alt =
-  "Amir Ibrahim — full-stack developer. FootPal FC: 27 Postgres models, 109 HTTP handlers, 175 test blocks.";
+  `Amir Ibrahim — full-stack developer. FootPal FC: ${footpalScaleSentence}.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,8 +53,8 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and
-          175 tests.
+          {`FootPal FC runs on a ${footpalFigures.models}-model Postgres schema, ` +
+            `${footpalFigures.handlers} route handlers, and ${footpalFigures.testBlocks} tests.`}
         </div>
 
         <div
@@ -65,8 +66,8 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Pickup soccer logistics for 25+ players across three crews — RSVPs,
-          team drafting, cost splitting, and player ratings.
+          {`Pickup soccer logistics for ${footpalFigures.activePlayers} players across ` +
+            `${footpalFigures.crews} crews — RSVPs, team drafting, cost splitting, and player ratings.`}
         </div>
 
         <div
@@ -83,7 +84,8 @@ export default function Image() {
           }}
         >
           <span style={{ fontSize: "17px", color: "#605a55" }}>
-            v2.43.0 · 457 commits · building since Jun 2026
+            {`${footpalFigures.release} · ${footpalFigures.commits} commits · ` +
+              `building since ${footpalFigures.buildingSince}`}
           </span>
           <span style={{ fontSize: "17px", color: "#880808" }}>
             amiribrahim3000.com

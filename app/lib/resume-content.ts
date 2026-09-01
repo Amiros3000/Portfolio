@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { footpalFigures } from "./footpal-metrics";
 
 /* ── Types ── */
 
@@ -60,7 +61,11 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
     websiteUrl: "",
   },
   summary:
-    "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: 27-model Postgres schema, 109 HTTP handlers, 175 test blocks, in use by 25+ players.",
+    "Computer Engineering graduate from York University (2025) and full-stack developer. " +
+    "Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. " +
+    `Current project FootPal FC: ${footpalFigures.models}-model Postgres schema, ` +
+    `${footpalFigures.handlers} HTTP handlers, ${footpalFigures.testBlocks} test blocks, ` +
+    `in use by ${footpalFigures.activePlayers} players.`,
   experience: [
     {
       title: "Co-Founder",
@@ -158,7 +163,10 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
       title: "FootPal FC",
       stack: "Next.js 15 / TypeScript / PostgreSQL / Prisma",
       description:
-        "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. 27-model Postgres schema, 109 HTTP handlers, 175 test blocks. Used by 25+ players in three crews.",
+        "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player " +
+        `ratings across independent crews. ${footpalFigures.models}-model Postgres schema, ` +
+        `${footpalFigures.handlers} HTTP handlers, ${footpalFigures.testBlocks} test blocks. ` +
+        `Used by ${footpalFigures.activePlayers} players in ${footpalFigures.crews} crews.`,
       url: "https://footpalfc.amiribrahim3000.com",
     },
     {

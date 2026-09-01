@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-09-01",
+  "source": {
+    "repo": "Amiros3000/FootPal-FC",
+    "branch": "main",
+    "commit": "ba65d4c"
+  },
+  "version": "2.88.6",
+  "commits": 575,
+  "models": 27,
+  "handlers": 119,
+  "routeFiles": 87,
+  "testBlocks": 399,
+  "testSuites": 33,
+  "firstCommit": "2026-06-02",
+  "lastCommit": "2026-08-31",
+  "buildingSince": "Jun 2026",
+  "manual": {
+    "activePlayers": "25+",
+    "crews": "three"
+  }
+}

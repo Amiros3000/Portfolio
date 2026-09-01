@@ -373,7 +373,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </ul>
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
-          Counts verified by code audit, {FOOTPAL_AUDIT_DATE}.
+          Counted from the repository, {FOOTPAL_AUDIT_DATE}.
         </p>
       </Section>
 
