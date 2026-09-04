@@ -42,13 +42,24 @@ export const FOOTPAL_AUDIT_DATE = formatAuditDate(audit.auditDate);
  * An unknown placeholder is left alone rather than replaced with "undefined":
  * a visible `{typo}` is a bug someone fixes, silent wrong output is not.
  */
+const PLACEHOLDER_VALUES: Record<string, string | number> = {
+  models: audit.models,
+  handlers: audit.handlers,
+  routeFiles: audit.routeFiles,
+  testBlocks: audit.testBlocks,
+  testSuites: audit.testSuites,
+  commits: audit.commits,
+  version: audit.version,
+  buildingSince: audit.buildingSince,
+  auditDate: audit.auditDate,
+  /** "September 4, 2026" — for prose, where the ISO form reads wrong. */
+  auditDateLong: FOOTPAL_AUDIT_DATE,
+};
+
 export function fillAuditPlaceholders(text: string): string {
-  return text.replace(/\{(\w+)\}/g, (whole, key: string) => {
-    const value = (audit as Record<string, unknown>)[key];
-    return typeof value === "string" || typeof value === "number"
-      ? String(value)
-      : whole;
-  });
+  return text.replace(/\{(\w+)\}/g, (whole, key: string) =>
+    key in PLACEHOLDER_VALUES ? String(PLACEHOLDER_VALUES[key]) : whole,
+  );
 }
 
 export type SpecFigure = {

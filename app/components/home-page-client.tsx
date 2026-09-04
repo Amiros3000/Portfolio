@@ -30,7 +30,16 @@ const linkStyle =
 const fieldStyle =
   "w-full border border-line bg-surface px-3.5 py-2.5 font-sans text-sm text-foreground transition-colors placeholder:text-muted/60 focus:border-accent-ink focus:outline-none";
 
-/** Section shell: hairline rule, sticky mono label in the left rail, content right. */
+/**
+ * Section shell: hairline rule, sticky mono label in the left rail, content right.
+ *
+ * The rail label is the section's `h2` and its accessible name, not a styled
+ * `<p>`. It looked identical either way, but as a paragraph it left every region
+ * unnamed and the heading outline went h1 -> h2 (FootPal FC) -> h3 -> h4 -> h3
+ * -> h3 -> h2, with "Also built", "Experience", and "Stack" contributing no
+ * heading at all. A screen-reader user landing in the middle of the page had
+ * nothing to tell them which section they were in.
+ */
 function Section({
   id,
   label,
@@ -40,13 +49,22 @@ function Section({
   label: string;
   children: React.ReactNode;
 }) {
+  const headingId = `${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
+
   return (
-    <section id={id} className="scroll-mt-16 border-t border-line">
+    <section
+      id={id}
+      aria-labelledby={headingId}
+      className="scroll-mt-16 border-t border-line"
+    >
       <div className={shell}>
         <div className={`${railGrid} py-14 sm:py-20`}>
-          <p className="meta text-accent-ink lg:sticky lg:top-24 lg:self-start">
+          <h2
+            id={headingId}
+            className="meta text-accent-ink lg:sticky lg:top-24 lg:self-start"
+          >
             {label}
-          </p>
+          </h2>
           <div>{children}</div>
         </div>
       </div>
@@ -197,11 +215,24 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           ) : null}
+          {/*
+            "General resume", not "Resume". Amir tailors per role, so anyone
+            holding a version he emailed them should be able to tell at a glance
+            that this is the baseline rather than a document that contradicts
+            theirs. Generated from the same content as this page — see
+            app/resume.pdf/route.ts.
+          */}
+          {content.hero.resumeUrl ? (
+            <a href={content.hero.resumeUrl} className={linkStyle}>
+              General resume (PDF)
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ) : null}
         </div>
       </section>
 
       {/* ── About ── */}
-      <Section label="About">
+      <Section id="about" label="About">
         <p className="prose-body max-w-2xl text-foreground">
           {content.hero.bio}
         </p>
@@ -210,9 +241,9 @@ export default function HomePageClient({ content }: HomePageClientProps) {
       {/* ── Flagship ── */}
       <Section id="work" label="Flagship">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <h2 className="display text-3xl text-foreground sm:text-4xl">
+          <h3 className="display text-3xl text-foreground sm:text-4xl">
             {flagship?.title}
-          </h2>
+          </h3>
           {flagship?.href ? (
             <a
               href={flagship.href}
@@ -411,9 +442,9 @@ export default function HomePageClient({ content }: HomePageClientProps) {
 
       {/* ── Contact ── */}
       <Section id="contact" label="Contact">
-        <h2 className="display max-w-xl text-3xl text-foreground sm:text-4xl">
+        <h3 className="display max-w-xl text-3xl text-foreground sm:text-4xl">
           Open to full-stack and frontend roles.
-        </h2>
+        </h3>
 
         <dl className="mt-8 divide-y divide-line border-t border-b border-line">
           {lookingFor.map((row) => (

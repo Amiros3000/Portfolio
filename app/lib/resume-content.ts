@@ -1,3 +1,4 @@
+import { allSkills } from "./profile";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -130,29 +131,9 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
       ],
     },
   ],
-  skills: [
-    "TypeScript",
-    "JavaScript (ES6+)",
-    "Python",
-    "Java",
-    "SQL",
-    "Bash",
-    "React",
-    "Next.js",
-    "Tailwind",
-    "Node.js",
-    "FastAPI",
-    "PostgreSQL",
-    "Prisma",
-    "MySQL",
-    "Vitest",
-    "Sentry",
-    "Docker",
-    "GitHub Actions",
-    "Vercel",
-    "Linux/Unix",
-    "Git/GitHub",
-  ],
+  // Derived from ./profile, the same list the site's Stack section renders.
+  // Was a fourth hand-typed copy of the same skills.
+  skills: allSkills,
   projects: [
     {
       title: "FootPal FC",
@@ -193,7 +174,7 @@ function cleanStrArray(value: unknown, fallback: string[]): string[] {
   const c = value
     .map((i) => (typeof i === "string" ? i.trim() : ""))
     .filter(Boolean)
-    .slice(0, 30);
+    .slice(0, 40);
   return c.length > 0 ? c : fallback;
 }
 

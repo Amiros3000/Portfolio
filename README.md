@@ -53,8 +53,9 @@ app/
     home-page-client.tsx      # the entire public page
     site-header.tsx           # nav + scroll-spy
     site-footer.tsx
-    chatbot/                  # widget, knowledge base, embedding index
+    chatbot/                  # launcher (eager) + widget/KB (code-split)
     resume-builder/           # admin-only resume editor + PDF document
+  resume.pdf/                 # public generated resume (server-rendered)
   admin/                      # dev-only login + dashboard
   api/
     admin/                    # dev-only content + resume endpoints
@@ -107,9 +108,10 @@ The script requires full git history for the commit count and refuses to write
 from a `--depth=1` clone rather than publish a wrong number.
 
 > **Still duplicated.** `content/resume-content.json` keeps its own copy of
-> experience, education, and skills for the resume builder, and
-> `app/components/chatbot/chatbot-knowledge-base.ts` restates many of the same
-> claims as hand-written prose. Neither is derived from `profile.ts` yet.
+> experience and education for the resume builder (its skills now come from
+> `profile.ts`). The chatbot knowledge base restates many claims as
+> hand-written prose; its counts are placeholders, but the surrounding sentences
+> are not derived from anything.
 
 ### Canonical URL
 
@@ -141,6 +143,11 @@ wrong answer.
 > placeholder (`"model": null`, no entries), so semantic matching is off in
 > production and only keyword matching runs. Run the script above and commit
 > the result to enable it.
+
+The widget and its knowledge base are code-split behind
+`chatbot-launcher.tsx`, which renders only the closed button and fetches the
+rest on idle (or on click, whichever comes first). Mounted eagerly it put ~12KB
+gzipped on the critical path of every visit, opened or not.
 
 ## Admin panel
 
@@ -215,3 +222,17 @@ npm run audit:footpal -- <repo-path> # regenerates content/footpal-audit.json
 
 Vercel. Set `NEXT_PUBLIC_SITE_URL` to the canonical domain; nothing else is
 required.
+
+## The public resume
+
+`/resume.pdf` is generated on the server from `content/resume-content.json` by
+`app/resume.pdf/route.tsx`, cached for an hour. There is one public resume and
+it derives from the same content the site renders, so the two cannot disagree.
+
+The site links it as **"General resume"** on purpose. Role-specific resumes are
+tailored and sent by email; the label tells anyone holding one of those that
+this is the baseline rather than a document contradicting theirs.
+
+`@react-pdf/renderer` is ~685KB. Rendering server-side keeps all of it off the
+client. `resume-pdf-document.tsx` therefore carries no `"use client"`
+directive — see the note at the top of that file before adding one back.

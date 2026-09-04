@@ -1,3 +1,5 @@
+import { fillAuditPlaceholders } from "@/app/lib/footpal-fc";
+
 export type KnowledgeEntry = {
   id: string;
   keywords: string[];
@@ -22,7 +24,7 @@ export type KnowledgeEntry = {
    - Marché Adonis title is Assistant Deli Manager.
    - No Express anywhere; backend is Next.js API routes and FastAPI.
 */
-const knowledgeBase: KnowledgeEntry[] = [
+const knowledgeBaseTemplates: KnowledgeEntry[] = [
   {
     id: "greeting",
     // Patterns run against normalizeInput() output: lowercased, punctuation
@@ -100,7 +102,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is FootPal FC, which he’s been building since June 2026 — a 27-model Postgres schema, 109 HTTP handlers, and 175 test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
+      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is FootPal FC, which he’s been building since June 2026 — a {models}-model Postgres schema, {handlers} HTTP handlers, and {testBlocks} test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
     followUps: ["footpal", "experience", "skills"],
   },
   {
@@ -129,7 +131,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What has he built?",
     answer:
-      "Three things worth knowing about: (1) FootPal FC — his flagship, a pickup-soccer logistics app he’s been building since June 2026, now at v2.43.0 across 457 commits. (2) KonnectTaps — a digital business card platform he co-founded and built the frontend for; it reached 100+ signups and wound down in May 2026. (3) SOSO — a satellite telemetry visualization tool built for a Canadian Space Agency capstone. The Flagship section of the site goes into the actual engineering decisions behind FootPal FC.",
+      "Three things worth knowing about: (1) FootPal FC — his flagship, a pickup-soccer logistics app he’s been building since June 2026, now at v{version} across {commits} commits. (2) KonnectTaps — a digital business card platform he co-founded and built the frontend for; it reached 100+ signups and wound down in May 2026. (3) SOSO — a satellite telemetry visualization tool built for a Canadian Space Agency capstone. The Flagship section of the site goes into the actual engineering decisions behind FootPal FC.",
     followUps: ["footpal", "konnecttaps", "experience"],
   },
   {
@@ -147,7 +149,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
     question: "Tell me about FootPal FC",
     answer:
-      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 15, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. As of the July 31, 2026 code audit: 27 Postgres models, 109 HTTP handlers across 81 route files, 175 test blocks across 15 suites, 457 commits, v2.43.0. Live at footpalfc.amiribrahim3000.com.",
+      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 15, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. As of the {auditDateLong} code audit: {models} Postgres models, {handlers} HTTP handlers across {routeFiles} route files, {testBlocks} test blocks across {testSuites} suites, {commits} commits, v{version}. Live at footpalfc.amiribrahim3000.com.",
     followUps: ["footpal-engineering", "projects", "skills"],
   },
   {
@@ -278,11 +280,11 @@ const knowledgeBase: KnowledgeEntry[] = [
       "Good question — what kind of role or team is this for? For example: startup, product team, agency, or enterprise.",
     contextResponses: {
       startup:
-        "Amir works like an early-stage engineer. He’s been building FootPal FC since June 2026 — 457 commits, 109 route handlers, 175 test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
+        "Amir works like an early-stage engineer. He’s been building FootPal FC since June 2026 — {commits} commits, {handlers} route handlers, {testBlocks} test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
       product:
         "Amir builds for real use, not for a portfolio. FootPal FC came out of a problem in his own life and is now used by 25+ players in three crews, two of which he isn’t part of. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
       agency:
-        "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships (175 test blocks across 15 suites in FootPal FC).",
+        "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships ({testBlocks} test blocks across {testSuites} suites in FootPal FC).",
       enterprise:
         "Amir brings a Computer Engineering degree plus seven-plus years of operational discipline at Marché Adonis, where he now runs daily operations for a 13-person team. On the engineering side he’s deliberate about correctness: per-route access guards for tenant isolation, exactly-once award processing under concurrent triggers, and a single PII-scrubbing chokepoint for all error reporting.",
       controls:
@@ -290,7 +292,7 @@ const knowledgeBase: KnowledgeEntry[] = [
       systems:
         "Amir’s Computer Engineering degree covers networking, operating systems, and distributed systems, and his Humber studies add control circuits and industrial automation. In practice that shows up as systems thinking in his software: crew-scoped isolation enforced at every call site, idempotent award processing that leans on the database to serialize, and DST-correct time handling with no date library.",
       _default:
-        "Amir combines a Computer Engineering degree, seven-plus years of professional accountability at Marché Adonis, and a substantial codebase he can talk through in depth. FootPal FC is 27 Postgres models, 109 HTTP handlers, and 175 test blocks, and he can explain why the session auth stores only a SHA-256 hash, why there’s no date library, and why the service worker caches nothing. He’s a 2025 grad, but he’s not short on things to defend in an interview.",
+        "Amir combines a Computer Engineering degree, seven-plus years of professional accountability at Marché Adonis, and a substantial codebase he can talk through in depth. FootPal FC is {models} Postgres models, {handlers} HTTP handlers, and {testBlocks} test blocks, and he can explain why the session auth stores only a SHA-256 hash, why there’s no date library, and why the service worker caches nothing. He’s a 2025 grad, but he’s not short on things to defend in an interview.",
     },
     followUps: ["strengths", "footpal-engineering", "projects"],
   },
@@ -305,7 +307,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his strengths?",
     answer:
-      "(1) Depth on one real codebase — FootPal FC is 457 commits deep and he can explain the reasoning behind the schema, the auth, and the caching policy. (2) Frontend craft — that was his role at KonnectTaps and it’s where he’s strongest. (3) Correctness over convenience — he writes things from scratch when a library would hide a behaviour he needs to control, like DST handling and session tokens. (4) Operational reliability — seven-plus years running high-volume shifts at Marché Adonis. (5) He tests: 175 test blocks across 15 suites.",
+      "(1) Depth on one real codebase — FootPal FC is {commits} commits deep and he can explain the reasoning behind the schema, the auth, and the caching policy. (2) Frontend craft — that was his role at KonnectTaps and it’s where he’s strongest. (3) Correctness over convenience — he writes things from scratch when a library would hide a behaviour he needs to control, like DST handling and session tokens. (4) Operational reliability — seven-plus years running high-volume shifts at Marché Adonis. (5) He tests: {testBlocks} test blocks across {testSuites} suites.",
     followUps: ["fit", "skills", "weaknesses"],
   },
   {
@@ -428,6 +430,37 @@ function tokenize(input: string): string[] {
   return normalizeInput(input).split(" ").filter(Boolean);
 }
 
+/**
+ * Counts in these answers are stored as `{placeholders}` and resolved here, once,
+ * at module load. The knowledge base used to state "27 Postgres models, 109 HTTP
+ * handlers, 175 test blocks, 457 commits, v2.43.0" as literal prose; by the next
+ * audit the repo was at 27/119/416/585/v2.89.2 and the bot was still quoting the
+ * old figures to visitors long after the page itself had been corrected.
+ *
+ * Everything a visitor sees comes from `knowledgeBase` (filled).
+ * `getEmbeddableEntries` deliberately reads the UNFILLED templates instead — see
+ * the note there.
+ */
+function fillEntry(entry: KnowledgeEntry): KnowledgeEntry {
+  return {
+    ...entry,
+    answer: fillAuditPlaceholders(entry.answer),
+    counterQuestion: entry.counterQuestion
+      ? fillAuditPlaceholders(entry.counterQuestion)
+      : undefined,
+    contextResponses: entry.contextResponses
+      ? Object.fromEntries(
+          Object.entries(entry.contextResponses).map(([key, value]) => [
+            key,
+            fillAuditPlaceholders(value),
+          ]),
+        )
+      : undefined,
+  };
+}
+
+const knowledgeBase: KnowledgeEntry[] = knowledgeBaseTemplates.map(fillEntry);
+
 export function findBestMatch(userInput: string): KnowledgeEntry {
   const normalized = normalizeInput(userInput);
   const tokens = tokenize(userInput);
@@ -529,7 +562,11 @@ export function getEntryById(id: string): KnowledgeEntry | undefined {
  * fall back to that.
  */
 export function getEmbeddableEntries(): Array<{ id: string; text: string }> {
-  return knowledgeBase.map((entry) => ({
+  // Templates, not filled text. The route refuses to serve an index whose
+  // sourceHash no longer matches; hashing filled text would invalidate the whole
+  // index every time `npm run audit:footpal` moved a single count, forcing a
+  // re-embed (and an API key) for a change no answer's meaning depends on.
+  return knowledgeBaseTemplates.map((entry) => ({
     id: entry.id,
     text: [entry.question, entry.keywords.join(" "), entry.answer || entry.counterQuestion || ""]
       .filter(Boolean)

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
+import { LAUNCHER_CLASS } from "./launcher-style";
 import {
   findBestMatch,
   getEntryById,
@@ -95,8 +96,19 @@ async function resolveEntry(message: string): Promise<KnowledgeEntry> {
 
 let nextId = 1;
 
-export default function ChatbotWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+/**
+ * `initialOpen` exists because this component is now code-split behind
+ * chatbot-launcher.tsx: the launcher renders the closed button, and only when
+ * someone clicks it does this module (and the knowledge base) get fetched, at
+ * which point it must come up already open. It still owns open/closed from
+ * then on, including rendering its own button after a close.
+ */
+export default function ChatbotWidget({
+  initialOpen = false,
+}: {
+  initialOpen?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(initialOpen);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -262,7 +274,7 @@ export default function ChatbotWidget() {
         <button
           onClick={() => setIsOpen(true)}
           aria-label="Open chat"
-          className="rise fixed right-5 bottom-5 z-[60] flex h-12 w-12 cursor-pointer items-center justify-center bg-accent text-on-accent transition-opacity hover:opacity-90"
+          className={LAUNCHER_CLASS}
         >
           <MessageCircle className="h-5 w-5" />
         </button>

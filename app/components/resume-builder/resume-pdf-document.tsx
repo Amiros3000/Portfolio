@@ -1,5 +1,14 @@
-"use client";
-
+/**
+ * No "use client" directive, deliberately.
+ *
+ * This module is rendered in TWO places: the admin resume builder (a client
+ * component, which can import a directive-free module without complaint) and
+ * app/resume.pdf/route.tsx, which calls renderToBuffer on the server. Marking
+ * it client-only turns it into a client *reference* when imported from the
+ * route handler, so renderToBuffer receives a placeholder rather than a
+ * component tree. It renders no DOM and touches no browser API, so it does not
+ * need the directive.
+ */
 import { Document, Page, View, Text, Link } from "@react-pdf/renderer";
 import type { ResumeContent } from "@/app/lib/resume-content";
 import { styles } from "./resume-pdf-styles";

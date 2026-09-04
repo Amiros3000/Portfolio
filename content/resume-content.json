@@ -8,7 +8,7 @@
     "githubUrl": "https://github.com/Amiros3000",
     "websiteUrl": ""
   },
-  "summary": "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: 27-model Postgres schema, 109 HTTP handlers, 175 test blocks, in use by 25+ players.",
+  "summary": "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: {models}-model Postgres schema, {handlers} HTTP handlers, {testBlocks} test blocks, in use by 25+ players.",
   "experience": [
     {
       "title": "Co-Founder",
@@ -49,46 +49,11 @@
       ]
     }
   ],
-  "skills": [
-    "TypeScript",
-    "JavaScript (ES6+)",
-    "Python",
-    "Java",
-    "SQL",
-    "Bash",
-    "React",
-    "Next.js",
-    "Tailwind",
-    "HTML5/CSS3",
-    "PWA (Web Push, installable)",
-    "Node.js",
-    "FastAPI",
-    "REST API design",
-    "PostgreSQL",
-    "Prisma",
-    "MySQL",
-    "SQLite/SQLCipher",
-    "Custom session auth",
-    "Vitest",
-    "Sentry",
-    "Docker",
-    "GitHub Actions (CI/CD)",
-    "Git/GitHub",
-    "Vercel",
-    "VPS deployment",
-    "Linux/Ubuntu",
-    "Nginx",
-    "SSL/TLS",
-    "Multi-tenant architecture",
-    "System design",
-    "Concurrency & idempotency",
-    "Agile"
-  ],
   "projects": [
     {
       "title": "FootPal FC",
       "stack": "Next.js 15 / TypeScript / PostgreSQL / Prisma",
-      "description": "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. 27-model Postgres schema, 109 HTTP handlers, 175 test blocks. Used by 25+ players in three crews.",
+      "description": "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. {models}-model Postgres schema, {handlers} HTTP handlers, {testBlocks} test blocks. Used by 25+ players in three crews.",
       "url": "https://footpalfc.amiribrahim3000.com"
     },
     {
