@@ -23,6 +23,12 @@ export type KnowledgeEntry = {
      Its service worker is an OFFLINE FALLBACK — never "offline support".
    - Marché Adonis title is Assistant Deli Manager.
    - No Express anywhere; backend is Next.js API routes and FastAPI.
+   - KonnectTaps tour: do NOT claim it repositions around floating controls.
+     That code exists but is unreachable — every mobile step hardcodes
+     placement:'top' and returns before the overlap logic. Only the z-index
+     work ships. (Source review, 2026-09-04.)
+   - KonnectTaps QR: the centering fallback is on the CREATION path only. The
+     render path falls back to zero, which pins to the corner, not the centre.
 */
 const knowledgeBaseTemplates: KnowledgeEntry[] = [
   {
@@ -140,7 +146,7 @@ const knowledgeBaseTemplates: KnowledgeEntry[] = [
     patterns: [/konnect\s?taps/i, /ktaps/i, /co-?found/i, /networking (platform|app|tool)/i],
     question: "Tell me about KonnectTaps",
     answer:
-      "KonnectTaps was a digital business card platform Amir co-founded in January 2024. He built the frontend in React and Next.js, working alongside two other developers, and contributed to scope and product direction. He did not build the payment integration — that was Stripe, and the CEO built it. The platform reached 100+ signups and wound down in May 2026. The site is konnecttaps.com.",
+      "KonnectTaps was a digital business card platform Amir co-founded in January 2024. He built the frontend in React and Next.js, working alongside two other developers, and contributed to scope and product direction. He did not build the payment integration — that was Stripe, and the CEO built it. His work there is the team engineering on this site: an in-app unsaved-changes guard for the card editor, finite-value guards for QR geometry after NaN reached SVG transforms, and an in-house onboarding tour. The Team work section lays out what each of those cost. The platform reached 100+ signups and wound down in May 2026. The site is konnecttaps.com.",
     followUps: ["footpal", "projects", "strengths"],
   },
   {

@@ -12,12 +12,14 @@
 
 export const experience = [
   {
-    title: "Co-Founder",
+    title: "Co-Founder & Frontend Developer",
     company: "KonnectTaps",
     location: "Remote",
     period: "Jan 2024 – May 2026",
     bullets: [
-      "Built the frontend for a digital business card platform in React and Next.js, from component work through to the shipped product.",
+      // Role context only. The engineering detail is the Team work section
+      // above; repeating it here would say the same thing twice.
+      "Built the frontend for a digital business card platform in React and Next.js — the card editor and designer users composed and styled their cards in.",
       "Worked alongside two other developers on scope and product direction.",
       "The platform reached 100+ signups. It wound down in May 2026.",
     ],

@@ -11,15 +11,17 @@
   "summary": "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: {models}-model Postgres schema, {handlers} HTTP handlers, {testBlocks} test blocks, in use by 25+ players.",
   "experience": [
     {
-      "title": "Co-Founder",
+      "title": "Co-Founder & Frontend Developer",
       "company": "KonnectTaps",
       "location": "Remote",
       "startDate": "Jan 2024",
       "endDate": "May 2026",
       "bullets": [
-        "Built the frontend for a digital business card platform in React and Next.js, from component work through to the shipped product.",
-        "Worked alongside two other developers on scope and product direction.",
-        "The platform reached 100+ signups. It wound down in May 2026."
+        "Built an in-app unsaved-changes guard for the card editor: capture-phase anchor interception, patched History API methods, and popstate handling all routed through a styled modal, with consume-once escape hatches so programmatic navigation bypasses the prompt.",
+        "Traced misplaced and vanishing QR codes to NaN reaching SVG transforms from card records persisted before the geometry fields existed, then guarded every term with finite-value checks and added a centering fallback on the card-creation path.",
+        "Replaced the inherited onboarding flow with a five-step in-house tour, fixing the z-index stacking that left highlighted controls unclickable by raising targets above the overlay and dropping the mobile action bar beneath it.",
+        "Shipped CSV export, card sharing, and Open Graph metadata so shared card links render proper previews, plus a shared plan renewal/expiry utility used by the settings, billing, and company settings pages.",
+        "Built earlier iterations of the page editor and card designer — the surfaces users composed and styled their cards in — prior to the frontend rebuild in early 2026."
       ]
     },
     {

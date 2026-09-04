@@ -9,7 +9,12 @@ import {
   footpalRelease,
   footpalSpec,
   footpalStack,
+  type Decision,
 } from "@/app/lib/footpal-fc";
+import {
+  KONNECTTAPS_REVIEW_DATE,
+  konnectTapsDecisions,
+} from "@/app/lib/konnecttaps";
 import {
   education,
   experience,
@@ -46,6 +51,38 @@ function displayHost(url: string): string {
   } catch {
     return url;
   }
+}
+
+/**
+ * The signature device: the claim, then the cost of the claim.
+ *
+ * Shared by the Flagship and KonnectTaps sections. It was inline in Flagship
+ * and KonnectTaps had no decisions at all, which was the single biggest content
+ * problem on the page: the site's whole argument is "every decision has a cost",
+ * applied to a solo side project and withheld from the only work done on a team.
+ */
+function DecisionList({ decisions }: { decisions: Decision[] }) {
+  return (
+    <>
+      <h4 className="meta mt-14 text-accent-ink">Decisions</h4>
+      <ul className="mt-6 space-y-9">
+        {decisions.map((decision) => (
+          <li key={decision.title} className="decision">
+            <h5 className="font-sans text-[1.05rem] leading-snug font-semibold tracking-[-0.01em] text-foreground sm:text-lg">
+              {decision.title}
+            </h5>
+            <p className="prose-body mt-2 max-w-2xl text-muted">
+              {decision.body}
+            </p>
+            <p className="mt-3 max-w-2xl font-mono text-[0.8125rem] leading-[1.65] text-muted">
+              <span className="text-accent-ink">Tradeoff — </span>
+              {decision.tradeoff}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 /**
@@ -94,7 +131,9 @@ export default function HomePageClient({ content }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
 
-  const [flagship, ...alsoBuilt] = content.projects;
+  // projects[0] Flagship, projects[1] KonnectTaps (its own section),
+  // the rest compressed into "Also built".
+  const [flagship, konnectTaps, ...alsoBuilt] = content.projects;
 
   async function handleContactSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -306,27 +345,51 @@ export default function HomePageClient({ content }: HomePageClientProps) {
           ))}
         </dl>
 
-        {/* Signature device: claim, then the cost of the claim. */}
-        <h3 className="meta mt-14 text-accent-ink">Decisions</h3>
-        <ul className="mt-6 space-y-9">
-          {footpalDecisions.map((decision) => (
-            <li key={decision.title} className="decision">
-              <h4 className="font-sans text-[1.05rem] leading-snug font-semibold tracking-[-0.01em] text-foreground sm:text-lg">
-                {decision.title}
-              </h4>
-              <p className="prose-body mt-2 max-w-2xl text-muted">
-                {decision.body}
-              </p>
-              <p className="mt-3 max-w-2xl font-mono text-[0.8125rem] leading-[1.65] text-muted">
-                <span className="text-accent-ink">Tradeoff — </span>
-                {decision.tradeoff}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <DecisionList decisions={footpalDecisions} />
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
           Counts verified by code audit, {FOOTPAL_AUDIT_DATE}.
+        </p>
+      </Section>
+
+      {/* ── Team work ── */}
+      <Section id="team" label="Team work">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h3 className="display text-3xl text-foreground sm:text-4xl">
+            {konnectTaps?.title}
+          </h3>
+          {konnectTaps?.href ? (
+            <a
+              href={konnectTaps.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyle}
+            >
+              {displayHost(konnectTaps.href)}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ) : null}
+        </div>
+
+        <p className="mt-3 font-mono text-[0.7rem] tracking-wide text-muted">
+          {konnectTaps?.stack}
+          {konnectTaps?.period ? (
+            <>
+              <span className="mx-2 text-line-strong">/</span>
+              {konnectTaps.period}
+            </>
+          ) : null}
+        </p>
+
+        <p className="prose-body mt-5 max-w-2xl text-muted">
+          {konnectTaps?.description}
+        </p>
+
+        <DecisionList decisions={konnectTapsDecisions} />
+
+        <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
+          Read from the source, {KONNECTTAPS_REVIEW_DATE}. The product wound down
+          in May 2026.
         </p>
       </Section>
 
