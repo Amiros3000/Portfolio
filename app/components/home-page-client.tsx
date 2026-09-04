@@ -31,6 +31,24 @@ const fieldStyle =
   "w-full border border-line bg-surface px-3.5 py-2.5 font-sans text-sm text-foreground transition-colors placeholder:text-muted/60 focus:border-accent-ink focus:outline-none";
 
 /**
+ * Host of a URL, for use as a link's visible text.
+ *
+ * The Flagship link showed a hardcoded "footpalfc.amiribrahim3000.com" while its
+ * href came from content, so editing the project URL would have left the text
+ * naming somewhere the link no longer went. Derive it instead.
+ *
+ * Falls back to the raw string if the URL will not parse, which keeps a
+ * malformed href visible rather than rendering an empty link.
+ */
+function displayHost(url: string): string {
+  try {
+    return new URL(url).host.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
+
+/**
  * Section shell: hairline rule, sticky mono label in the left rail, content right.
  *
  * The rail label is the section's `h2` and its accessible name, not a styled
@@ -251,7 +269,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
               rel="noopener noreferrer"
               className={linkStyle}
             >
-              footpalfc.amiribrahim3000.com
+              {displayHost(flagship.href)}
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           ) : null}
