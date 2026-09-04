@@ -26,22 +26,10 @@
       "title": "Assistant Deli Manager",
       "company": "Marché Adonis",
       "location": "Mississauga, ON",
-      "startDate": "Jun 2025",
+      "startDate": "Nov 2017",
       "endDate": "Present",
       "bullets": [
-        "Promoted from Clerk after 7 years — leading daily operations and scheduling for a 13-person team.",
-        "Serve as primary escalation contact, resolving real-time issues under high-volume conditions."
-      ]
-    },
-    {
-      "title": "Clerk",
-      "company": "Marché Adonis",
-      "location": "Mississauga, ON",
-      "startDate": "Nov 2017",
-      "endDate": "Jun 2025",
-      "bullets": [
-        "Managed inventory, customer service, and floor operations while completing a full-time engineering degree.",
-        "Built strong fundamentals in accountability, time management, and execution under pressure."
+        "Promoted from Deli Clerk in June 2025, at the seven-year mark, to run daily operations and scheduling for a 13-person team while completing a full-time engineering degree."
       ]
     }
   ],
@@ -59,23 +47,6 @@
         "Communication Networks",
         "Software Engineering Principles"
       ]
-    },
-    {
-      "degree": "Electromechanical Engineering Technician (Completed Year 1)",
-      "institution": "Humber College",
-      "location": "Toronto, ON",
-      "graduationDate": "2023",
-      "gpa": "",
-      "relevantCourses": [
-        "Introduction to Control Circuits",
-        "Robotics",
-        "Mechatronics",
-        "Industrial Pneumatics",
-        "Statics",
-        "Engineering Graphics",
-        "Engineering Materials",
-        "Workshop Practices"
-      ]
     }
   ],
   "skills": [
@@ -88,18 +59,30 @@
     "React",
     "Next.js",
     "Tailwind",
+    "HTML5/CSS3",
+    "PWA (Web Push, installable)",
     "Node.js",
     "FastAPI",
+    "REST API design",
     "PostgreSQL",
     "Prisma",
     "MySQL",
+    "SQLite/SQLCipher",
+    "Custom session auth",
     "Vitest",
     "Sentry",
     "Docker",
-    "GitHub Actions",
+    "GitHub Actions (CI/CD)",
+    "Git/GitHub",
     "Vercel",
-    "Linux/Unix",
-    "Git/GitHub"
+    "VPS deployment",
+    "Linux/Ubuntu",
+    "Nginx",
+    "SSL/TLS",
+    "Multi-tenant architecture",
+    "System design",
+    "Concurrency & idempotency",
+    "Agile"
   ],
   "projects": [
     {
@@ -110,14 +93,14 @@
     },
     {
       "title": "KonnectTaps",
-      "stack": "Next.js / React / JavaScript",
+      "stack": "Next.js / React / MySQL",
       "description": "Digital business card platform co-founded with two other developers; built the frontend. Reached 100+ signups, wound down May 2026.",
       "url": "https://konnecttaps.com"
     },
     {
-      "title": "CSA Capstone — SOSO",
-      "stack": "System Design",
-      "description": "Satellite telemetry visualization tool for the Canadian Space Agency.",
+      "title": "SOSO — Satellite Operations Services Optimizer",
+      "stack": "React / REST APIs",
+      "description": "Canadian Space Agency capstone. Built the React dashboard visualizing satellite telemetry and orbital pass schedules for CSA stakeholders; authored the system documentation and design trade-off analysis.",
       "url": ""
     }
   ]

@@ -29,27 +29,24 @@ const experience = [
       "The platform reached 100+ signups. It wound down in May 2026.",
     ],
   },
+  // Deliberately one entry with one bullet, matching how the resume subordinates
+  // this under "Additional Experience". It is seven years of accountability, not
+  // engineering work, and it should not carry the weight of an engineering role.
   {
     title: "Assistant Deli Manager",
     company: "Marché Adonis",
     location: "Mississauga, ON",
-    period: "Jun 2025 – Present",
+    period: "Nov 2017 – Present",
     bullets: [
-      "Run daily operations and scheduling for a 13-person team, after a promotion from Clerk at the seven-year mark.",
-      "Act as primary escalation contact through high-volume, time-sensitive shifts.",
-    ],
-  },
-  {
-    title: "Clerk",
-    company: "Marché Adonis",
-    location: "Mississauga, ON",
-    period: "Nov 2017 – Jun 2025",
-    bullets: [
-      "Ran inventory, customer service, and floor operations across seven years while completing a full-time engineering degree.",
+      "Promoted from Deli Clerk in June 2025, at the seven-year mark, to run daily operations and scheduling for a 13-person team while completing a full-time engineering degree.",
     ],
   },
 ];
 
+// The Humber Electromechanical Technician year was cut here, matching the
+// resume. It is a non-CS credential on a page arguing full-stack software, and
+// listing it (plus Ladder Logic and IT/OT under Stack) spent the reader's
+// attention arguing against the rest of the page.
 const education = [
   {
     degree: "B.Eng. Computer Engineering",
@@ -58,21 +55,17 @@ const education = [
     courses:
       "Object-Oriented Programming (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, Software Engineering Principles",
   },
-  {
-    degree: "Electromechanical Engineering Technician — Year 1",
-    institution: "Humber College",
-    period: "2022 – 2023",
-    courses:
-      "Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials",
-  },
 ];
 
+// Kept in step with the resume's skills block. Where the two group things
+// differently that is presentation, but nothing may appear in one and not the
+// other — a recruiter reads both.
 const skillCategories = [
   {
     label: "Languages",
     skills: [
-      "JavaScript (ES6+)",
       "TypeScript",
+      "JavaScript (ES6+)",
       "Python",
       "Java",
       "SQL",
@@ -85,13 +78,23 @@ const skillCategories = [
       "React",
       "Next.js (App Router/RSC)",
       "Tailwind",
+      "HTML5/CSS3",
       "PWA (Web Push, installable)",
     ],
   },
   {
     // Express removed — backend work is Next.js API routes and FastAPI.
     label: "Backend",
-    skills: ["Node.js", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
+    skills: [
+      "Node.js",
+      "FastAPI",
+      "REST API design",
+      "PostgreSQL",
+      "Prisma",
+      "MySQL",
+      "SQLite/SQLCipher",
+      "Custom session auth",
+    ],
   },
   {
     label: "Testing & observability",
@@ -101,11 +104,22 @@ const skillCategories = [
     label: "Infrastructure",
     skills: [
       "Docker",
-      "GitHub Actions",
+      "GitHub Actions (CI/CD)",
       "Git/GitHub",
       "Vercel",
+      "VPS deployment",
       "Linux/Ubuntu",
       "Nginx",
+      "SSL/TLS",
+    ],
+  },
+  {
+    label: "Concepts",
+    skills: [
+      "Multi-tenant architecture",
+      "System design",
+      "Concurrency & idempotency",
+      "Agile",
     ],
   },
 ];
@@ -391,6 +405,12 @@ export default function HomePageClient({ content }: HomePageClientProps) {
                 </h3>
                 <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-muted">
                   {project.stack}
+                  {project.period ? (
+                    <>
+                      <span className="mx-2 text-line-strong">/</span>
+                      {project.period}
+                    </>
+                  ) : null}
                 </p>
                 <p className="prose-body mt-2.5 max-w-xl text-muted">
                   {project.description}
@@ -495,9 +515,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </ul>
 
         <p className="mt-5 max-w-2xl font-mono text-[0.7rem] leading-[1.7] text-muted">
-          Currently learning: AWS, Kubernetes. Also familiar with Ladder Logic,
-          IT/OT networking, and electromechanical systems from Computer and
-          Electromechanical Engineering studies.
+          Currently learning: AWS, Kubernetes.
         </p>
       </Section>
 

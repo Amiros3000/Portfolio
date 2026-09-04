@@ -9,6 +9,8 @@ import {
 export type PortfolioProject = {
   title: string;
   stack: string;
+  /** e.g. "Jun 2026 – Present". Optional so an entry without one still renders. */
+  period?: string;
   description: string;
   href: string;
   hrefLabel: string;
@@ -48,9 +50,11 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
+  // Feeds JSON-LD `knowsAbout` only. Must stay a flattened mirror of
+  // `skillCategories` in home-page-client.tsx, which is what the page renders.
   skills: [
-    "JavaScript (ES6+)",
     "TypeScript",
+    "JavaScript (ES6+)",
     "Python",
     "Java",
     "SQL",
@@ -58,20 +62,30 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     "React",
     "Next.js",
     "Tailwind",
+    "HTML5/CSS3",
     "PWA (Web Push, installable)",
     "Node.js",
     "FastAPI",
+    "REST API design",
     "PostgreSQL",
     "Prisma",
     "MySQL",
+    "SQLite/SQLCipher",
+    "Custom session auth",
     "Vitest",
     "Sentry",
     "Docker",
-    "GitHub Actions",
+    "GitHub Actions (CI/CD)",
     "Git/GitHub",
     "Vercel",
+    "VPS deployment",
     "Linux/Ubuntu",
     "Nginx",
+    "SSL/TLS",
+    "Multi-tenant architecture",
+    "System design",
+    "Concurrency & idempotency",
+    "Agile",
   ],
   projects: [
     {
@@ -79,6 +93,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       // engineering detail lives in footpal-fc.ts.
       title: "FootPal FC",
       stack: "Next.js 15 / TypeScript / PostgreSQL / Prisma",
+      period: "Jun 2026 – Present",
       description:
         "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
       href: "https://footpalfc.amiribrahim3000.com",
@@ -88,17 +103,19 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       // Wound down May 2026. Amir was frontend; the payment integration was
       // built by the CEO and is deliberately not claimed here.
       title: "KonnectTaps",
-      stack: "Next.js / React / JavaScript",
+      stack: "Next.js / React / MySQL",
+      period: "Jan 2024 – May 2026",
       description:
         "Digital business card platform I co-founded and built the frontend for, working with two other developers. Reached 100+ signups. Wound down in May 2026.",
       href: "https://konnecttaps.com",
       hrefLabel: "Site",
     },
     {
-      title: "CSA Capstone — SOSO",
-      stack: "System Design",
+      title: "SOSO — Satellite Operations Services Optimizer",
+      stack: "React / REST APIs",
+      period: "Sep 2024 – Apr 2025",
       description:
-        "Satellite telemetry visualization tool built for a Canadian Space Agency capstone project, turning operational scheduling constraints into readable technical workflows.",
+        "Canadian Space Agency capstone. I built the React dashboard visualizing satellite telemetry and orbital pass schedules for CSA stakeholders, and authored the system documentation and design trade-off analysis.",
       href: "https://master.d31pgqxunb4wwx.amplifyapp.com",
       hrefLabel: "Live Demo",
       secondaryHref: "https://github.com/ENG4000-SOSO",
@@ -169,6 +186,7 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
       return {
         title: cleanString(record.title, fallback.title, 80),
         stack: cleanString(record.stack, fallback.stack, 90),
+        period: cleanOptionalString(record.period, fallback.period, 40),
         // 600 (was 380) so longer, verbatim project copy (e.g. FootPal) isn't truncated.
         description: cleanString(record.description, fallback.description, 600),
         href: cleanString(record.href, fallback.href, 200),
