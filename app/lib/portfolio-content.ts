@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { allSkills } from "./profile";
 import {
   getSupabasePortfolioContent,
   isSupabaseConfigured,
@@ -44,49 +45,15 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     headline:
-      "FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and 175 tests.",
+      "FootPal FC runs on a {models}-model Postgres schema, {handlers} route handlers, and {testBlocks} tests.",
     subheadline:
       "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
-  // Feeds JSON-LD `knowsAbout` only. Must stay a flattened mirror of
-  // `skillCategories` in home-page-client.tsx, which is what the page renders.
-  skills: [
-    "TypeScript",
-    "JavaScript (ES6+)",
-    "Python",
-    "Java",
-    "SQL",
-    "Bash",
-    "React",
-    "Next.js",
-    "Tailwind",
-    "HTML5/CSS3",
-    "PWA (Web Push, installable)",
-    "Node.js",
-    "FastAPI",
-    "REST API design",
-    "PostgreSQL",
-    "Prisma",
-    "MySQL",
-    "SQLite/SQLCipher",
-    "Custom session auth",
-    "Vitest",
-    "Sentry",
-    "Docker",
-    "GitHub Actions (CI/CD)",
-    "Git/GitHub",
-    "Vercel",
-    "VPS deployment",
-    "Linux/Ubuntu",
-    "Nginx",
-    "SSL/TLS",
-    "Multi-tenant architecture",
-    "System design",
-    "Concurrency & idempotency",
-    "Agile",
-  ],
+  // Derived from `skillCategories` in ./profile, which is what the page
+  // renders. Feeds JSON-LD `knowsAbout`. Previously a hand-typed mirror.
+  skills: allSkills,
   projects: [
     {
       // Flagship. Rendered as its own section, not a card — the long-form
@@ -145,13 +112,16 @@ function cleanOptionalString(
   return cleaned.length > 0 ? cleaned : fallback;
 }
 
-function cleanStringArray(value: unknown, fallback: string[]): string[] {
+// 40 (was 24). The skills list is a flattened mirror of the six categories the
+// page renders and is now 33 entries; at 24 the tail was silently dropped from
+// JSON-LD `knowsAbout`, with nothing anywhere to say so.
+function cleanStringArray(value: unknown, fallback: string[], maxItems = 40): string[] {
   if (!Array.isArray(value)) return fallback;
 
   const cleaned = value
     .map((item) => (typeof item === "string" ? item.trim() : ""))
     .filter(Boolean)
-    .slice(0, 24);
+    .slice(0, maxItems);
 
   return cleaned.length > 0 ? cleaned : fallback;
 }

@@ -1,13 +1,25 @@
 import { ImageResponse } from "next/og";
+import { getPortfolioContent } from "./lib/portfolio-content";
+import { fillAuditPlaceholders, footpalReleaseLine } from "./lib/footpal-fc";
+import { SITE_DOMAIN } from "./lib/site";
 
-export const alt =
-  "Amir Ibrahim — full-stack developer. FootPal FC: 27 Postgres models, 109 HTTP handlers, 175 test blocks.";
+// Everything below is derived. This card used to retype the headline, the
+// subheadline, and "v2.43.0 · 457 commits · building since Jun 2026" by hand,
+// which made it a fourth independent copy of numbers that were already wrong
+// in the other three.
+export const alt = fillAuditPlaceholders(
+  "Amir Ibrahim — full-stack developer. FootPal FC: {models} Postgres models, {handlers} HTTP handlers, {testBlocks} test blocks.",
+);
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 // Mirrors the site: bone paper, warm ink, one oxblood rule. No gradient, no
 // status dot — the accent appears once, as a rule under the headline.
-export default function Image() {
+export default async function Image() {
+  const content = await getPortfolioContent();
+  const headline = fillAuditPlaceholders(content.hero.headline);
+  const subheadline = fillAuditPlaceholders(content.hero.subheadline);
+
   return new ImageResponse(
     (
       <div
@@ -52,8 +64,7 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and
-          175 tests.
+          {headline}
         </div>
 
         <div
@@ -65,8 +76,7 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Pickup soccer logistics for 25+ players across three crews — RSVPs,
-          team drafting, cost splitting, and player ratings.
+          {subheadline}
         </div>
 
         <div
@@ -83,10 +93,10 @@ export default function Image() {
           }}
         >
           <span style={{ fontSize: "17px", color: "#605a55" }}>
-            v2.43.0 · 457 commits · building since Jun 2026
+            {footpalReleaseLine}
           </span>
           <span style={{ fontSize: "17px", color: "#880808" }}>
-            amiribrahim3000.com
+            {SITE_DOMAIN}
           </span>
         </div>
       </div>

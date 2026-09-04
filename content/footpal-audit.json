@@ -1,0 +1,12 @@
+{
+  "_generated": "scripts/audit-footpal.mjs — do not edit by hand",
+  "auditDate": "2026-09-04",
+  "version": "2.89.2",
+  "commits": 585,
+  "buildingSince": "Jun 2026",
+  "models": 27,
+  "handlers": 119,
+  "routeFiles": 87,
+  "testBlocks": 416,
+  "testSuites": 35
+}
