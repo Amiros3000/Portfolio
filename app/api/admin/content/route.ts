@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminRequestAuthenticated } from "@/app/lib/admin-auth";
 import { getPortfolioContent, savePortfolioContent } from "@/app/lib/portfolio-content";
-import { isSupabaseConfigured } from "@/app/lib/supabase-rest";
 
 export const runtime = "nodejs";
 

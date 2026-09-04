@@ -1,118 +1,154 @@
-# Portfolio Template (Next.js 15 + Tailwind)
+# Portfolio — Amir Ibrahim
 
-A modern engineering portfolio template built with Next.js App Router, Tailwind CSS, and framer-motion.
+Single-page engineering portfolio. Next.js 15 App Router, React 19, Tailwind CSS 4.
 
-## Features
+Live: <https://portfolio.amiribrahim3000.com>
 
-- Responsive, mobile-first layout
-- Light/Dark mode support
-- Glassmorphism UI with configurable accent color
-- Animated hero/skills/projects sections
-- Contact form integration (Formspree)
-- Optional admin panel (`/admin`) for editing portfolio content
-- Optional Supabase-backed persistence for production editing
+## What this is
+
+One public route (`/`) built from JSON content, plus a dev-only admin panel for
+editing that content and generating a resume PDF. The page argues a specific
+thing: every engineering decision has a cost, so each entry in the Flagship
+section states what was built and what the choice gave up.
+
+Every number on the page is verified against the source repo it describes. The
+FootPal FC counts carry their audit date (`app/lib/footpal-fc.ts`); do not
+change a count without re-auditing, and do not soften a claim the code does not
+support.
 
 ## Stack
 
-- Next.js 15
-- React 19
-- Tailwind CSS 4
-- Framer Motion
-- Lucide React icons
-- next-themes
+- Next.js 15 (App Router, RSC) / React 19
+- Tailwind CSS 4, themed entirely through CSS custom properties
+- `next-themes` for light/dark
+- `lucide-react` icons
+- `@react-pdf/renderer` for resume PDF generation (admin only)
+- `ai` SDK for the chatbot's optional semantic matching
+- Vercel Analytics + Speed Insights
 
-## Quick Start
+There is no animation library. The hero load sequence is the CSS `.rise`
+keyframe in `app/globals.css`, deliberately written so content is visible at
+rest and the animation only hides it *while running* — a stalled animation can
+never blank the page.
+
+## Quick start
 
 ```bash
-git clone <your-fork-url>
-cd my-portfolio
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open <http://localhost:3000>. No environment variables are needed to run or
+build; every optional integration degrades to a working default.
 
-## Project Structure
+## Project structure
 
 ```text
 app/
+  page.tsx                    # server component: content + JSON-LD
+  layout.tsx                  # fonts, metadata, theme provider, chrome
+  sitemap.ts / robots.ts      # crawl surface
+  opengraph-image.tsx         # generated OG card (twitter-image re-exports it)
   components/
-    home-page-client.tsx   # main portfolio UI
-    site-header.tsx        # responsive nav + scroll-spy
-    admin-editor.tsx       # admin dashboard UI
-  admin/                   # admin login/dashboard routes
-  api/admin/               # admin content + resume APIs
+    home-page-client.tsx      # the entire public page
+    site-header.tsx           # nav + scroll-spy
+    site-footer.tsx
+    chatbot/                  # widget, knowledge base, embedding index
+    resume-builder/           # admin-only resume editor + PDF document
+  admin/                      # dev-only login + dashboard
+  api/
+    admin/                    # dev-only content + resume endpoints
+    chat/match/               # semantic fallback for the chatbot
   lib/
-    portfolio-content.ts   # content schema + read/write logic
-    admin-auth.ts          # auth/session helpers
-    supabase-rest.ts       # Supabase REST persistence
+    site.ts                   # canonical origin, single source
+    portfolio-content.ts      # public content schema + read/write
+    resume-content.ts         # resume schema + read/write
+    footpal-fc.ts             # flagship counts, stack, decisions
+    admin-auth.ts
+    supabase-rest.ts
 content/
-  portfolio-content.json   # default/local portfolio content
-public/
-  resume.pdf               # resume file (local fallback)
+  portfolio-content.json      # hero, projects, skills, contact
+  resume-content.json         # resume builder source
 ```
 
-## Customization
+## Content
 
-### 1) Edit portfolio content
+Most copy lives in `content/portfolio-content.json` and
+`app/lib/footpal-fc.ts`. The Experience, Education, and Stack sections are
+still hardcoded arrays at the top of `app/components/home-page-client.tsx`.
 
-Primary content source:
-- `content/portfolio-content.json`
+> **Known issue.** The same facts are currently duplicated across
+> `content/portfolio-content.json`, `content/resume-content.json`,
+> `app/lib/footpal-fc.ts`, the hardcoded arrays in `home-page-client.tsx`,
+> the retyped headline and counts in `app/opengraph-image.tsx`, and
+> `app/components/chatbot/chatbot-knowledge-base.ts`. Change a fact in one
+> place and the others drift. Consolidating these is outstanding work.
 
-Or edit from admin panel:
-- `http://localhost:3000/admin`
+### Canonical URL
 
-### 2) Change theme accent
+`app/lib/site.ts` holds the origin used by `metadataBase`, the canonical tag,
+`og:url`, the JSON-LD, the sitemap, and robots.txt. Override with
+`NEXT_PUBLIC_SITE_URL` if the domain changes.
 
-Update accent color in:
-- `tailwind.config.ts`
-- `app/globals.css` (`--accent`)
+## Chatbot
 
-### 3) Update contact form endpoint
+`app/components/chatbot/chatbot-knowledge-base.ts` holds ~28 hand-written
+entries. Matching runs keyword and regex first; `/api/chat/match` then offers a
+semantic second opinion.
 
-In `app/components/home-page-client.tsx`, replace Formspree endpoint:
+The semantic route **selects** an entry id, it never generates prose — the
+client always renders the vetted answer text. Every failure path returns
+`{ id: null }` and the keyword match stands.
 
-```ts
-https://formspree.io/f/mwvndwea
-```
-
-## Environment Variables
-
-Create `.env.local`:
+Building the index requires a Vercel AI Gateway key:
 
 ```bash
-# Admin auth (recommended)
+AI_GATEWAY_API_KEY=... npm run chat:embeddings
+```
+
+The route hashes the knowledge base and compares it to the index's
+`sourceHash`, refusing to serve a stale index rather than return a confidently
+wrong answer.
+
+> **Currently inactive.** The committed `chat-embeddings.json` is the empty
+> placeholder (`"model": null`, no entries), so semantic matching is off in
+> production and only keyword matching runs. Run the script above and commit
+> the result to enable it.
+
+## Admin panel
+
+`/admin` calls `notFound()` when `NODE_ENV === "production"`, and every route
+under `/api/admin` does the same. It is a local editing tool, not a deployed
+CMS. Editing content in production means changing the JSON and redeploying.
+
+For local use:
+
+```bash
+# .env.local
 PORTFOLIO_ADMIN_EMAIL=admin@portfolio.local
 PORTFOLIO_ADMIN_PASSWORD=change-this-password
 PORTFOLIO_ADMIN_SECRET=change-this-signing-secret
+```
 
-# Supabase (required for persistent admin edits on Vercel)
+Auth refuses to grant a session when these are unset rather than falling back
+to a default login.
+
+### Supabase (optional)
+
+`app/lib/supabase-rest.ts` can persist admin writes to Postgres and upload the
+resume to Storage instead of writing the local filesystem. Because admin routes
+are dev-only, this currently only matters if those routes are ever re-enabled
+in production.
+
+```bash
 SUPABASE_URL=https://your-project-ref.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# Optional overrides
+# optional overrides
 SUPABASE_PORTFOLIO_TABLE=portfolio_content
 SUPABASE_PORTFOLIO_CONTENT_ID=main
 SUPABASE_RESUME_BUCKET=portfolio-assets
 SUPABASE_RESUME_PATH=resume.pdf
 ```
-
-## Admin Mode (Optional)
-
-If you do not want to use admin editing right now, you can still run/deploy normally.
-
-- Keep content updates in `content/portfolio-content.json`
-- Upload/replace `public/resume.pdf`
-- Redeploy
-
-Admin routes remain available but are only useful when credentials are configured.
-
-## Supabase Setup (for production persistence)
-
-Required when deploying on Vercel and using admin writes/uploads.
-
-### 1) Create table
 
 ```sql
 create table if not exists public.portfolio_content (
@@ -120,71 +156,34 @@ create table if not exists public.portfolio_content (
   content jsonb not null,
   updated_at timestamptz not null default now()
 );
-
-create or replace function public.set_updated_at()
-returns trigger as $$
-begin
-  new.updated_at = now();
-  return new;
-end;
-$$ language plpgsql;
-
-drop trigger if exists trg_portfolio_content_updated_at on public.portfolio_content;
-
-create trigger trg_portfolio_content_updated_at
-before update on public.portfolio_content
-for each row execute function public.set_updated_at();
 ```
 
-### 2) Create storage bucket
+Storage bucket: `portfolio-assets`, public.
 
-Create a **public** bucket named `portfolio-assets`.
+## Design system
 
-### 3) Add env vars in Vercel
+Colors are defined **once**, as CSS custom properties in `app/globals.css`, and
+exposed to Tailwind through `@theme inline`. `tailwind.config.ts` sets only
+`darkMode: "class"` — a hardcoded color there shadows the token and silently
+breaks theming.
 
-Project Settings -> Environment Variables:
+Palette: bone paper, warm ink, one deep oxblood accent. The accent is a marker,
+a rule, a link, and one filled button. It is never a fill behind content.
 
-- `PORTFOLIO_ADMIN_EMAIL`
-- `PORTFOLIO_ADMIN_PASSWORD`
-- `PORTFOLIO_ADMIN_SECRET`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- optional overrides from `.env.example`
-
-Redeploy after saving env vars.
+Type: Archivo (display/UI), Newsreader (body prose), IBM Plex Mono (metadata,
+counts, versions, tradeoff lines).
 
 ## Scripts
 
 ```bash
 npm run dev
-npm run lint
 npm run build
 npm run start
+npm run lint
+npm run chat:embeddings   # requires AI_GATEWAY_API_KEY
 ```
 
 ## Deploy
 
-Recommended: Vercel.
-
-- Connect repo
-- Add environment variables
-- Deploy
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make changes
-4. Run lint/build
-5. Open a pull request
-
-## Reuse Notes
-
-If you reuse this template:
-- Replace personal info/content in `content/portfolio-content.json`
-- Replace resume in `public/resume.pdf`
-- Update social links and contact endpoints
-
-## License
-
-No license file is included yet. Add one before public open-source distribution (MIT is common for templates).
+Vercel. Set `NEXT_PUBLIC_SITE_URL` to the canonical domain; nothing else is
+required.

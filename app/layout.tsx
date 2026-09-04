@@ -7,6 +7,7 @@ import ChatbotWidget from "./components/chatbot/chatbot-widget";
 import SiteFooter from "./components/site-footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "./lib/site";
 
 // Display: a squarish industrial grotesque for headings and UI chrome.
 // Body: a screen-cut serif — prose on this page is read, not skimmed.
@@ -36,6 +37,11 @@ const plexMono = IBM_Plex_Mono({
 // Retargeted to full-stack / product software engineering (was "Computer & Systems
 // Engineer" with controls/SRE keywords).
 export const metadata: Metadata = {
+  // Without this, relative URLs (including the generated opengraph-image)
+  // resolve against VERCEL_PROJECT_PRODUCTION_URL — the *.vercel.app origin,
+  // not the custom domain. See app/lib/site.ts.
+  metadataBase: SITE_URL,
+  alternates: { canonical: "/" },
   title: "Amir Ibrahim | Full-Stack Software Developer",
   description:
     "Full-stack software developer and Computer Engineering graduate (York, 2025) who builds and ships web apps end-to-end in TypeScript, Next.js, React, and Node.js. Open to software, full-stack, and frontend roles across Ontario.",
@@ -61,6 +67,9 @@ export const metadata: Metadata = {
     description:
       "Full-stack software developer who builds and ships web apps end-to-end in TypeScript, Next.js, React, and Node.js. Open to software, full-stack, and frontend roles across Ontario.",
     type: "website",
+    url: "/",
+    siteName: "Amir Ibrahim",
+    locale: "en_CA",
   },
   twitter: {
     card: "summary_large_image",
