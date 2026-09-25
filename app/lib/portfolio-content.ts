@@ -78,7 +78,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       // Flagship. Rendered as its own section, not a card — the long-form
       // engineering detail lives in footpal-fc.ts.
       title: "FootPal FC",
-      stack: "Next.js 15 / TypeScript / PostgreSQL / Prisma",
+      stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
         "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
       href: "https://footpalfc.amiribrahim3000.com",
