@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import {
-  FOOTPAL_AUDIT_DATE,
   footpalDecisions,
   footpalRelease,
   footpalSpec,
@@ -378,8 +377,8 @@ export default function HomePageClient({
         </ul>
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
-          Commits and release read live from GitHub. Other counts are floors from a
-          code audit, {FOOTPAL_AUDIT_DATE}.
+          Counts read from FootPal FC&apos;s source by its own CI, refreshed
+          daily.
         </p>
       </Section>
 

@@ -147,7 +147,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
     question: "Tell me about FootPal FC",
     answer:
-      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 15, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
+      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 16, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
     followUps: ["footpal-engineering", "projects", "skills"],
   },
   {

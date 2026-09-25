@@ -1,14 +1,12 @@
 /**
  * FootPal FC — flagship project detail.
  *
- * Every structural figure here comes from the code audit dated 2026-07-31;
- * commits and release are read live from GitHub. Nothing in this file may be
- * softened into a claim the code does not support. In particular:
- * the service worker is an OFFLINE FALLBACK, never "offline support" and never
- * "works offline" — it caches nothing, by design.
+ * Commits and release come from the GitHub API; models, handlers and tests come
+ * from stats.json, which FootPal FC's own CI publishes on every push to main.
+ * Nothing in this file may be softened into a claim the code does not support.
+ * In particular: the service worker is an OFFLINE FALLBACK, never "offline
+ * support" and never "works offline" — it caches nothing, by design.
  */
-
-export const FOOTPAL_AUDIT_DATE = "July 2026";
 
 export type SpecFigure = {
   value: string;
@@ -16,33 +14,47 @@ export type SpecFigure = {
 };
 
 /**
- * The two figures that move with every push. getFootpalLive() pulls them from
- * GitHub once a day; these are the audited values it falls back to when that
- * fetch fails, so the page never renders an empty or zero figure.
+ * Every figure that moves with the code. getFootpalLive() refreshes them once
+ * a day. The fallback is what renders when that fetch fails: exact values for
+ * commits and release as of the July 2026 audit, and floors for the rest, so
+ * the page never shows an empty, zero, or overstated figure.
  */
 export type FootpalLive = {
   release: string;
   commits: string;
+  models: string;
+  routeFiles: string;
+  handlers: string;
+  testFiles: string;
+  testBlocks: string;
 };
 
 export const footpalLiveFallback: FootpalLive = {
   release: "v2.43.0",
   commits: "457",
+  models: "25+",
+  routeFiles: "80+",
+  handlers: "100+",
+  testFiles: "15+",
+  testBlocks: "170+",
 };
 
 /**
  * Verified counts, rendered as static text — never animated up from a zero
  * state. The previous stat row derived its number from an animation's starting
  * value and shipped a literal "0+" whenever that animation didn't run.
- *
- * The structural counts are floors, rounded down from the audit, so they stay
- * true as the codebase grows without a re-audit. Only the live figures are exact.
  */
 export function footpalSpec(live: FootpalLive): SpecFigure[] {
   return [
-    { value: "25+", label: "Postgres models" },
-    { value: "100+", label: "HTTP handlers across 80+ route files" },
-    { value: "170+", label: "test blocks across 15 suites" },
+    { value: live.models, label: "Postgres models" },
+    {
+      value: live.handlers,
+      label: `HTTP handlers across ${live.routeFiles} route files`,
+    },
+    {
+      value: live.testBlocks,
+      label: `test blocks across ${live.testFiles} test files`,
+    },
     { value: live.commits, label: "commits" },
     { value: live.release, label: "current release" },
   ];
@@ -61,7 +73,7 @@ export function footpalRelease(live: FootpalLive): SpecFigure[] {
 }
 
 export const footpalStack = [
-  "Next.js 15",
+  "Next.js 16",
   "TypeScript",
   "PostgreSQL (Neon)",
   "Prisma",
