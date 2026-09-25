@@ -9,10 +9,12 @@ import {
   footpalRelease,
   footpalSpec,
   footpalStack,
+  type FootpalLive,
 } from "@/app/lib/footpal-fc";
 
 type HomePageClientProps = {
   content: PortfolioContent;
+  footpalLive: FootpalLive;
 };
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -150,7 +152,10 @@ function Section({
   );
 }
 
-export default function HomePageClient({ content }: HomePageClientProps) {
+export default function HomePageClient({
+  content,
+  footpalLive,
+}: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
 
@@ -259,7 +264,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
           className="rise mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-3 border-t border-line pt-5"
           style={{ animationDelay: "240ms" }}
         >
-          {footpalRelease.map((figure) => (
+          {footpalRelease(footpalLive).map((figure) => (
             <div key={figure.label} className="flex items-baseline gap-2">
               <dt className="sr-only">{figure.label}</dt>
               <dd className="font-mono text-base font-medium text-foreground">
@@ -338,7 +343,7 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </ul>
 
         <dl className="mt-8 divide-y divide-line border-t border-b border-line">
-          {footpalSpec.map((figure) => (
+          {footpalSpec(footpalLive).map((figure) => (
             <div
               key={figure.label}
               className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-6 py-2.5"
@@ -373,7 +378,8 @@ export default function HomePageClient({ content }: HomePageClientProps) {
         </ul>
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
-          Counts verified by code audit, {FOOTPAL_AUDIT_DATE}.
+          Commits and release read live from GitHub. Other counts are floors from a
+          code audit, {FOOTPAL_AUDIT_DATE}.
         </p>
       </Section>
 

@@ -1,8 +1,15 @@
 import HomePageClient from "./components/home-page-client";
+import { getFootpalLive } from "./lib/footpal-live";
 import { getPortfolioContent } from "./lib/portfolio-content";
 
+// FootPal FC figures come from GitHub; rebuild the page with fresh ones daily.
+export const revalidate = 86400;
+
 export default async function Home() {
-  const content = await getPortfolioContent();
+  const [content, footpalLive] = await Promise.all([
+    getPortfolioContent(),
+    getFootpalLive(),
+  ]);
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -22,7 +29,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      <HomePageClient content={content} />
+      <HomePageClient content={content} footpalLive={footpalLive} />
     </>
   );
 }
