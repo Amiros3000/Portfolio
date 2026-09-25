@@ -1,13 +1,14 @@
 /**
  * FootPal FC — flagship project detail.
  *
- * Every figure here comes from the code audit dated 2026-07-31. Nothing in this
- * file may be softened into a claim the code does not support. In particular:
+ * Every structural figure here comes from the code audit dated 2026-07-31;
+ * commits and release are read live from GitHub. Nothing in this file may be
+ * softened into a claim the code does not support. In particular:
  * the service worker is an OFFLINE FALLBACK, never "offline support" and never
  * "works offline" — it caches nothing, by design.
  */
 
-export const FOOTPAL_AUDIT_DATE = "July 31, 2026";
+export const FOOTPAL_AUDIT_DATE = "July 2026";
 
 export type SpecFigure = {
   value: string;
@@ -15,27 +16,49 @@ export type SpecFigure = {
 };
 
 /**
+ * The two figures that move with every push. getFootpalLive() pulls them from
+ * GitHub once a day; these are the audited values it falls back to when that
+ * fetch fails, so the page never renders an empty or zero figure.
+ */
+export type FootpalLive = {
+  release: string;
+  commits: string;
+};
+
+export const footpalLiveFallback: FootpalLive = {
+  release: "v2.43.0",
+  commits: "457",
+};
+
+/**
  * Verified counts, rendered as static text — never animated up from a zero
  * state. The previous stat row derived its number from an animation's starting
  * value and shipped a literal "0+" whenever that animation didn't run.
+ *
+ * The structural counts are floors, rounded down from the audit, so they stay
+ * true as the codebase grows without a re-audit. Only the live figures are exact.
  */
-export const footpalSpec: SpecFigure[] = [
-  { value: "27", label: "Postgres models" },
-  { value: "109", label: "HTTP handlers across 81 route files" },
-  { value: "175", label: "test blocks across 15 suites" },
-  { value: "457", label: "commits" },
-  { value: "v2.43.0", label: "current release" },
-];
+export function footpalSpec(live: FootpalLive): SpecFigure[] {
+  return [
+    { value: "25+", label: "Postgres models" },
+    { value: "100+", label: "HTTP handlers across 80+ route files" },
+    { value: "170+", label: "test blocks across 15 suites" },
+    { value: live.commits, label: "commits" },
+    { value: live.release, label: "current release" },
+  ];
+}
 
 /**
  * Hero strip. Deliberately carries only what the headline and subheadline do
  * not already say — the release state, not the counts.
  */
-export const footpalRelease: SpecFigure[] = [
-  { value: "v2.43.0", label: "current release" },
-  { value: "457", label: "commits" },
-  { value: "Jun 2026", label: "building since" },
-];
+export function footpalRelease(live: FootpalLive): SpecFigure[] {
+  return [
+    { value: live.release, label: "current release" },
+    { value: live.commits, label: "commits" },
+    { value: "Jun 2026", label: "building since" },
+  ];
+}
 
 export const footpalStack = [
   "Next.js 15",

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Amir Ibrahim — full-stack developer. FootPal FC: 27 Postgres models, 109 HTTP handlers, 175 test blocks.";
+  "Amir Ibrahim — full-stack developer. FootPal FC: 25+ Postgres models, 100+ HTTP handlers, 170+ test blocks.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,8 +52,8 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and
-          175 tests.
+          FootPal FC runs on 25+ Postgres models, 100+ route handlers, and 170+
+          tests.
         </div>
 
         <div
