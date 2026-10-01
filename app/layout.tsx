@@ -82,6 +82,12 @@ export default function RootLayout({
       className={`scroll-smooth ${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
     >
       <body className="antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-background focus:px-4 focus:py-2 focus:font-mono focus:text-[0.8125rem] focus:text-accent-ink focus:underline"
+        >
+          Skip to content
+        </a>
         <Providers>
           <div className="flex min-h-screen flex-col bg-background text-foreground">
             <SiteHeader />

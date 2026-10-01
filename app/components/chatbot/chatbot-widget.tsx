@@ -277,10 +277,10 @@ export default function ChatbotWidget() {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <div>
-              <p className="font-mono text-[0.7rem] tracking-wide text-accent-ink uppercase">
+              <p className="font-mono text-[0.75rem] tracking-wide text-accent-ink uppercase">
                 Ask about Amir
               </p>
-              <p className="mt-0.5 text-[0.7rem] text-muted">
+              <p className="mt-0.5 text-[0.75rem] text-muted">
                 Background, stack, and projects
               </p>
             </div>
