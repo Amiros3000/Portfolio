@@ -14,7 +14,7 @@ export default async function SiteFooter() {
   return (
     <footer className="border-t border-line">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+        <p className="font-mono text-[0.75rem] tracking-wide text-muted">
           &copy; {new Date().getFullYear()} Amir Ibrahim — built with Next.js
         </p>
 

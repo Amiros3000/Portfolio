@@ -20,7 +20,6 @@ export type PortfolioProject = {
 
 export type PortfolioContent = {
   hero: {
-    headline: string;
     subheadline: string;
     bio: string;
     resumeUrl: string;
@@ -41,8 +40,6 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 // silently resurrects removed data (e.g. the retired ktaps.me link).
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
-    headline:
-      "FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and 175 tests.",
     subheadline:
       "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
@@ -199,7 +196,6 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
 
   return {
     hero: {
-      headline: cleanString(hero.headline, DEFAULT_PORTFOLIO_CONTENT.hero.headline, 120),
       subheadline: cleanString(
         hero.subheadline,
         DEFAULT_PORTFOLIO_CONTENT.hero.subheadline,

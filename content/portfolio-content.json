@@ -1,7 +1,6 @@
 {
   "hero": {
-    "headline": "FootPal FC runs on a 27-model Postgres schema, 109 route handlers, and 175 tests.",
-    "subheadline": "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
+    "subheadline": "It organizes recurring pickup soccer across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
     "bio": "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     "resumeUrl": "/resume.pdf"
   },
@@ -34,7 +33,7 @@
     {
       "title": "FootPal FC",
       "stack": "Next.js 16 / TypeScript / PostgreSQL / Prisma",
-      "description": "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
+      "description": "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
       "href": "https://footpalfc.amiribrahim3000.com",
       "hrefLabel": "Live"
     },
@@ -47,7 +46,7 @@
     },
     {
       "title": "CSA Capstone — SOSO",
-      "stack": "System Design",
+      "stack": "Python / FastAPI / PostgreSQL / RabbitMQ / Docker",
       "description": "Satellite telemetry visualization tool built for a Canadian Space Agency capstone project, turning operational scheduling constraints into readable technical workflows.",
       "href": "https://master.d31pgqxunb4wwx.amplifyapp.com",
       "hrefLabel": "Live Demo",

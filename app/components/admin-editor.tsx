@@ -152,24 +152,6 @@ export default function AdminEditor({
             <h2 className="text-lg font-semibold text-foreground">Hero</h2>
             <div className="mt-4 grid gap-4">
               <label className="grid gap-2">
-                <span className={labelClass}>Headline</span>
-                <input
-                  type="text"
-                  value={draft.hero.headline}
-                  onChange={(event) =>
-                    setDraft((previous) => ({
-                      ...previous,
-                      hero: {
-                        ...previous.hero,
-                        headline: event.target.value,
-                      },
-                    }))
-                  }
-                  className={inputClass}
-                />
-              </label>
-
-              <label className="grid gap-2">
                 <span className={labelClass}>Subheadline</span>
                 <input
                   type="text"

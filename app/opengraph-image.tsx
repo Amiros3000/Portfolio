@@ -52,8 +52,8 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          FootPal FC runs on 25+ Postgres models, 100+ route handlers, and 170+
-          tests.
+          FootPal FC runs on 25+ Postgres models, 100+ HTTP handlers, and 170+
+          test blocks.
         </div>
 
         <div
@@ -65,8 +65,8 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Pickup soccer logistics for 25+ players across three crews — RSVPs,
-          team drafting, cost splitting, and player ratings.
+          Pickup soccer logistics across three crews — RSVPs, team drafting,
+          cost splitting, and player ratings.
         </div>
 
         <div
@@ -83,7 +83,7 @@ export default function Image() {
           }}
         >
           <span style={{ fontSize: "17px", color: "#605a55" }}>
-            v2.43.0 · 457 commits · building since Jun 2026
+            Building since Jun 2026
           </span>
           <span style={{ fontSize: "17px", color: "#880808" }}>
             amiribrahim3000.com

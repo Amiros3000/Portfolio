@@ -40,6 +40,23 @@ export const footpalLiveFallback: FootpalLive = {
 };
 
 /**
+ * Hero headline, derived from the same live counts as the spec block so the
+ * two can never disagree again. The previous headline was typed by hand in
+ * content/portfolio-content.json and went stale (27/109/175 vs the live
+ * 31/145/1305), which is exactly the class of bug this file exists to prevent.
+ *
+ * Floors carry a "+" ("25+"); the plus is stripped for the headline's grammar
+ * ("25-model"), which can only understate — never overstate — the figure.
+ */
+export function footpalHeroHeadline(live: FootpalLive): string {
+  const count = (value: string) => value.replace("+", "");
+  return (
+    `FootPal FC runs on a ${count(live.models)}-model Postgres schema, ` +
+    `${count(live.handlers)} HTTP handlers, and ${count(live.testBlocks)} test blocks.`
+  );
+}
+
+/**
  * Verified counts, rendered as static text — never animated up from a zero
  * state. The previous stat row derived its number from an animation's starting
  * value and shipped a literal "0+" whenever that animation didn't run.
