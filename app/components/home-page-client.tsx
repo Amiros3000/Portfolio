@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import {
@@ -123,6 +124,72 @@ const lookingFor = [
   { key: "Availability", value: "Immediately" },
 ];
 
+/** Real screenshots from FootPal FC's about page — the proof the page was missing. */
+const footpalShots = [
+  {
+    src: "/footpal/lineup.webp",
+    alt: "FootPal FC team drafting: both sides laid out on a pitch as player cards",
+    caption:
+      "Team drafting — fair sides from the crew's own ratings, drawn on a pitch.",
+  },
+  {
+    src: "/footpal/home.webp",
+    alt: "FootPal FC home screen: tier promotion card, the next game, and money owed",
+    caption: "Matchday home — tier movement, the next game, and who owes whom.",
+  },
+  {
+    src: "/footpal/crew.webp",
+    alt: "FootPal FC crew hub: the squad as a wall of player cards",
+    caption: "The crew wall — every player gets a card, nobody gets a free rating.",
+  },
+];
+
+/** A matchday, start to finish — the app's own five-step flow, borrowed from its about page. */
+const matchdaySteps = [
+  {
+    minute: "0'",
+    title: "Pick a time",
+    body: "The organiser offers a few days; the busiest time rises to the top.",
+  },
+  {
+    minute: "20'",
+    title: "Lock it in",
+    body: "Kickoff is set. Everyone says in, maybe, late, or out — waitlist included.",
+  },
+  {
+    minute: "45'",
+    title: "Draw the teams",
+    body: "Fair sides from the crew's own ratings, laid out on a pitch in a real shape.",
+  },
+  {
+    minute: "70'",
+    title: "Split the pitch",
+    body: "The fee splits between the people who played, rounded to the nearest 50¢.",
+  },
+  {
+    minute: "90'",
+    title: "Rate the game",
+    body: "Votes for player of the match. The only thing that moves a rating.",
+  },
+];
+
+/** Amir's card, in the app's own player-card language. Playful, and deliberately so. */
+const playerCard = {
+  name: "Amir Ibrahim",
+  number: "9",
+  position: "STK",
+  overall: 89,
+  tier: "Gold",
+  stats: [
+    { label: "TypeScript", value: 92 },
+    { label: "React / Next.js", value: 90 },
+    { label: "PostgreSQL", value: 84 },
+    { label: "System design", value: 82 },
+    { label: "Testing", value: 86 },
+    { label: "Shipping", value: 95 },
+  ],
+};
+
 const shell = "mx-auto w-full max-w-5xl px-5 sm:px-8";
 const railGrid = "grid gap-x-12 gap-y-6 lg:grid-cols-[9rem_minmax(0,1fr)]";
 const linkStyle =
@@ -151,6 +218,63 @@ function Section({
         </div>
       </div>
     </section>
+  );
+}
+
+/** Amir's player card — the app gives every player one, so he gets one too. */
+function PlayerCard() {
+  return (
+    <figure className="w-60 shrink-0" aria-label="Amir Ibrahim's player card">
+      <div className="rounded-2xl bg-[#171310] p-5 text-[#f5f1e8]">
+        <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
+          <span>FOOTPAL FC</span>
+          <span>
+            Nº {playerCard.number} · {playerCard.position}
+          </span>
+        </div>
+        <div
+          className="mx-auto mt-4 flex h-32 w-28 flex-col items-center justify-center bg-accent"
+          style={{
+            clipPath: "polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%)",
+          }}
+        >
+          <span className="font-sans text-5xl font-bold leading-none text-on-accent">
+            {playerCard.overall}
+          </span>
+          <span className="mt-1 font-mono text-[0.6875rem] tracking-[0.2em] text-on-accent/80">
+            OVR
+          </span>
+        </div>
+        <p className="mt-4 text-center font-sans text-base font-semibold tracking-[-0.01em]">
+          {playerCard.name}
+        </p>
+        <p className="mt-0.5 text-center font-mono text-[0.6875rem] tracking-[0.2em] text-[#f5f1e8]/60">
+          TIER — {playerCard.tier.toUpperCase()}
+        </p>
+        <dl className="mt-5 space-y-2.5">
+          {playerCard.stats.map((stat) => (
+            <div key={stat.label}>
+              <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-wide">
+                <dt className="text-[#f5f1e8]/70">{stat.label}</dt>
+                <dd className="text-[#f5f1e8]">{stat.value}</dd>
+              </div>
+              <div
+                className="mt-1 h-1 overflow-hidden rounded-full bg-[#f5f1e8]/15"
+                role="presentation"
+              >
+                <div
+                  className="h-full rounded-full bg-accent"
+                  style={{ width: `${stat.value}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+        Everyone gets a card. Nobody gets a free rating.
+      </figcaption>
+    </figure>
   );
 }
 
@@ -306,9 +430,18 @@ export default function HomePageClient({
 
       {/* ── About ── */}
       <Section label="About">
-        <p className="prose-body max-w-2xl text-foreground">
-          {content.hero.bio}
-        </p>
+        <div className="grid gap-10 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start">
+          <PlayerCard />
+          <div>
+            <p className="prose-body max-w-2xl text-foreground">
+              {content.hero.bio}
+            </p>
+            <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
+              This page&apos;s stats are compiled by the thing it describes —
+              FootPal FC&apos;s own CI reads its source and reports back daily.
+            </p>
+          </div>
+        </div>
       </Section>
 
       {/* ── Flagship ── */}
@@ -362,6 +495,49 @@ export default function HomePageClient({
         </dl>
 
         {/* Signature device: claim, then the cost of the claim. */}
+        <h3 className="meta mt-14 text-accent-ink">In the app</h3>
+        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+          {footpalShots.map((shot) => (
+            <figure key={shot.src}>
+              <div className="overflow-hidden border border-line bg-surface">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={780}
+                  height={1688}
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
+              <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+                {shot.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <h3 className="meta mt-14 text-accent-ink">
+          A matchday, start to finish
+        </h3>
+        <ol className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          {matchdaySteps.map((step) => (
+            <li
+              key={step.minute}
+              className="border-t-2 border-accent-ink/60 pt-3"
+            >
+              <p className="font-mono text-sm font-medium text-accent-ink">
+                {step.minute}
+              </p>
+              <h4 className="mt-1 font-sans text-sm font-semibold text-foreground">
+                {step.title}
+              </h4>
+              <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-muted">
+                {step.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+
         <h3 id="decisions" className="meta mt-14 scroll-mt-24 text-accent-ink">Decisions</h3>
         <ul className="mt-6 space-y-9">
           {footpalDecisions.map((decision) => (
