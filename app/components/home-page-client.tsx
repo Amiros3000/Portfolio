@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import {
   footpalDecisions,
+  footpalHeroHeadline,
   footpalRelease,
   footpalSpec,
   footpalStack,
@@ -14,6 +15,8 @@ import {
 type HomePageClientProps = {
   content: PortfolioContent;
   footpalLive: FootpalLive;
+  /** Resolved server-side: null when no resume file exists, so the page never links a 404. */
+  resumeHref: string | null;
 };
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -141,9 +144,9 @@ function Section({
     <section id={id} className="scroll-mt-16 border-t border-line">
       <div className={shell}>
         <div className={`${railGrid} py-14 sm:py-20`}>
-          <p className="meta text-accent-ink lg:sticky lg:top-24 lg:self-start">
+          <h2 className="meta text-accent-ink lg:sticky lg:top-24 lg:self-start">
             {label}
-          </p>
+          </h2>
           <div>{children}</div>
         </div>
       </div>
@@ -154,6 +157,7 @@ function Section({
 export default function HomePageClient({
   content,
   footpalLive,
+  resumeHref,
 }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
@@ -225,7 +229,7 @@ export default function HomePageClient({
   }
 
   return (
-    <main>
+    <main id="main-content">
       {/* ── Hero ─────────────────────────────────────────────────────────
           The thesis is the artifact, not the person: the headline states what
           FootPal FC actually is, in counts. The name sits in the mono eyebrow
@@ -248,7 +252,7 @@ export default function HomePageClient({
           className="display rise mt-6 max-w-4xl text-[2.1rem] text-foreground sm:text-5xl lg:text-[3.85rem]"
           style={{ animationDelay: "80ms" }}
         >
-          {content.hero.headline}
+          {footpalHeroHeadline(footpalLive)}
         </h1>
 
         <p
@@ -281,7 +285,7 @@ export default function HomePageClient({
           style={{ animationDelay: "320ms" }}
         >
           <a
-            href="#work"
+            href="#decisions"
             className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
           >
             Read the decisions
@@ -310,9 +314,9 @@ export default function HomePageClient({
       {/* ── Flagship ── */}
       <Section id="work" label="Flagship">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <h2 className="display text-3xl text-foreground sm:text-4xl">
+          <h3 className="display text-3xl text-foreground sm:text-4xl">
             {flagship?.title}
-          </h2>
+          </h3>
           {flagship?.href ? (
             <a
               href={flagship.href}
@@ -334,7 +338,7 @@ export default function HomePageClient({
           {footpalStack.map((item) => (
             <li
               key={item}
-              className="border border-line px-2.5 py-1 font-mono text-[0.7rem] tracking-wide text-muted"
+              className="border border-line px-2.5 py-1 font-mono text-[0.75rem] tracking-wide text-muted"
             >
               {item}
             </li>
@@ -350,7 +354,7 @@ export default function HomePageClient({
               <dt className="font-mono text-sm font-medium text-foreground">
                 {figure.value}
               </dt>
-              <dd className="font-mono text-[0.7rem] leading-6 tracking-wide text-muted">
+              <dd className="font-mono text-[0.75rem] leading-6 tracking-wide text-muted">
                 {figure.label}
               </dd>
             </div>
@@ -358,7 +362,7 @@ export default function HomePageClient({
         </dl>
 
         {/* Signature device: claim, then the cost of the claim. */}
-        <h3 className="meta mt-14 text-accent-ink">Decisions</h3>
+        <h3 id="decisions" className="meta mt-14 scroll-mt-24 text-accent-ink">Decisions</h3>
         <ul className="mt-6 space-y-9">
           {footpalDecisions.map((decision) => (
             <li key={decision.title} className="decision">
@@ -376,7 +380,7 @@ export default function HomePageClient({
           ))}
         </ul>
 
-        <p className="mt-10 border-t border-line pt-4 font-mono text-[0.7rem] text-muted">
+        <p className="mt-10 border-t border-line pt-4 font-mono text-[0.75rem] text-muted">
           Counts read from FootPal FC&apos;s source by its own CI, refreshed
           daily.
         </p>
@@ -394,7 +398,7 @@ export default function HomePageClient({
                 <h3 className="font-sans text-base font-semibold text-foreground">
                   {project.title}
                 </h3>
-                <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-muted">
+                <p className="mt-1 font-mono text-[0.75rem] tracking-wide text-muted">
                   {project.stack}
                 </p>
                 <p className="prose-body mt-2.5 max-w-xl text-muted">
@@ -408,6 +412,7 @@ export default function HomePageClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkStyle}
+                    aria-label={`${project.title} — ${project.hrefLabel || "Open"}`}
                   >
                     {project.hrefLabel || "Open"}
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -419,6 +424,7 @@ export default function HomePageClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     className={linkStyle}
+                    aria-label={`${project.title} — ${project.secondaryHrefLabel || "Open"}`}
                   >
                     {project.secondaryHrefLabel || "Open"}
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -439,11 +445,11 @@ export default function HomePageClient({
                 <h3 className="font-sans text-lg font-semibold text-foreground">
                   {entry.title}
                 </h3>
-                <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+                <p className="font-mono text-[0.75rem] tracking-wide text-muted">
                   {entry.period}
                 </p>
               </div>
-              <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-accent-ink">
+              <p className="mt-1 font-mono text-[0.75rem] tracking-wide text-accent-ink">
                 {entry.company} — {entry.location}
               </p>
               <ul className="mt-3 space-y-2">
@@ -468,12 +474,12 @@ export default function HomePageClient({
                 <h4 className="font-sans text-base font-semibold text-foreground">
                   {entry.degree}
                 </h4>
-                <p className="font-mono text-[0.7rem] tracking-wide text-muted">
+                <p className="font-mono text-[0.75rem] tracking-wide text-muted">
                   {entry.period}
                 </p>
               </div>
               <p className="prose-body mt-1 text-muted">{entry.institution}</p>
-              <p className="mt-2 max-w-2xl font-mono text-[0.7rem] leading-[1.7] text-muted">
+              <p className="mt-2 max-w-2xl font-mono text-[0.75rem] leading-[1.7] text-muted">
                 {entry.courses}
               </p>
             </li>
@@ -489,7 +495,7 @@ export default function HomePageClient({
               key={category.label}
               className="grid gap-x-8 gap-y-2 py-4 sm:grid-cols-[10rem_minmax(0,1fr)]"
             >
-              <p className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+              <p className="font-mono text-[0.75rem] tracking-wide text-muted uppercase">
                 {category.label}
               </p>
               <p className="font-sans text-sm leading-relaxed text-foreground">
@@ -499,7 +505,7 @@ export default function HomePageClient({
           ))}
         </ul>
 
-        <p className="mt-5 max-w-2xl font-mono text-[0.7rem] leading-[1.7] text-muted">
+        <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-[1.7] text-muted">
           Currently learning: AWS, Kubernetes. Also familiar with Ladder Logic,
           IT/OT networking, and electromechanical systems from Computer and
           Electromechanical Engineering studies.
@@ -508,9 +514,9 @@ export default function HomePageClient({
 
       {/* ── Contact ── */}
       <Section id="contact" label="Contact">
-        <h2 className="display max-w-xl text-3xl text-foreground sm:text-4xl">
+        <h3 className="display max-w-xl text-3xl text-foreground sm:text-4xl">
           Open to full-stack and frontend roles.
-        </h2>
+        </h3>
 
         <dl className="mt-8 divide-y divide-line border-t border-b border-line">
           {lookingFor.map((row) => (
@@ -518,7 +524,7 @@ export default function HomePageClient({
               key={row.key}
               className="grid gap-x-8 gap-y-1 py-3 sm:grid-cols-[10rem_minmax(0,1fr)]"
             >
-              <dt className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+              <dt className="font-mono text-[0.75rem] tracking-wide text-muted uppercase">
                 {row.key}
               </dt>
               <dd className="font-sans text-sm text-foreground">{row.value}</dd>
@@ -544,14 +550,14 @@ export default function HomePageClient({
             />
 
             <label className="grid gap-1.5">
-              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+              <span className="font-mono text-[0.75rem] tracking-wide text-muted uppercase">
                 Name
               </span>
               <input type="text" name="name" required className={fieldStyle} />
             </label>
 
             <label className="grid gap-1.5">
-              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+              <span className="font-mono text-[0.75rem] tracking-wide text-muted uppercase">
                 Email
               </span>
               <input
@@ -563,7 +569,7 @@ export default function HomePageClient({
             </label>
 
             <label className="grid gap-1.5">
-              <span className="font-mono text-[0.7rem] tracking-wide text-muted uppercase">
+              <span className="font-mono text-[0.75rem] tracking-wide text-muted uppercase">
                 Message
               </span>
               <textarea
@@ -618,6 +624,18 @@ export default function HomePageClient({
               LinkedIn
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
+            {resumeHref ? (
+              <a
+                href={resumeHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkStyle}
+                aria-label="Amir Ibrahim's resume (PDF)"
+              >
+                Resume
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            ) : null}
           </div>
         </div>
       </Section>
