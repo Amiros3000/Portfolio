@@ -155,4 +155,10 @@ export const footpalDecisions: Decision[] = [
     tradeoff:
       "Centralizing the scrubbing means one place to audit, and one place every error path has to keep routing through.",
   },
+  {
+    title: "Privacy page enforced by the build, not by memory",
+    body: "Every outside service the app talks to must be named on the privacy page, or the build fails. Deleting an account scrubs every personal field, and a test fails if a new field is missed.",
+    tradeoff:
+      "The privacy page is load-bearing now — a copy edit can break the build.",
+  },
 ];
