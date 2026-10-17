@@ -1,8 +1,8 @@
 /**
- * FootPal FC — flagship project detail.
+ * VamoKora — flagship project detail.
  *
  * Commits and release come from the GitHub API; models, handlers and tests come
- * from stats.json, which FootPal FC's own CI publishes on every push to main.
+ * from stats.json, which VamoKora's own CI publishes on every push to main.
  * Nothing in this file may be softened into a claim the code does not support.
  * In particular: the service worker is an OFFLINE FALLBACK, never "offline
  * support" and never "works offline" — it caches nothing, by design.
@@ -51,7 +51,7 @@ export const footpalLiveFallback: FootpalLive = {
 export function footpalHeroHeadline(live: FootpalLive): string {
   const count = (value: string) => value.replace("+", "");
   return (
-    `FootPal FC runs on a ${count(live.models)}-model Postgres schema, ` +
+    `VamoKora runs on a ${count(live.models)}-model Postgres schema, ` +
     `${count(live.handlers)} HTTP handlers, and ${count(live.testBlocks)} test blocks.`
   );
 }

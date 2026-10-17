@@ -124,22 +124,22 @@ const lookingFor = [
   { key: "Availability", value: "Immediately" },
 ];
 
-/** Real screenshots from FootPal FC's about page — the proof the page was missing. */
+/** Real screenshots from VamoKora's about page — the proof the page was missing. */
 const footpalShots = [
   {
     src: "/footpal/lineup.webp",
-    alt: "FootPal FC team drafting: both sides laid out on a pitch as player cards",
+    alt: "VamoKora team drafting: both sides laid out on a pitch as player cards",
     caption:
       "Team drafting — fair sides from the crew's own ratings, drawn on a pitch.",
   },
   {
     src: "/footpal/home.webp",
-    alt: "FootPal FC home screen: tier promotion card, the next game, and money owed",
+    alt: "VamoKora home screen: tier promotion card, the next game, and money owed",
     caption: "Matchday home — tier movement, the next game, and who owes whom.",
   },
   {
     src: "/footpal/crew.webp",
-    alt: "FootPal FC crew hub: the squad as a wall of player cards",
+    alt: "VamoKora crew hub: the squad as a wall of player cards",
     caption: "The crew wall — every player gets a card, nobody gets a free rating.",
   },
 ];
@@ -356,7 +356,7 @@ export default function HomePageClient({
     <main id="main-content">
       {/* ── Hero ─────────────────────────────────────────────────────────
           The thesis is the artifact, not the person: the headline states what
-          FootPal FC actually is, in counts. The name sits in the mono eyebrow
+          VamoKora actually is, in counts. The name sits in the mono eyebrow
           as metadata.
 
           The load sequence is the CSS `.rise` animation, not a JS one. These
@@ -421,7 +421,7 @@ export default function HomePageClient({
               rel="noopener noreferrer"
               className={linkStyle}
             >
-              Open FootPal FC
+              Open VamoKora
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           ) : null}
@@ -438,7 +438,7 @@ export default function HomePageClient({
             </p>
             <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
               This page&apos;s stats are compiled by the thing it describes —
-              FootPal FC&apos;s own CI reads its source and reports back daily.
+              VamoKora&apos;s own CI reads its source and reports back daily.
             </p>
           </div>
         </div>
@@ -557,7 +557,7 @@ export default function HomePageClient({
         </ul>
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.75rem] text-muted">
-          Counts read from FootPal FC&apos;s source by its own CI, refreshed
+          Counts read from VamoKora&apos;s source by its own CI, refreshed
           daily.
         </p>
       </Section>

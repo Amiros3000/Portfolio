@@ -60,7 +60,7 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
     websiteUrl: "",
   },
   summary:
-    "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project FootPal FC: 27-model Postgres schema, 109 HTTP handlers, 175 test blocks, in use by 25+ players.",
+    "Computer Engineering graduate from York University (2025) and full-stack developer. Builds and ships web applications in TypeScript, Next.js, React, and PostgreSQL. Current project VamoKora: 27-model Postgres schema, 109 HTTP handlers, 175 test blocks, in use by 25+ players.",
   experience: [
     {
       title: "Co-Founder",
@@ -155,7 +155,7 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
   ],
   projects: [
     {
-      title: "FootPal FC",
+      title: "VamoKora",
       stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
         "Pickup soccer logistics — RSVPs, team drafting, cost splitting, and player ratings across independent crews. 27-model Postgres schema, 109 HTTP handlers, 175 test blocks. Used by 25+ players in three crews.",

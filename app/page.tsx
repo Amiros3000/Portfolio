@@ -4,7 +4,7 @@ import HomePageClient from "./components/home-page-client";
 import { getFootpalLive } from "./lib/footpal-live";
 import { getPortfolioContent } from "./lib/portfolio-content";
 
-// FootPal FC figures come from GitHub; rebuild the page with fresh ones daily.
+// VamoKora figures come from GitHub; rebuild the page with fresh ones daily.
 export const revalidate = 86400;
 
 /**

@@ -3,9 +3,9 @@ import "server-only";
 import { footpalLiveFallback, type FootpalLive } from "./footpal-fc";
 
 /**
- * Reads FootPal FC's commit count, latest release, and source counts from
+ * Reads VamoKora's commit count, latest release, and source counts from
  * GitHub. The source counts are stats.json on the repo's `stats` branch, which
- * FootPal's own CI (.github/workflows/stats.yml) publishes on every push.
+ * VamoKora's own CI (.github/workflows/stats.yml) publishes on every push.
  *
  * The repo is private, so this needs GITHUB_TOKEN: a fine-grained token scoped
  * to that one repo with Contents: Read-only. It runs on the server only; the

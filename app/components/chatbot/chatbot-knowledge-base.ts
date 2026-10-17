@@ -17,7 +17,7 @@ export type KnowledgeEntry = {
    - KonnectTaps: Amir was FRONTEND. Three developers, not two. Payments were
      Stripe and were built by the CEO — never attribute them to Amir. 100+
      SIGNUPS (not active users). Wound down May 2026. ktaps.me is retired.
-   - FootPal FC: renamed from "FootPal". 25+ active users across three crews.
+   - VamoKora: renamed from "VamoKora". 25+ active users across three crews.
      Its service worker is an OFFLINE FALLBACK — never "offline support".
    - Marché Adonis title is Assistant Deli Manager.
    - No Express anywhere; backend is Next.js API routes and FastAPI.
@@ -100,7 +100,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is FootPal FC, which he’s been building since June 2026 — 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
+      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is VamoKora, which he’s been building since June 2026 — 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
     followUps: ["footpal", "experience", "skills"],
   },
   {
@@ -129,7 +129,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What has he built?",
     answer:
-      "Three things worth knowing about: (1) FootPal FC — his flagship, a pickup-soccer logistics app he’s been building since June 2026, now past 450 commits with regular tagged releases. (2) KonnectTaps — a digital business card platform he co-founded and built the frontend for; it reached 100+ signups and wound down in May 2026. (3) SOSO — a satellite telemetry visualization tool built for a Canadian Space Agency capstone. The Flagship section of the site goes into the actual engineering decisions behind FootPal FC.",
+      "Three things worth knowing about: (1) VamoKora — his flagship, a pickup-soccer logistics app he’s been building since June 2026, now past 450 commits with regular tagged releases. (2) KonnectTaps — a digital business card platform he co-founded and built the frontend for; it reached 100+ signups and wound down in May 2026. (3) SOSO — a satellite telemetry visualization tool built for a Canadian Space Agency capstone. The Flagship section of the site goes into the actual engineering decisions behind VamoKora.",
     followUps: ["footpal", "konnecttaps", "experience"],
   },
   {
@@ -145,9 +145,9 @@ const knowledgeBase: KnowledgeEntry[] = [
     id: "footpal",
     keywords: ["footpal", "soccer", "scheduling", "pwa", "football", "crew"],
     patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
-    question: "Tell me about FootPal FC",
+    question: "Tell me about VamoKora",
     answer:
-      "FootPal FC organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 16, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
+      "VamoKora organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 16, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
     followUps: ["footpal-engineering", "projects", "skills"],
   },
   {
@@ -159,7 +159,7 @@ const knowledgeBase: KnowledgeEntry[] = [
       /(multi.?tenan|idempoten|service worker|session auth)/i,
       /architecture/i,
     ],
-    question: "What's technically interesting about FootPal FC?",
+    question: "What's technically interesting about VamoKora?",
     answer:
       "A few decisions: crew-scoped data isolation is enforced by explicit application-layer guards called per route — no Postgres RLS, no Prisma middleware. Session auth is written from scratch with no auth library: the cookie carries the plaintext token and the database stores only the SHA-256 hash, with a three-tier resolution path that migrated existing accounts on read without logging anyone out. Man-of-the-match awards fire exactly once whether triggered by the final vote or a fallback cron. Game-page load went from ~3.3s to ~1.1s by batching 8 sequential Prisma reads into one parallel fetch and adding three indexes after EXPLAIN showed sequential scans — measured by hand, not by a benchmark harness. Kickoff times resolve to UTC through Intl.DateTimeFormat.formatToParts, with zero date libraries in package.json. The hand-written service worker serves a branded offline page and deliberately caches nothing — stale rosters and costs would be worse than a clear offline page.",
     followUps: ["footpal", "skills", "fit"],
@@ -259,7 +259,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What is he learning?",
     answer:
-      "Currently AWS and Kubernetes. TypeScript, Next.js, and CI/CD aren’t exploratory anymore — he ships production apps with them. He learns by building: the session auth, the multi-tenancy guards, and the DST handling in FootPal FC were all written from scratch rather than pulled from a library.",
+      "Currently AWS and Kubernetes. TypeScript, Next.js, and CI/CD aren’t exploratory anymore — he ships production apps with them. He learns by building: the session auth, the multi-tenancy guards, and the DST handling in VamoKora were all written from scratch rather than pulled from a library.",
     followUps: ["skills", "footpal-engineering"],
   },
   {
@@ -278,11 +278,11 @@ const knowledgeBase: KnowledgeEntry[] = [
       "Good question — what kind of role or team is this for? For example: startup, product team, agency, or enterprise.",
     contextResponses: {
       startup:
-        "Amir works like an early-stage engineer. He’s been building FootPal FC since June 2026 — 450+ commits, 100+ route handlers, 170+ test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
+        "Amir works like an early-stage engineer. He’s been building VamoKora since June 2026 — 450+ commits, 100+ route handlers, 170+ test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
       product:
-        "Amir builds for real use, not for a portfolio. FootPal FC came out of a problem in his own life and is now used by 25+ players in three crews, two of which he isn’t part of. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
+        "Amir builds for real use, not for a portfolio. VamoKora came out of a problem in his own life and is now used by 25+ players in three crews, two of which he isn’t part of. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
       agency:
-        "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships (170+ test blocks across 15 suites in FootPal FC).",
+        "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships (170+ test blocks across 15 suites in VamoKora).",
       enterprise:
         "Amir brings a Computer Engineering degree plus seven-plus years of operational discipline at Marché Adonis, where he now runs daily operations for a 13-person team. On the engineering side he’s deliberate about correctness: per-route access guards for tenant isolation, exactly-once award processing under concurrent triggers, and a single PII-scrubbing chokepoint for all error reporting.",
       controls:
@@ -290,7 +290,7 @@ const knowledgeBase: KnowledgeEntry[] = [
       systems:
         "Amir’s Computer Engineering degree covers networking, operating systems, and distributed systems, and his Humber studies add control circuits and industrial automation. In practice that shows up as systems thinking in his software: crew-scoped isolation enforced at every call site, idempotent award processing that leans on the database to serialize, and DST-correct time handling with no date library.",
       _default:
-        "Amir combines a Computer Engineering degree, seven-plus years of professional accountability at Marché Adonis, and a substantial codebase he can talk through in depth. FootPal FC is 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, and he can explain why the session auth stores only a SHA-256 hash, why there’s no date library, and why the service worker caches nothing. He’s a 2025 grad, but he’s not short on things to defend in an interview.",
+        "Amir combines a Computer Engineering degree, seven-plus years of professional accountability at Marché Adonis, and a substantial codebase he can talk through in depth. VamoKora is 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, and he can explain why the session auth stores only a SHA-256 hash, why there’s no date library, and why the service worker caches nothing. He’s a 2025 grad, but he’s not short on things to defend in an interview.",
     },
     followUps: ["strengths", "footpal-engineering", "projects"],
   },
@@ -305,7 +305,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What are his strengths?",
     answer:
-      "(1) Depth on one real codebase — FootPal FC is 450+ commits deep and he can explain the reasoning behind the schema, the auth, and the caching policy. (2) Frontend craft — that was his role at KonnectTaps and it’s where he’s strongest. (3) Correctness over convenience — he writes things from scratch when a library would hide a behaviour he needs to control, like DST handling and session tokens. (4) Operational reliability — seven-plus years running high-volume shifts at Marché Adonis. (5) He tests: 170+ test blocks across 15 suites.",
+      "(1) Depth on one real codebase — VamoKora is 450+ commits deep and he can explain the reasoning behind the schema, the auth, and the caching policy. (2) Frontend craft — that was his role at KonnectTaps and it’s where he’s strongest. (3) Correctness over convenience — he writes things from scratch when a library would hide a behaviour he needs to control, like DST handling and session tokens. (4) Operational reliability — seven-plus years running high-volume shifts at Marché Adonis. (5) He tests: 170+ test blocks across 15 suites.",
     followUps: ["fit", "skills", "weaknesses"],
   },
   {
@@ -321,7 +321,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Any areas for growth?",
     answer:
-      "Straight answer: Amir graduated in 2025 and hasn’t worked on a large engineering team yet — most of his code has been written solo or in a group of three. He’s also open about using AI coding tools, and about where his own measurements stop: the FootPal FC performance numbers were taken by hand on one page, not from a benchmark harness. What he does have is a real codebase he can defend line by line, and a habit of naming the tradeoff rather than hiding it.",
+      "Straight answer: Amir graduated in 2025 and hasn’t worked on a large engineering team yet — most of his code has been written solo or in a group of three. He’s also open about using AI coding tools, and about where his own measurements stop: the VamoKora performance numbers were taken by hand on one page, not from a benchmark harness. What he does have is a real codebase he can defend line by line, and a habit of naming the tradeoff rather than hiding it.",
     followUps: ["currently-learning", "fit", "strengths"],
   },
   {
@@ -349,7 +349,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Good for startups?",
     answer:
-      "Yes. He co-founded KonnectTaps and built its frontend, and he’s been running FootPal FC end-to-end since June 2026 — schema, auth, routes, tests, releases. He’s comfortable deciding scope, shipping without much process, and living with the consequences of his own tradeoffs.",
+      "Yes. He co-founded KonnectTaps and built its frontend, and he’s been running VamoKora end-to-end since June 2026 — schema, auth, routes, tests, releases. He’s comfortable deciding scope, shipping without much process, and living with the consequences of his own tradeoffs.",
     followUps: ["konnecttaps", "footpal", "fit"],
   },
   {
@@ -371,7 +371,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What’s he passionate about?",
     answer:
-      "Building things people actually use, and being able to explain why each part works the way it does. FootPal FC started as a problem in his own life and is now run by three crews, two of which he isn’t part of. He’s especially drawn to frontend and UI work, but he’s built the schema, the auth, and the background jobs behind it too.",
+      "Building things people actually use, and being able to explain why each part works the way it does. VamoKora started as a problem in his own life and is now run by three crews, two of which he isn’t part of. He’s especially drawn to frontend and UI work, but he’s built the schema, the auth, and the background jobs behind it too.",
     followUps: ["footpal", "footpal-engineering", "skills"],
   },
   {
@@ -385,7 +385,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "How did he learn?",
     answer:
-      "By building and shipping. He co-founded KonnectTaps as his first real product and built its frontend in React and Next.js. Since then he’s written FootPal FC’s session auth, tenancy guards, rating engine, and time handling from scratch rather than reaching for libraries — partly because that’s how he learns what a library would have been doing for him.",
+      "By building and shipping. He co-founded KonnectTaps as his first real product and built its frontend in React and Next.js. Since then he’s written VamoKora’s session auth, tenancy guards, rating engine, and time handling from scratch rather than reaching for libraries — partly because that’s how he learns what a library would have been doing for him.",
     followUps: ["footpal-engineering", "currently-learning", "strengths"],
   },
 ];
@@ -396,7 +396,7 @@ const fallbackEntry: KnowledgeEntry = {
   patterns: [],
   question: "",
   answer:
-    "I’m not sure about that one. I can tell you about Amir’s background, stack, projects, the engineering behind FootPal FC, his experience, availability, or his strengths and growth areas. What would help?",
+    "I’m not sure about that one. I can tell you about Amir’s background, stack, projects, the engineering behind VamoKora, his experience, availability, or his strengths and growth areas. What would help?",
   followUps: ["background", "fit", "skills", "contact"],
 };
 
