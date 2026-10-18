@@ -227,7 +227,7 @@ function PlayerCard() {
     <figure className="w-60 shrink-0" aria-label="Amir Ibrahim's player card">
       <div className="rounded-2xl bg-[#171310] p-5 text-[#f5f1e8]">
         <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
-          <span>FOOTPAL FC</span>
+          <span>VAMOKORA</span>
           <span>
             Nº {playerCard.number} · {playerCard.position}
           </span>
@@ -410,7 +410,7 @@ export default function HomePageClient({
         >
           <a
             href="#decisions"
-            className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
           >
             Read the decisions
           </a>
@@ -419,7 +419,7 @@ export default function HomePageClient({
               href={flagship.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={linkStyle}
+              className="inline-flex items-center gap-1.5 rounded-md border border-line-strong px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-foreground transition-colors hover:border-accent-ink hover:text-accent-ink"
             >
               Open VamoKora
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -445,7 +445,7 @@ export default function HomePageClient({
       </Section>
 
       {/* ── Flagship ── */}
-      <Section id="work" label="Flagship">
+      <Section id="work" label="Flagship · 01">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h3 className="display text-3xl text-foreground sm:text-4xl">
             {flagship?.title}

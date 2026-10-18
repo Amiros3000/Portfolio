@@ -65,7 +65,7 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Pickup soccer logistics across three crews — RSVPs, team drafting,
+          Pickup soccer logistics for a real 29-player crew — RSVPs, team drafting,
           cost splitting, and player ratings.
         </div>
 

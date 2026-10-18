@@ -30,19 +30,19 @@
 
 .dark {
   color-scheme: dark;
-  --background: #121110;
-  --foreground: #efebe6;
-  --muted: #9c948d;
-  --surface: #1a1817;
-  --surface-strong: #221f1d;
-  --line: #2c2926;
-  --line-strong: #423d39;
-  --accent: #b31d1d;
-  --accent-ink: #e3928c;
-  --accent-soft: rgba(179, 29, 29, 0.14);
-  --on-accent: #fff6f4;
+  --background: #141210;
+  --foreground: #ece7e0;
+  --muted: #a39a90;
+  --surface: #1c1917;
+  --surface-strong: #242019;
+  --line: #2b2724;
+  --line-strong: #3d3833;
+  --accent: #e0655c;
+  --accent-ink: #e0655c;
+  --accent-soft: rgba(224, 101, 92, 0.12);
+  --on-accent: #141210;
   --secondary: #a79a92;
-  --selection-bg: #5c1010;
+  --selection-bg: #4a1a12;
   --selection-fg: #ffe8e6;
 }
 

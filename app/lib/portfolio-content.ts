@@ -41,7 +41,7 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     subheadline:
-      "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
+      "It organizes recurring pickup soccer for a real 29-player crew — RSVPs, team drafting, cost splitting, and player ratings.",
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: VamoKora, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
@@ -77,7 +77,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       title: "VamoKora",
       stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
-        "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
+        "Pickup-soccer coordination for my own 29-player crew — RSVPs, team drafting, cost splitting, and player ratings — running real weekly games since June 2026.",
       href: "https://footpalfc.amiribrahim3000.com",
       hrefLabel: "Live",
     },

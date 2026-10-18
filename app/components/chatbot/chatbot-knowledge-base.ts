@@ -17,7 +17,7 @@ export type KnowledgeEntry = {
    - KonnectTaps: Amir was FRONTEND. Three developers, not two. Payments were
      Stripe and were built by the CEO — never attribute them to Amir. 100+
      SIGNUPS (not active users). Wound down May 2026. ktaps.me is retired.
-   - VamoKora: renamed from "VamoKora". 25+ active users across three crews.
+   - VamoKora: renamed from "FootPal FC" (Oct 2026). One live crew: Amiros FC, 29 players, weekly games.
      Its service worker is an OFFLINE FALLBACK — never "offline support".
    - Marché Adonis title is Assistant Deli Manager.
    - No Express anywhere; backend is Next.js API routes and FastAPI.
@@ -100,7 +100,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "Who is Amir?",
     answer:
-      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is VamoKora, which he’s been building since June 2026 — 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, now used by 25+ players across three crews. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
+      "Amir Ibrahim is a full-stack software developer and Computer Engineering graduate from York University (2025), based in the GTA. He works in TypeScript, Next.js, React, PostgreSQL, and Python. His main project is VamoKora, which he’s been building since June 2026 — 25+ Postgres models, 100+ HTTP handlers, and 170+ test blocks, now used week in, week out by his own 29-player crew, Amiros FC. Before that he co-founded KonnectTaps, where he built the frontend. He’s also worked at Marché Adonis since 2017, now as Assistant Deli Manager.",
     followUps: ["footpal", "experience", "skills"],
   },
   {
@@ -147,7 +147,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     patterns: [/foot\s?pal/i, /soccer/i, /scheduling (app|pwa|tool)/i],
     question: "Tell me about VamoKora",
     answer:
-      "VamoKora organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. It’s used by 25+ players in three crews, two of them outside Amir’s own friend circle (Montreal and Mississauga). Built on Next.js 16, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
+      "VamoKora organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — for Amir’s own 29-player crew, Amiros FC, running real weekly games since June 2026. Built on Next.js 16, TypeScript, PostgreSQL (Neon), Prisma, Web Push, Sentry, and Vercel. From the July 2026 code audit: 25+ Postgres models, 100+ HTTP handlers across 80+ route files, and 170+ test blocks across 15 suites. The site's Flagship section shows the live commit count and current release. Live at footpalfc.amiribrahim3000.com.",
     followUps: ["footpal-engineering", "projects", "skills"],
   },
   {
@@ -280,7 +280,7 @@ const knowledgeBase: KnowledgeEntry[] = [
       startup:
         "Amir works like an early-stage engineer. He’s been building VamoKora since June 2026 — 450+ commits, 100+ route handlers, 170+ test blocks — deciding the schema, the auth, and the release cadence himself. He also co-founded KonnectTaps and built its frontend with two other developers. He’s used to owning scope and shipping without a lot of structure around him.",
       product:
-        "Amir builds for real use, not for a portfolio. VamoKora came out of a problem in his own life and is now used by 25+ players in three crews, two of which he isn’t part of. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
+        "Amir builds for real use, not for a portfolio. VamoKora came out of a problem in his own life and is now used every week by his own 29-player crew. He makes explicit product calls and can tell you what each one cost — for example, the service worker deliberately caches nothing, because showing someone a stale roster or cost split is worse than showing a clear offline page.",
       agency:
         "Amir ramps up fast and context-switches well — he balanced a full engineering degree with co-founding a company and working at Marché Adonis. He works across the stack in TypeScript, Next.js, PostgreSQL, and Python, and he tests what he ships (170+ test blocks across 15 suites in VamoKora).",
       enterprise:
@@ -371,7 +371,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     ],
     question: "What’s he passionate about?",
     answer:
-      "Building things people actually use, and being able to explain why each part works the way it does. VamoKora started as a problem in his own life and is now run by three crews, two of which he isn’t part of. He’s especially drawn to frontend and UI work, but he’s built the schema, the auth, and the background jobs behind it too.",
+      "Building things people actually use, and being able to explain why each part works the way it does. VamoKora started as a problem in his own life and is now run every Saturday by his own 29-player crew. He’s especially drawn to frontend and UI work, but he’s built the schema, the auth, and the background jobs behind it too.",
     followUps: ["footpal", "footpal-engineering", "skills"],
   },
   {
