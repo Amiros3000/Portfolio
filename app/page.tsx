@@ -21,6 +21,17 @@ function resolveResumeHref(resumeUrl: string): string | null {
     : null;
 }
 
+/**
+ * Same pattern for the demo video: the flagship section renders the player
+ * only when public/vamokora-demo.mp4 exists at build time, so the slot stays
+ * invisible until the recording lands instead of shipping a dead box.
+ */
+function resolveDemoVideoHref(): string | null {
+  return existsSync(path.join(process.cwd(), "public", "vamokora-demo.mp4"))
+    ? "/vamokora-demo.mp4"
+    : null;
+}
+
 export default async function Home() {
   const [content, footpalLive] = await Promise.all([
     getPortfolioContent(),
@@ -49,6 +60,7 @@ export default async function Home() {
         content={content}
         footpalLive={footpalLive}
         resumeHref={resolveResumeHref(content.hero.resumeUrl)}
+        demoVideoHref={resolveDemoVideoHref()}
       />
     </>
   );

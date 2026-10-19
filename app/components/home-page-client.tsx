@@ -18,6 +18,8 @@ type HomePageClientProps = {
   footpalLive: FootpalLive;
   /** Resolved server-side: null when no resume file exists, so the page never links a 404. */
   resumeHref: string | null;
+  /** Resolved server-side: null until public/vamokora-demo.mp4 exists, so no dead player ships. */
+  demoVideoHref: string | null;
 };
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -282,6 +284,7 @@ export default function HomePageClient({
   content,
   footpalLive,
   resumeHref,
+  demoVideoHref,
 }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
@@ -477,6 +480,23 @@ export default function HomePageClient({
             </li>
           ))}
         </ul>
+
+        {demoVideoHref ? (
+          <figure className="mt-10">
+            <video
+              className="aspect-[9/16] w-full max-w-xs rounded-xl border border-line bg-surface"
+              src={demoVideoHref}
+              controls
+              preload="metadata"
+              playsInline
+              aria-label="VamoKora demo: sixty-second screen recording of the matchday flow"
+            />
+            <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+              Sixty seconds, recorded from the live app: RSVP → teams on the
+              pitch → cost split.
+            </figcaption>
+          </figure>
+        ) : null}
 
         <dl className="mt-8 divide-y divide-line border-t border-b border-line">
           {footpalSpec(footpalLive).map((figure) => (
@@ -760,7 +780,7 @@ export default function HomePageClient({
               <button
                 type="submit"
                 disabled={formStatus === "sending"}
-                className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {formStatus === "sending" ? "Sending" : "Send message"}
               </button>
