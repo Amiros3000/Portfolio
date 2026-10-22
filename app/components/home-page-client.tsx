@@ -18,6 +18,8 @@ type HomePageClientProps = {
   footpalLive: FootpalLive;
   /** Resolved server-side: null when no resume file exists, so the page never links a 404. */
   resumeHref: string | null;
+  /** Resolved server-side: null until public/vamokora-demo.mp4 exists, so no dead player ships. */
+  demoVideoHref: string | null;
 };
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -124,22 +126,22 @@ const lookingFor = [
   { key: "Availability", value: "Immediately" },
 ];
 
-/** Real screenshots from FootPal FC's about page — the proof the page was missing. */
+/** Real screenshots from VamoKora's about page — the proof the page was missing. */
 const footpalShots = [
   {
     src: "/footpal/lineup.webp",
-    alt: "FootPal FC team drafting: both sides laid out on a pitch as player cards",
+    alt: "VamoKora team drafting: both sides laid out on a pitch as player cards",
     caption:
       "Team drafting — fair sides from the crew's own ratings, drawn on a pitch.",
   },
   {
     src: "/footpal/home.webp",
-    alt: "FootPal FC home screen: tier promotion card, the next game, and money owed",
+    alt: "VamoKora home screen: tier promotion card, the next game, and money owed",
     caption: "Matchday home — tier movement, the next game, and who owes whom.",
   },
   {
     src: "/footpal/crew.webp",
-    alt: "FootPal FC crew hub: the squad as a wall of player cards",
+    alt: "VamoKora crew hub: the squad as a wall of player cards",
     caption: "The crew wall — every player gets a card, nobody gets a free rating.",
   },
 ];
@@ -227,7 +229,7 @@ function PlayerCard() {
     <figure className="w-60 shrink-0" aria-label="Amir Ibrahim's player card">
       <div className="rounded-2xl bg-[#171310] p-5 text-[#f5f1e8]">
         <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
-          <span>FOOTPAL FC</span>
+          <span>VAMOKORA</span>
           <span>
             Nº {playerCard.number} · {playerCard.position}
           </span>
@@ -282,6 +284,7 @@ export default function HomePageClient({
   content,
   footpalLive,
   resumeHref,
+  demoVideoHref,
 }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
   const [formMessage, setFormMessage] = useState("");
@@ -356,7 +359,7 @@ export default function HomePageClient({
     <main id="main-content">
       {/* ── Hero ─────────────────────────────────────────────────────────
           The thesis is the artifact, not the person: the headline states what
-          FootPal FC actually is, in counts. The name sits in the mono eyebrow
+          VamoKora actually is, in counts. The name sits in the mono eyebrow
           as metadata.
 
           The load sequence is the CSS `.rise` animation, not a JS one. These
@@ -410,7 +413,7 @@ export default function HomePageClient({
         >
           <a
             href="#decisions"
-            className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
+            className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
           >
             Read the decisions
           </a>
@@ -419,9 +422,9 @@ export default function HomePageClient({
               href={flagship.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={linkStyle}
+              className="inline-flex items-center gap-1.5 rounded-md border border-line-strong px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-foreground transition-colors hover:border-accent-ink hover:text-accent-ink"
             >
-              Open FootPal FC
+              Open VamoKora
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           ) : null}
@@ -438,14 +441,14 @@ export default function HomePageClient({
             </p>
             <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
               This page&apos;s stats are compiled by the thing it describes —
-              FootPal FC&apos;s own CI reads its source and reports back daily.
+              VamoKora&apos;s own CI reads its source and reports back daily.
             </p>
           </div>
         </div>
       </Section>
 
       {/* ── Flagship ── */}
-      <Section id="work" label="Flagship">
+      <Section id="work" label="Flagship · 01">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h3 className="display text-3xl text-foreground sm:text-4xl">
             {flagship?.title}
@@ -477,6 +480,23 @@ export default function HomePageClient({
             </li>
           ))}
         </ul>
+
+        {demoVideoHref ? (
+          <figure className="mt-10">
+            <video
+              className="aspect-[9/16] w-full max-w-xs rounded-xl border border-line bg-surface"
+              src={demoVideoHref}
+              controls
+              preload="metadata"
+              playsInline
+              aria-label="VamoKora demo: sixty-second screen recording of the matchday flow"
+            />
+            <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+              Sixty seconds, recorded from the live app: RSVP → teams on the
+              pitch → cost split.
+            </figcaption>
+          </figure>
+        ) : null}
 
         <dl className="mt-8 divide-y divide-line border-t border-b border-line">
           {footpalSpec(footpalLive).map((figure) => (
@@ -557,7 +577,7 @@ export default function HomePageClient({
         </ul>
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.75rem] text-muted">
-          Counts read from FootPal FC&apos;s source by its own CI, refreshed
+          Counts read from VamoKora&apos;s source by its own CI, refreshed
           daily.
         </p>
       </Section>
@@ -760,7 +780,7 @@ export default function HomePageClient({
               <button
                 type="submit"
                 disabled={formStatus === "sending"}
-                className="inline-flex items-center bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {formStatus === "sending" ? "Sending" : "Send message"}
               </button>

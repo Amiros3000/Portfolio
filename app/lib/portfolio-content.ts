@@ -41,8 +41,8 @@ const CONTENT_FILE = path.join(process.cwd(), "content", "portfolio-content.json
 export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     subheadline:
-      "It organizes recurring pickup soccer for 25+ players across three crews — RSVPs, team drafting, cost splitting, and player ratings.",
-    bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: FootPal FC, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
+      "It organizes recurring pickup soccer for a real 29-player crew — RSVPs, team drafting, cost splitting, and player ratings.",
+    bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: VamoKora, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
   skills: [
@@ -74,10 +74,10 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     {
       // Flagship. Rendered as its own section, not a card — the long-form
       // engineering detail lives in footpal-fc.ts.
-      title: "FootPal FC",
+      title: "VamoKora",
       stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
-        "Organizes recurring pickup soccer — RSVPs, team drafting, cost splitting, and player ratings — across independent crews. In use by 25+ players in three crews, two of them outside my own friend circle (Montreal and Mississauga). Building since June 2026.",
+        "Pickup-soccer coordination for my own 29-player crew — RSVPs, team drafting, cost splitting, and player ratings — running real weekly games since June 2026.",
       href: "https://footpalfc.amiribrahim3000.com",
       hrefLabel: "Live",
     },
@@ -166,7 +166,7 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
       return {
         title: cleanString(record.title, fallback.title, 80),
         stack: cleanString(record.stack, fallback.stack, 90),
-        // 600 (was 380) so longer, verbatim project copy (e.g. FootPal) isn't truncated.
+        // 600 (was 380) so longer, verbatim project copy (e.g. VamoKora) isn't truncated.
         description: cleanString(record.description, fallback.description, 600),
         href: cleanString(record.href, fallback.href, 200),
         hrefLabel: cleanString(record.hrefLabel, fallback.hrefLabel, 40),

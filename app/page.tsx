@@ -4,7 +4,7 @@ import HomePageClient from "./components/home-page-client";
 import { getFootpalLive } from "./lib/footpal-live";
 import { getPortfolioContent } from "./lib/portfolio-content";
 
-// FootPal FC figures come from GitHub; rebuild the page with fresh ones daily.
+// VamoKora figures come from GitHub; rebuild the page with fresh ones daily.
 export const revalidate = 86400;
 
 /**
@@ -18,6 +18,17 @@ function resolveResumeHref(resumeUrl: string): string | null {
   if (!resumeUrl.startsWith("/")) return resumeUrl;
   return existsSync(path.join(process.cwd(), "public", resumeUrl))
     ? resumeUrl
+    : null;
+}
+
+/**
+ * Same pattern for the demo video: the flagship section renders the player
+ * only when public/vamokora-demo.mp4 exists at build time, so the slot stays
+ * invisible until the recording lands instead of shipping a dead box.
+ */
+function resolveDemoVideoHref(): string | null {
+  return existsSync(path.join(process.cwd(), "public", "vamokora-demo.mp4"))
+    ? "/vamokora-demo.mp4"
     : null;
 }
 
@@ -49,6 +60,7 @@ export default async function Home() {
         content={content}
         footpalLive={footpalLive}
         resumeHref={resolveResumeHref(content.hero.resumeUrl)}
+        demoVideoHref={resolveDemoVideoHref()}
       />
     </>
   );

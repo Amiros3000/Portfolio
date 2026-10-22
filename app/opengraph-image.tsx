@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Amir Ibrahim — full-stack developer. FootPal FC: 25+ Postgres models, 100+ HTTP handlers, 170+ test blocks.";
+  "Amir Ibrahim — full-stack developer. VamoKora: 25+ Postgres models, 100+ HTTP handlers, 170+ test blocks.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,7 +52,7 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          FootPal FC runs on 25+ Postgres models, 100+ HTTP handlers, and 170+
+          VamoKora runs on 25+ Postgres models, 100+ HTTP handlers, and 170+
           test blocks.
         </div>
 
@@ -65,7 +65,7 @@ export default function Image() {
             lineHeight: 1.45,
           }}
         >
-          Pickup soccer logistics across three crews — RSVPs, team drafting,
+          Pickup soccer logistics for a real 29-player crew — RSVPs, team drafting,
           cost splitting, and player ratings.
         </div>
 
