@@ -33,6 +33,8 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const onHomePage = pathname === "/";
   const [activeSection, setActiveSection] = useState<string>("");
+  // Match clock: how far down the page the reader is, as minutes of a 90' game.
+  const [matchMinute, setMatchMinute] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -79,6 +81,14 @@ export default function SiteHeader() {
       }
 
       setActiveSection(nextActive);
+
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      setMatchMinute(
+        scrollable > 0
+          ? Math.min(90, Math.round((window.scrollY / scrollable) * 90))
+          : 0,
+      );
     };
 
     let rafId = 0;
@@ -114,6 +124,32 @@ export default function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-5">
+          {onHomePage ? (
+            // Decorative: the same position is already conveyed by the
+            // scroll-spy nav, so screen readers skip it.
+            <div
+              aria-hidden
+              className="flex items-center gap-2.5 font-mono text-[0.75rem] tracking-wide"
+            >
+              <span className="hidden text-muted lg:inline">
+                {matchMinute < 45
+                  ? "1st half"
+                  : matchMinute < 90
+                    ? "2nd half"
+                    : "Full time"}
+              </span>
+              <span className="hidden h-1 w-16 overflow-hidden rounded-full bg-line sm:block">
+                <span
+                  className="block h-full rounded-full bg-accent"
+                  style={{ width: `${(matchMinute / 90) * 100}%` }}
+                />
+              </span>
+              <span className="min-w-[2.5ch] text-right font-medium text-accent-ink tabular-nums">
+                {matchMinute}&apos;
+              </span>
+            </div>
+          ) : null}
+
           <nav className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => (
               <Link

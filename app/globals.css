@@ -105,6 +105,102 @@ body {
   animation: rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
+/*
+  Kickoff intro. Same rule as .rise: every resting state is the finished,
+  visible state, and `backwards` fill only hides things while the animation is
+  running. Pitch lines are drawn with pathLength="1", so a dash of 1 is the
+  whole line whatever its real length.
+*/
+@keyframes pitch-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pitch-draw {
+  stroke-dasharray: 1;
+  animation: pitch-draw 1.4s cubic-bezier(0.6, 0, 0.2, 1) backwards;
+}
+
+@keyframes card-turn {
+  from {
+    transform: rotateY(180deg) translateY(24px);
+  }
+  60% {
+    transform: rotateY(-10deg) translateY(-4px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.card-turn {
+  animation: card-turn 1.1s cubic-bezier(0.3, 0.7, 0.2, 1) 0.9s backwards;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.bar-grow {
+  transform-origin: left;
+  animation: bar-grow 0.8s ease-out backwards;
+}
+
+/*
+  Two-faced cards (the player card, the decision cards). Both faces sit in the
+  same grid cell, so the card is as tall as its taller face without a fixed
+  height, and the back face is turned away until the card rotates.
+*/
+.faces {
+  display: grid;
+  transform-style: preserve-3d;
+}
+
+.face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.face-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card {
+  perspective: 1200px;
+}
+
+.flip-card .faces {
+  transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+.flip-card[aria-pressed="true"] .faces {
+  transform: rotateY(180deg);
+}
+
+/*
+  Matchday strip: steps light up in order when the strip scrolls into view.
+  Without JS the strip never gets data-state="armed", so it stays fully lit.
+*/
+.matchday li {
+  transition:
+    opacity 0.5s ease,
+    border-color 0.5s ease;
+  transition-delay: calc(var(--step, 0) * 180ms);
+}
+
+.matchday[data-state="armed"] li {
+  opacity: 0.3;
+  border-color: var(--line);
+  transition-delay: 0s;
+}
+
 /* Display type: tight tracking, optical sizing on. Used large and left-aligned. */
 .display {
   font-family: var(--font-sans);
@@ -169,6 +265,9 @@ summary:focus-visible {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    /* Delays too: with `backwards` fill, a delayed animation would otherwise
+       hold its hidden start state (card back, empty bars) for the delay. */
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
