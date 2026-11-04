@@ -3,7 +3,7 @@ import { Archivo, IBM_Plex_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import SiteHeader from "./components/site-header";
-import ChatbotWidget from "./components/chatbot/chatbot-widget";
+import CommonQuestions from "./components/common-questions";
 import SiteFooter from "./components/site-footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -94,7 +94,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <SiteFooter />
           </div>
-          <ChatbotWidget />
+          <CommonQuestions />
         </Providers>
         <Analytics />
         <SpeedInsights />
