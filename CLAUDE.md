@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal portfolio site for Amir Ibrahim (Computer Engineer, York 2025). Single-page with scroll-based nav, dark/light theme, an AI-style chatbot widget, a dev-only admin panel for live content editing, and an optional Supabase backend.
+Personal portfolio site for Amir Ibrahim (Computer Engineer, York 2025). Single-page with scroll-based nav, dark/light theme, a floating "Common questions" panel, a dev-only admin panel for live content editing, and an optional Supabase backend.
 
 Live: **amiribrahim3000.com** — Vercel project `amiros3000s-projects/portfolio`
 
@@ -59,9 +59,8 @@ app/
     footer.tsx
     admin-editor.tsx          # dev-only content editor UI
     admin-tabs.tsx
-    chatbot/
-      chatbot-widget.tsx      # floating chat button + dialog
-      chatbot-knowledge-base.ts  # keyword/regex-matched Q&A entries
+    common-questions.tsx      # floating "Questions" button + fixed Q&A panel (replaced the chatbot)
+    pitch-motion.tsx          # hero pitch lines, matchday strip, decision flip cards
 
     resume-builder/
       resume-builder.tsx
