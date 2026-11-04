@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+
+/** How many decisions show as flip cards before "Show all". */
+const FEATURED_DECISIONS = 3;
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import {
   footpalDecisions,
-  footpalHeroHeadline,
   footpalRelease,
   footpalSpec,
   footpalStack,
   type FootpalLive,
 } from "@/app/lib/footpal-fc";
+import { DecisionCard, MatchdayStrip, PitchLines } from "./pitch-motion";
 
 type HomePageClientProps = {
   content: PortfolioContent;
@@ -223,59 +226,72 @@ function Section({
   );
 }
 
-/** Amir's player card — the app gives every player one, so he gets one too. */
+/**
+ * Amir's player card — the app gives every player one, so he gets one too.
+ * On load it turns over from its back (.card-turn) and the stat bars fill
+ * (.bar-grow). The tilt lives on the wrapper so the animation's end state and
+ * the resting tilt never fight over `transform`.
+ */
 function PlayerCard() {
   return (
-    <figure className="w-60 shrink-0" aria-label="Amir Ibrahim's player card">
-      <div className="rounded-2xl bg-[#171310] p-5 text-[#f5f1e8]">
-        <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
-          <span>VAMOKORA</span>
-          <span>
-            Nº {playerCard.number} · {playerCard.position}
-          </span>
-        </div>
+    <figure className="w-56 shrink-0 [perspective:1200px]" aria-label="Amir Ibrahim's player card">
+      <div className="faces card-turn">
         <div
-          className="mx-auto mt-4 flex h-32 w-28 flex-col items-center justify-center bg-accent"
-          style={{
-            clipPath: "polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%)",
-          }}
+          aria-hidden
+          className="face face-back flex items-center justify-center rounded-2xl bg-accent font-mono text-2xl tracking-[0.3em] text-on-accent"
         >
-          <span className="font-sans text-5xl font-bold leading-none text-on-accent">
-            {playerCard.overall}
-          </span>
-          <span className="mt-1 font-mono text-[0.6875rem] tracking-[0.2em] text-on-accent/80">
-            OVR
-          </span>
+          VK
         </div>
-        <p className="mt-4 text-center font-sans text-base font-semibold tracking-[-0.01em]">
-          {playerCard.name}
-        </p>
-        <p className="mt-0.5 text-center font-mono text-[0.6875rem] tracking-[0.2em] text-[#f5f1e8]/60">
-          TIER — {playerCard.tier.toUpperCase()}
-        </p>
-        <dl className="mt-5 space-y-2.5">
-          {playerCard.stats.map((stat) => (
-            <div key={stat.label}>
-              <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-wide">
-                <dt className="text-[#f5f1e8]/70">{stat.label}</dt>
-                <dd className="text-[#f5f1e8]">{stat.value}</dd>
-              </div>
-              <div
-                className="mt-1 h-1 overflow-hidden rounded-full bg-[#f5f1e8]/15"
-                role="presentation"
-              >
+        <div className="face rounded-2xl border border-white/10 bg-[#171310] p-5 text-[#f5f1e8] shadow-[0_30px_60px_-24px_rgba(0,0,0,0.6)]">
+          <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
+            <span>VAMOKORA</span>
+            <span>
+              Nº {playerCard.number} · {playerCard.position}
+            </span>
+          </div>
+          <div
+            className="mx-auto mt-4 flex h-28 w-24 flex-col items-center justify-center bg-accent"
+            style={{
+              clipPath: "polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%)",
+            }}
+          >
+            <span className="font-sans text-[2.6rem] font-bold leading-none text-on-accent">
+              {playerCard.overall}
+            </span>
+            <span className="mt-1 font-mono text-[0.6875rem] tracking-[0.2em] text-on-accent/80">
+              OVR
+            </span>
+          </div>
+          <p className="mt-3 text-center font-sans text-base font-semibold tracking-[-0.01em]">
+            {playerCard.name}
+          </p>
+          <p className="mt-0.5 text-center font-mono text-[0.6875rem] tracking-[0.2em] text-[#f5f1e8]/60">
+            TIER — {playerCard.tier.toUpperCase()}
+          </p>
+          <dl className="mt-4 space-y-2">
+            {playerCard.stats.map((stat, index) => (
+              <div key={stat.label}>
+                <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-wide">
+                  <dt className="text-[#f5f1e8]/70">{stat.label}</dt>
+                  <dd className="text-[#f5f1e8]">{stat.value}</dd>
+                </div>
                 <div
-                  className="h-full rounded-full bg-accent"
-                  style={{ width: `${stat.value}%` }}
-                />
+                  className="mt-1 h-1 overflow-hidden rounded-full bg-[#f5f1e8]/15"
+                  role="presentation"
+                >
+                  <div
+                    className="bar-grow h-full rounded-full bg-accent"
+                    style={{
+                      width: `${stat.value}%`,
+                      animationDelay: `${1800 + index * 80}ms`,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </dl>
+            ))}
+          </dl>
+        </div>
       </div>
-      <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
-        Everyone gets a card. Nobody gets a free rating.
-      </figcaption>
     </figure>
   );
 }
@@ -287,6 +303,7 @@ export default function HomePageClient({
   demoVideoHref,
 }: HomePageClientProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [showAllDecisions, setShowAllDecisions] = useState(false);
   const [formMessage, setFormMessage] = useState("");
 
   const [flagship, ...alsoBuilt] = content.projects;
@@ -358,93 +375,111 @@ export default function HomePageClient({
   return (
     <main id="main-content">
       {/* ── Hero ─────────────────────────────────────────────────────────
-          The thesis is the artifact, not the person: the headline states what
-          VamoKora actually is, in counts. The name sits in the mono eyebrow
-          as metadata.
-
-          The load sequence is the CSS `.rise` animation, not a JS one. These
-          elements are visible by default and the keyframes only hide them while
-          running, so a stalled animation can never blank the hero — which is
-          exactly how the old stat row shipped a permanent "0+". */}
-      <section className={`${shell} pt-14 pb-16 sm:pt-24 sm:pb-24`}>
-        <p className="meta rise text-muted">
-          Amir Ibrahim
-          <span className="mx-2 text-line-strong">/</span>
-          Full-stack developer
-          <span className="mx-2 text-line-strong">/</span>
-          GTA, Ontario
-        </p>
-
-        <h1
-          className="display rise mt-6 max-w-4xl text-[2.1rem] text-foreground sm:text-5xl lg:text-[3.85rem]"
-          style={{ animationDelay: "80ms" }}
-        >
-          {footpalHeroHeadline(footpalLive)}
-        </h1>
-
-        <p
-          className="prose-body rise mt-6 max-w-2xl text-muted sm:text-lg"
-          style={{ animationDelay: "160ms" }}
-        >
-          {content.hero.subheadline}
-        </p>
-
-        {/* Release state only — the counts live in the Flagship section. */}
-        <dl
-          className="rise mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-3 border-t border-line pt-5"
-          style={{ animationDelay: "240ms" }}
-        >
-          {footpalRelease(footpalLive).map((figure) => (
-            <div key={figure.label} className="flex items-baseline gap-2">
-              <dt className="sr-only">{figure.label}</dt>
-              <dd className="font-mono text-base font-medium text-foreground">
-                {figure.value}
-              </dd>
-              <span aria-hidden className="font-mono text-xs text-muted">
-                {figure.label}
-              </span>
-            </div>
-          ))}
-        </dl>
-
+          Kickoff intro: pitch lines draw in, the copy rises, then the player
+          card turns over. All CSS, and every resting state is the visible one
+          (see globals.css), so a stalled animation can never blank the hero —
+          which is exactly how an old stat row shipped a permanent "0+". */}
+      <section className="relative overflow-hidden">
+        <PitchLines />
         <div
-          className="rise mt-9 flex flex-wrap items-center gap-x-7 gap-y-3"
-          style={{ animationDelay: "320ms" }}
+          className={`${shell} relative grid gap-12 pt-14 pb-16 sm:pt-20 sm:pb-20 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center`}
         >
-          <a
-            href="#decisions"
-            className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
-          >
-            Read the decisions
-          </a>
-          {flagship?.href ? (
-            <a
-              href={flagship.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-md border border-line-strong px-5 py-2.5 font-mono text-[0.8125rem] tracking-wide text-foreground transition-colors hover:border-accent-ink hover:text-accent-ink"
+          <div>
+            <p className="meta rise text-muted">
+              Full-stack developer
+              <span className="mx-2 text-line-strong">/</span>
+              GTA, Ontario
+            </p>
+
+            <h1
+              className="display rise mt-6 text-[2.3rem] text-foreground sm:text-5xl lg:text-[3.6rem]"
+              style={{ animationDelay: "300ms" }}
             >
-              Open VamoKora
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-          ) : null}
+              I build full-stack products. One of them runs{" "}
+              <span className="text-accent-ink">weekly pickup soccer</span>.
+            </h1>
+
+            <p
+              className="prose-body rise mt-6 max-w-xl text-muted sm:text-lg"
+              style={{ animationDelay: "450ms" }}
+            >
+              {content.hero.subheadline}
+            </p>
+
+            <div
+              className="rise mt-9 flex flex-wrap items-center gap-x-4 gap-y-3"
+              style={{ animationDelay: "600ms" }}
+            >
+              <a
+                href="#matchday"
+                className="inline-flex min-h-11 items-center rounded-md bg-accent px-5 font-mono text-[0.8125rem] tracking-wide text-on-accent transition-opacity hover:opacity-90"
+              >
+                See a matchday
+              </a>
+              {flagship?.href ? (
+                <a
+                  href={flagship.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-line-strong px-5 font-mono text-[0.8125rem] tracking-wide text-foreground transition-colors hover:border-accent-ink hover:text-accent-ink"
+                >
+                  Open VamoKora
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              ) : null}
+            </div>
+
+            {/* Scoreboard: release state only — the counts live in the Flagship section. */}
+            <dl
+              className="rise mt-10 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-lg border border-line-strong bg-line-strong font-mono sm:grid-cols-4"
+              style={{ animationDelay: "750ms" }}
+            >
+              {[
+                ...footpalRelease(footpalLive),
+                { value: "Weekly", label: "games" },
+              ].map((figure) => (
+                <div
+                  key={figure.label}
+                  className="bg-background px-4 py-3"
+                >
+                  <dt className="text-[0.6875rem] tracking-[0.12em] text-muted uppercase">
+                    {figure.label}
+                  </dt>
+                  <dd className="mt-1 text-lg text-foreground">{figure.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* The work, up front: the team-draft screen with the player card over it. */}
+          <div className="relative mx-auto h-[31rem] w-full max-w-[22rem]">
+            <div className="absolute top-0 right-0 w-44 rotate-[4deg] overflow-hidden rounded-[1.6rem] border-[5px] border-surface-strong shadow-xl sm:w-48">
+              <Image
+                src="/footpal/lineup.webp"
+                alt="VamoKora team drafting: both sides laid out on a pitch as player cards"
+                width={780}
+                height={1688}
+                sizes="12rem"
+                priority
+                className="h-auto w-full"
+              />
+            </div>
+            <div className="absolute top-14 left-0 -rotate-[5deg]">
+              <PlayerCard />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── About ── */}
       <Section label="About">
-        <div className="grid gap-10 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start">
-          <PlayerCard />
-          <div>
-            <p className="prose-body max-w-2xl text-foreground">
-              {content.hero.bio}
-            </p>
-            <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
-              This page&apos;s stats are compiled by the thing it describes —
-              VamoKora&apos;s own CI reads its source and reports back daily.
-            </p>
-          </div>
-        </div>
+        <p className="prose-body max-w-2xl text-foreground">
+          {content.hero.bio}
+        </p>
+        <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
+          This page&apos;s stats are compiled by the thing it describes —
+          VamoKora&apos;s own CI reads its source and reports back daily.
+        </p>
       </Section>
 
       {/* ── Flagship ── */}
@@ -536,45 +571,58 @@ export default function HomePageClient({
           ))}
         </div>
 
-        <h3 className="meta mt-14 text-accent-ink">
+        <h3 id="matchday" className="meta mt-14 scroll-mt-24 text-accent-ink">
           A matchday, start to finish
         </h3>
-        <ol className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-          {matchdaySteps.map((step) => (
-            <li
-              key={step.minute}
-              className="border-t-2 border-accent-ink/60 pt-3"
-            >
-              <p className="font-mono text-sm font-medium text-accent-ink">
-                {step.minute}
-              </p>
-              <h4 className="mt-1 font-sans text-sm font-semibold text-foreground">
-                {step.title}
-              </h4>
-              <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-muted">
-                {step.body}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <MatchdayStrip steps={matchdaySteps} />
 
-        <h3 id="decisions" className="meta mt-14 scroll-mt-24 text-accent-ink">Decisions</h3>
-        <ul className="mt-6 space-y-9">
-          {footpalDecisions.map((decision) => (
-            <li key={decision.title} className="decision">
-              <h4 className="font-sans text-[1.05rem] leading-snug font-semibold tracking-[-0.01em] text-foreground sm:text-lg">
-                {decision.title}
-              </h4>
-              <p className="prose-body mt-2 max-w-2xl text-muted">
-                {decision.body}
-              </p>
-              <p className="mt-3 max-w-2xl font-mono text-[0.8125rem] leading-[1.65] text-muted">
-                <span className="text-accent-ink">Tradeoff — </span>
-                {decision.tradeoff}
-              </p>
+        <h3 id="decisions" className="meta mt-14 scroll-mt-24 text-accent-ink">
+          Decisions I&apos;d defend
+        </h3>
+        <p className="mt-2 font-mono text-[0.75rem] text-muted">
+          Each card is the call. Flip it for what it cost.
+        </p>
+        <ul className="mt-6 grid gap-5 md:grid-cols-3">
+          {footpalDecisions.slice(0, FEATURED_DECISIONS).map((decision) => (
+            <li key={decision.title} className="flex">
+              <DecisionCard decision={decision} />
             </li>
           ))}
         </ul>
+
+        {footpalDecisions.length > FEATURED_DECISIONS ? (
+          <>
+            <button
+              type="button"
+              aria-expanded={showAllDecisions}
+              aria-controls="more-decisions"
+              onClick={() => setShowAllDecisions((value) => !value)}
+              className={`${linkStyle} mt-6 min-h-11`}
+            >
+              {showAllDecisions
+                ? "Show fewer"
+                : `Show all ${footpalDecisions.length} decisions`}
+            </button>
+            {showAllDecisions ? (
+              <ul id="more-decisions" className="mt-6 space-y-9">
+                {footpalDecisions.slice(FEATURED_DECISIONS).map((decision) => (
+                  <li key={decision.title} className="decision">
+                    <h4 className="font-sans text-[1.05rem] leading-snug font-semibold tracking-[-0.01em] text-foreground sm:text-lg">
+                      {decision.title}
+                    </h4>
+                    <p className="prose-body mt-2 max-w-2xl text-muted">
+                      {decision.body}
+                    </p>
+                    <p className="mt-3 max-w-2xl font-mono text-[0.8125rem] leading-[1.65] text-muted">
+                      <span className="text-accent-ink">Tradeoff — </span>
+                      {decision.tradeoff}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </>
+        ) : null}
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.75rem] text-muted">
           Counts read from VamoKora&apos;s source by its own CI, refreshed
