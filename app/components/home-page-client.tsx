@@ -29,7 +29,7 @@ type FormStatus = "idle" | "sending" | "success" | "error";
 
 const experience = [
   {
-    title: "Co-Founder",
+    title: "Co-Founder & Frontend Developer",
     company: "KonnectTaps",
     location: "Remote",
     href: "https://konnecttaps.com",
@@ -445,6 +445,17 @@ export default function HomePageClient({
                 >
                   Open VamoKora
                   <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              ) : null}
+              {resumeHref ? (
+                <a
+                  href={resumeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-1.5 px-1 font-mono text-[0.8125rem] tracking-wide text-accent-ink underline decoration-accent-ink/35 underline-offset-[5px] transition-colors hover:decoration-accent-ink"
+                  aria-label="Amir Ibrahim's résumé (PDF)"
+                >
+                  Résumé (PDF)
                 </a>
               ) : null}
             </div>
@@ -921,11 +932,16 @@ export default function HomePageClient({
                 target="_blank"
                 rel="noopener noreferrer"
                 className={linkStyle}
-                aria-label="Amir Ibrahim's resume (PDF)"
+                aria-label="Amir Ibrahim's résumé (PDF)"
               >
-                Resume
+                Résumé
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
+            ) : null}
+            {resumeHref ? (
+              <p className="font-mono text-[0.6875rem] text-muted">
+                Tailored versions on request.
+              </p>
             ) : null}
           </div>
         </div>
