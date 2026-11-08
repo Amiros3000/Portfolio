@@ -504,7 +504,7 @@ export default function HomePageClient({
               rel="noopener noreferrer"
               className={linkStyle}
             >
-              footpalfc.amiribrahim3000.com
+              vamokora.com
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           ) : null}

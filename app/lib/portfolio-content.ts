@@ -78,7 +78,7 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
       stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
         "Pickup-soccer coordination for my own crew — RSVPs, team drafting, cost splitting, and player ratings — running real weekly games since June 2026.",
-      href: "https://footpalfc.amiribrahim3000.com",
+      href: "https://vamokora.com",
       hrefLabel: "Live",
     },
     {

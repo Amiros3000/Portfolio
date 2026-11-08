@@ -159,7 +159,7 @@ export const DEFAULT_RESUME_CONTENT: ResumeContent = {
       stack: "Next.js 16 / TypeScript / PostgreSQL / Prisma",
       description:
         "Pickup soccer logistics for real crews — RSVPs, team drafting, cost splitting, player ratings. 27-model Postgres schema, 109 HTTP handlers, 175 test blocks. In weekly use since Jun 2026.",
-      url: "https://footpalfc.amiribrahim3000.com",
+      url: "https://vamokora.com",
     },
     {
       title: "KonnectTaps",
