@@ -32,6 +32,7 @@ const experience = [
     title: "Co-Founder",
     company: "KonnectTaps",
     location: "Remote",
+    href: "https://konnecttaps.com",
     period: "Jan 2024 – May 2026",
     bullets: [
       "Built the frontend for a digital business card platform in React and Next.js, from component work through to the shipped product.",
@@ -40,22 +41,15 @@ const experience = [
     ],
   },
   {
-    title: "Assistant Deli Manager",
+    // One entry: the promotion reads better as a line than as two jobs.
+    title: "Assistant Deli Manager (promoted from Clerk)",
     company: "Marché Adonis",
     location: "Mississauga, ON",
-    period: "Jun 2025 – Present",
+    period: "Nov 2017 – Present",
     bullets: [
-      "Run daily operations and scheduling for a 13-person team, after a promotion from Clerk at the seven-year mark.",
-      "Act as primary escalation contact through high-volume, time-sensitive shifts.",
-    ],
-  },
-  {
-    title: "Clerk",
-    company: "Marché Adonis",
-    location: "Mississauga, ON",
-    period: "Nov 2017 – Jun 2025",
-    bullets: [
-      "Ran inventory, customer service, and floor operations across seven years while completing a full-time engineering degree.",
+      "Run daily operations and scheduling for a 13-person team, promoted from Clerk in June 2025.",
+      "Primary escalation contact through high-volume, time-sensitive shifts.",
+      "Worked here throughout a full-time engineering degree.",
     ],
   },
 ];
@@ -87,6 +81,7 @@ const skillCategories = [
       "Java",
       "SQL",
       "Bash",
+      "Swift",
     ],
   },
   {
@@ -204,7 +199,7 @@ const matchdaySteps = [
 /** Amir's card, in the app's own player-card language. Playful, and deliberately so. */
 const playerCard = {
   name: "Amir Ibrahim",
-  number: "9",
+  number: "18",
   position: "STK",
   overall: 89,
   tier: "Gold",
@@ -412,6 +407,8 @@ export default function HomePageClient({
               Full-stack developer
               <span className="mx-2 text-line-strong">/</span>
               GTA, Ontario
+              <span className="mx-2 text-line-strong">/</span>
+              <span className="text-accent-ink">Available now</span>
             </p>
 
             <h1
@@ -493,17 +490,6 @@ export default function HomePageClient({
           </div>
         </div>
       </section>
-
-      {/* ── About ── */}
-      <Section label="About">
-        <p className="prose-body max-w-2xl text-foreground">
-          {content.hero.bio}
-        </p>
-        <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-relaxed text-muted">
-          This page&apos;s stats are compiled by the thing it describes —
-          VamoKora&apos;s own CI reads its source and reports back daily.
-        </p>
-      </Section>
 
       {/* ── Flagship ── */}
       <Section id="work" label="Flagship · 01">
@@ -744,6 +730,18 @@ export default function HomePageClient({
               </div>
               <p className="mt-1 font-mono text-[0.75rem] tracking-wide text-accent-ink">
                 {entry.company} — {entry.location}
+                {entry.href ? (
+                  <a
+                    href={entry.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${linkStyle} ml-3`}
+                    aria-label={`${entry.company} website`}
+                  >
+                    Site
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : null}
               </p>
               <ul className="mt-3 space-y-2">
                 {entry.bullets.map((bullet) => (

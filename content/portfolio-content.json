@@ -45,16 +45,9 @@
       "hrefLabel": "Private repo"
     },
     {
-      "title": "KonnectTaps",
-      "stack": "Next.js / React / JavaScript",
-      "description": "Digital business card platform I co-founded and built the frontend for, working with two other developers. Reached 100+ signups. Wound down in May 2026.",
-      "href": "https://konnecttaps.com",
-      "hrefLabel": "Site"
-    },
-    {
       "title": "CSA Capstone — SOSO",
-      "stack": "Python / FastAPI / PostgreSQL / RabbitMQ / Docker",
-      "description": "Satellite telemetry visualization tool built for a Canadian Space Agency capstone project, turning operational scheduling constraints into readable technical workflows.",
+      "stack": "React / REST APIs · Canadian Space Agency capstone",
+      "description": "Built the React dashboard that visualizes satellite telemetry and orbital pass schedules for Canadian Space Agency stakeholders, and wrote the system documentation and design trade-off analysis.",
       "href": "https://master.d31pgqxunb4wwx.amplifyapp.com",
       "hrefLabel": "Live Demo",
       "secondaryHref": "https://github.com/ENG4000-SOSO",
