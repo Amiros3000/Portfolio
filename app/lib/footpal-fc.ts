@@ -16,7 +16,7 @@ export type SpecFigure = {
 /**
  * Every figure that moves with the code. getFootpalLive() refreshes them once
  * a day. The fallback is what renders when that fetch fails: exact values for
- * commits and release as of the July 2026 audit, and floors for the rest, so
+ * commits and release as of 6 Nov 2026, and floors for the rest, so
  * the page never shows an empty, zero, or overstated figure.
  */
 export type FootpalLive = {
@@ -30,13 +30,15 @@ export type FootpalLive = {
 };
 
 export const footpalLiveFallback: FootpalLive = {
-  release: "v2.43.0",
-  commits: "457",
-  models: "25+",
-  routeFiles: "80+",
-  handlers: "100+",
-  testFiles: "15+",
-  testBlocks: "170+",
+  // From VamoKora's stats branch and git history on 6 Nov 2026 (v2.182.0):
+  // 34 models, 124 route files, 167 handlers, 188 test files, 2,225 test blocks.
+  release: "v2.182.0",
+  commits: "1,253",
+  models: "30+",
+  routeFiles: "120+",
+  handlers: "160+",
+  testFiles: "180+",
+  testBlocks: "2,200+",
 };
 
 /**
