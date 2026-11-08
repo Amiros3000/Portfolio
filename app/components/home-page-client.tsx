@@ -149,6 +149,29 @@ const footpalShots = [
   },
 ];
 
+/**
+ * FootyTracker screens. Simulator SAMPLE data (DEBUG launch arguments), not
+ * real games: the heart-rate trace is a generated wave. The caption says so;
+ * never present these numbers as Amir's own.
+ */
+const footyShots = [
+  {
+    src: "/footytracker/home.webp",
+    alt: "FootyTracker home screen: last game's distance, work rate, and an Improving? trend list",
+    caption: "Home: the last game, compared only with your own.",
+  },
+  {
+    src: "/footytracker/breaks.webp",
+    alt: "FootyTracker match report: two breaks found, each with Sub off, Half-time, or Playing to choose",
+    caption: "Breaks found: the workout never pauses, so the app asks afterwards.",
+  },
+  {
+    src: "/footytracker/games.webp",
+    alt: "FootyTracker games list: each game's distance, time and heart rate, with missing GPS shown as dashes",
+    caption: "Games: missing data shows as --, never as 0.",
+  },
+];
+
 /** A matchday, start to finish — the app's own five-step flow, borrowed from its about page. */
 const matchdaySteps = [
   {
@@ -648,6 +671,32 @@ export default function HomePageClient({
                 <p className="prose-body mt-2.5 max-w-xl text-muted">
                   {project.description}
                 </p>
+                {project.title === "FootyTracker" ? (
+                  <figure className="mt-6">
+                    <div className="grid max-w-xl grid-cols-3 gap-3 sm:gap-4">
+                      {footyShots.map((shot) => (
+                        <div key={shot.src}>
+                          <div className="overflow-hidden rounded-xl border border-line bg-surface">
+                            <Image
+                              src={shot.src}
+                              alt={shot.alt}
+                              width={600}
+                              height={1304}
+                              sizes="(min-width: 640px) 12rem, 30vw"
+                              className="h-auto w-full"
+                            />
+                          </div>
+                          <p className="mt-2 font-mono text-[0.6875rem] leading-relaxed text-muted">
+                            {shot.caption}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <figcaption className="mt-3 font-mono text-[0.6875rem] text-muted">
+                      Screens use the simulator&apos;s sample data, not real games.
+                    </figcaption>
+                  </figure>
+                ) : null}
               </div>
               <div className="flex flex-wrap items-start gap-x-5 gap-y-2 sm:justify-end">
                 {project.href ? (
