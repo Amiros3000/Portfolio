@@ -24,7 +24,6 @@ export type PortfolioContent = {
     bio: string;
     resumeUrl: string;
   };
-  skills: string[];
   projects: PortfolioProject[];
   contact: {
     directEmail: string;
@@ -45,31 +44,6 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
     bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: VamoKora, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
-  skills: [
-    "JavaScript (ES6+)",
-    "TypeScript",
-    "Python",
-    "Java",
-    "SQL",
-    "Bash",
-    "React",
-    "Next.js",
-    "Tailwind",
-    "PWA (Web Push, installable)",
-    "Node.js",
-    "FastAPI",
-    "PostgreSQL",
-    "Prisma",
-    "MySQL",
-    "Vitest",
-    "Sentry",
-    "Docker",
-    "GitHub Actions",
-    "Git/GitHub",
-    "Vercel",
-    "Linux/Ubuntu",
-    "Nginx",
-  ],
   projects: [
     {
       // Flagship. Rendered as its own section, not a card — the long-form
@@ -121,17 +95,6 @@ function cleanOptionalString(
 ): string | undefined {
   if (typeof value !== "string") return fallback;
   const cleaned = value.trim().slice(0, maxLength);
-  return cleaned.length > 0 ? cleaned : fallback;
-}
-
-function cleanStringArray(value: unknown, fallback: string[]): string[] {
-  if (!Array.isArray(value)) return fallback;
-
-  const cleaned = value
-    .map((item) => (typeof item === "string" ? item.trim() : ""))
-    .filter(Boolean)
-    .slice(0, 24);
-
   return cleaned.length > 0 ? cleaned : fallback;
 }
 
@@ -203,7 +166,6 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
       bio: cleanString(hero.bio, DEFAULT_PORTFOLIO_CONTENT.hero.bio, 1200),
       resumeUrl: cleanString(hero.resumeUrl, DEFAULT_PORTFOLIO_CONTENT.hero.resumeUrl, 260),
     },
-    skills: cleanStringArray(value.skills, DEFAULT_PORTFOLIO_CONTENT.skills),
     projects: projects.length > 0 ? projects : DEFAULT_PORTFOLIO_CONTENT.projects,
     contact: {
       directEmail: cleanString(

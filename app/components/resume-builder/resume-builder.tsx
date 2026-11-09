@@ -7,6 +7,7 @@ import type { ResumeContent } from "@/app/lib/resume-content";
 import type { PortfolioContent } from "@/app/lib/portfolio-content";
 import ResumeForm from "./resume-form";
 import ResumePdfDocument from "./resume-pdf-document";
+import { ALL_SKILLS } from "@/app/lib/skills";
 
 const ResumePreview = dynamic(() => import("./resume-preview"), { ssr: false });
 
@@ -149,7 +150,7 @@ export default function ResumeBuilder({
 
   /* ── Auto-populate from Portfolio ── */
   function handleAutoPopulate() {
-    const { hero, contact, skills, projects } = portfolioContent;
+    const { hero, contact, projects } = portfolioContent;
 
     setDraft((prev) => {
       const next: ResumeContent = {
@@ -161,7 +162,7 @@ export default function ResumeBuilder({
           githubUrl: contact.githubUrl || prev.personalInfo.githubUrl,
         },
         summary: hero.bio || prev.summary,
-        skills: skills.length > 0 ? skills : prev.skills,
+        skills: ALL_SKILLS,
         projects:
           projects.length > 0
             ? projects.map((p) => ({

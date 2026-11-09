@@ -3,6 +3,7 @@ import path from "node:path";
 import HomePageClient from "./components/home-page-client";
 import { getFootpalLive } from "./lib/footpal-live";
 import { getPortfolioContent } from "./lib/portfolio-content";
+import { ALL_SKILLS } from "./lib/skills";
 
 // VamoKora figures come from GitHub; rebuild the page with fresh ones daily.
 export const revalidate = 86400;
@@ -47,7 +48,7 @@ export default async function Home() {
     email: `mailto:${content.contact.directEmail}`,
     url: "/",
     sameAs: [content.contact.githubUrl, content.contact.linkedinUrl],
-    knowsAbout: content.skills,
+    knowsAbout: ALL_SKILLS,
   };
 
   return (

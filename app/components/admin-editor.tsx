@@ -19,18 +19,10 @@ const labelClass = "text-sm font-medium text-foreground";
 const inputClass =
   "rounded-xl border border-accent/25 bg-surface/70 px-4 py-3 text-sm text-foreground placeholder:text-muted/70 backdrop-blur-md transition focus:border-accent focus:outline-none";
 
-function normalizeSkillsFromText(skillsText: string): string[] {
-  return skillsText
-    .split(/\n|,/)
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-}
-
 export default function AdminEditor({
   initialContent,
 }: AdminEditorProps) {
   const [draft, setDraft] = useState<PortfolioContent>(initialContent);
-  const [skillsText, setSkillsText] = useState(initialContent.skills.join("\n"));
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [saveMessage, setSaveMessage] = useState("");
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>("idle");
@@ -61,10 +53,7 @@ export default function AdminEditor({
     setSaveStatus("saving");
     setSaveMessage("");
 
-    const payload: PortfolioContent = {
-      ...draft,
-      skills: normalizeSkillsFromText(skillsText),
-    };
+    const payload: PortfolioContent = draft;
 
     try {
       const response = await fetch("/api/admin/content", {
@@ -88,7 +77,6 @@ export default function AdminEditor({
       const body = (await response.json()) as { content: PortfolioContent };
 
       setDraft(body.content);
-      setSkillsText(body.content.skills.join("\n"));
       setSaveStatus("success");
       setSaveMessage("Portfolio content saved.");
     } catch {
@@ -207,18 +195,7 @@ export default function AdminEditor({
             </div>
           </section>
 
-          <section className={cardClass}>
-            <h2 className="text-lg font-semibold text-foreground">Skills</h2>
-            <label className="mt-4 grid gap-2">
-              <span className={labelClass}>One skill per line (or comma separated)</span>
-              <textarea
-                value={skillsText}
-                onChange={(event) => setSkillsText(event.target.value)}
-                rows={11}
-                className={inputClass}
-              />
-            </label>
-          </section>
+          {/* Skills are edited in app/lib/skills.ts, not here. */}
 
           <section className={cardClass}>
             <h2 className="text-lg font-semibold text-foreground">Contact</h2>
