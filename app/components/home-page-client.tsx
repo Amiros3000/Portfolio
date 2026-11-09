@@ -14,6 +14,7 @@ import {
   footpalStack,
   type FootpalLive,
 } from "@/app/lib/footpal-fc";
+import { SKILL_CATEGORIES } from "@/app/lib/skills";
 import { DecisionCard, MatchdayStrip, PitchLines } from "./pitch-motion";
 
 type HomePageClientProps = {
@@ -68,49 +69,6 @@ const education = [
     period: "2022 – 2023",
     courses:
       "Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials",
-  },
-];
-
-const skillCategories = [
-  {
-    label: "Languages",
-    skills: [
-      "JavaScript (ES6+)",
-      "TypeScript",
-      "Python",
-      "Java",
-      "SQL",
-      "Bash",
-    ],
-  },
-  {
-    label: "Frontend",
-    skills: [
-      "React",
-      "Next.js (App Router/RSC)",
-      "Tailwind",
-      "PWA (Web Push, installable)",
-    ],
-  },
-  {
-    // Express removed — backend work is Next.js API routes and FastAPI.
-    label: "Backend",
-    skills: ["Node.js", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
-  },
-  {
-    label: "Testing & observability",
-    skills: ["Vitest", "Sentry"],
-  },
-  {
-    label: "Infrastructure",
-    skills: [
-      "Docker",
-      "GitHub Actions",
-      "Git/GitHub",
-      "Vercel",
-      "Linux/Ubuntu",
-      "Nginx",
-    ],
   },
 ];
 
@@ -783,7 +741,7 @@ export default function HomePageClient({
       {/* ── Skills ── */}
       <Section id="skills" label="Stack">
         <ul className="divide-y divide-line border-t border-b border-line">
-          {skillCategories.map((category) => (
+          {SKILL_CATEGORIES.map((category) => (
             <li
               key={category.label}
               className="grid gap-x-8 gap-y-2 py-4 sm:grid-cols-[10rem_minmax(0,1fr)]"

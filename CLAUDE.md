@@ -84,6 +84,7 @@ app/
     admin-auth.ts             # HMAC-SHA256 session tokens, 12h TTL
     portfolio-content.ts      # read/write content (file → Supabase fallback)
     resume-content.ts
+    skills.ts                 # the only skills list (Stack section, JSON-LD, résumé auto-populate)
     supabase-rest.ts          # raw fetch-based Supabase client (no SDK)
 
 content/
@@ -102,6 +103,8 @@ Content is stored in `content/portfolio-content.json`. The shape is defined by `
 **Write path** (dev admin only): same priority order in reverse — writes to Supabase if env vars are set, otherwise writes to the JSON file.
 
 All content is normalized and sanitized via `normalizePortfolioContent()` before use.
+
+Skills are **not** part of `PortfolioContent`. They live in `app/lib/skills.ts` and are edited in code only.
 
 ---
 
