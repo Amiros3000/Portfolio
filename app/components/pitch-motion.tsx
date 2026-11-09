@@ -117,49 +117,24 @@ export function MatchdayStrip({ steps }: { steps: MatchdayStep[] }) {
 type Decision = { title: string; body: string; tradeoff: string };
 
 /**
- * A decision as a two-sided card: the call on the front, what it cost on the
- * back. The face turned away is hidden from screen readers so they hear only
- * the side that is showing.
+ * A decision card: the call, then what it cost, both visible at once. It used
+ * to be a flip card with the cost on the back, but readers who skim never
+ * flipped it, and the cost is the point of the section.
  */
 export function DecisionCard({ decision }: { decision: Decision }) {
-  const [flipped, setFlipped] = useState(false);
-
   return (
-    <button
-      type="button"
-      aria-pressed={flipped}
-      onClick={() => setFlipped((value) => !value)}
-      className="flip-card flex w-full cursor-pointer text-left"
-    >
-      {/* A button centers its content vertically; flex + w-full makes the
-          card fill the row so all three line up. */}
-      <span className="faces w-full">
-        <span
-          aria-hidden={flipped}
-          className="face flex flex-col gap-3 rounded-lg border border-line-strong bg-surface p-5"
-        >
-          <span className="meta text-accent-ink">The call</span>
-          <span className="font-sans text-base leading-snug font-semibold text-foreground">
-            {decision.title}
-          </span>
-          <span className="text-[0.875rem] leading-relaxed text-muted">
-            {decision.body}
-          </span>
-          <span className="mt-auto pt-2 font-mono text-[0.75rem] text-accent-ink">
-            See what it cost →
-          </span>
-        </span>
-        <span
-          aria-hidden={!flipped}
-          className="face face-back flex flex-col gap-3 rounded-lg bg-accent p-5 text-on-accent"
-        >
-          <span className="meta">What it cost</span>
-          <span className="text-[0.9375rem] leading-relaxed">
-            {decision.tradeoff}
-          </span>
-          <span className="mt-auto pt-2 font-mono text-[0.75rem]">← Back</span>
-        </span>
-      </span>
-    </button>
+    <article className="flex w-full flex-col gap-3 rounded-lg border border-line-strong bg-surface p-5">
+      <p className="meta text-accent-ink">The call</p>
+      <h4 className="font-sans text-base leading-snug font-semibold text-foreground">
+        {decision.title}
+      </h4>
+      <p className="text-[0.875rem] leading-relaxed text-muted">
+        {decision.body}
+      </p>
+      <p className="mt-auto border-t border-line pt-3 font-mono text-[0.8125rem] leading-[1.6] text-muted">
+        <span className="text-accent-ink">What it cost: </span>
+        {decision.tradeoff}
+      </p>
+    </article>
   );
 }

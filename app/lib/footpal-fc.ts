@@ -109,7 +109,24 @@ export type Decision = {
   tradeoff: string;
 };
 
+/**
+ * Order matters: the first three are featured as cards. Lead with the measured
+ * result. Session auth sits just outside the top three because "wrote my own
+ * auth" reads as a red flag before the reasoning is seen.
+ */
 export const footpalDecisions: Decision[] = [
+  {
+    title: "Batched the game page's reads, cutting load from ~3.3s to ~1.1s",
+    body: "Collapsed 8 sequential Prisma reads into one parallel fetch and moved stats computation off first paint, then added three indexes after EXPLAIN showed sequential scans.",
+    tradeoff:
+      "Measured by hand on the heaviest crew game. There is no benchmark harness, so this is a point measurement, not continuous tracking.",
+  },
+  {
+    title: "Man-of-the-match awards that fire exactly once",
+    body: "The award can be triggered by the final vote or by a fallback cron. Both paths run one conditional update guarded on a null timestamp, and the affected-row count decides which trigger won.",
+    tradeoff:
+      "The guarantee lives in one UPDATE's WHERE clause and its affected-row count, so it holds only as long as that stays a single statement.",
+  },
   {
     title: "Crew-scoped isolation enforced in the application layer",
     body: "Independent crews share one database. Access is gated by explicit guard functions — canAccessGame, canManageGame, getUserCrew — invoked per route.",
@@ -120,18 +137,6 @@ export const footpalDecisions: Decision[] = [
     title: "Session auth written from scratch, no auth library",
     body: "The cookie carries the plaintext token; the database stores only the SHA-256 hash. Sessions are per-device. A three-tier resolution path — Session row, then legacy hash column, then legacy plaintext — migrated existing accounts on read, without logging anyone out.",
     tradeoff: "Three lookup paths to maintain instead of one.",
-  },
-  {
-    title: "Man-of-the-match awards that fire exactly once",
-    body: "The award can be triggered by the final vote or by a fallback cron. Both paths run one conditional update guarded on a null timestamp, and the affected-row count decides which trigger won.",
-    tradeoff:
-      "The guarantee lives in one UPDATE's WHERE clause and its affected-row count, so it holds only as long as that stays a single statement.",
-  },
-  {
-    title: "Batched the game page's reads, cutting load from ~3.3s to ~1.1s",
-    body: "Collapsed 8 sequential Prisma reads into one parallel fetch and moved stats computation off first paint, then added three indexes after EXPLAIN showed sequential scans.",
-    tradeoff:
-      "Measured by hand on the heaviest crew game. There is no benchmark harness, so this is a point measurement, not continuous tracking.",
   },
   {
     title: "Kickoff times resolved to UTC without a date library",

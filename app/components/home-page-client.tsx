@@ -81,7 +81,6 @@ const skillCategories = [
       "Java",
       "SQL",
       "Bash",
-      "Swift",
     ],
   },
   {
@@ -196,21 +195,17 @@ const matchdaySteps = [
   },
 ];
 
-/** Amir's card, in the app's own player-card language. Playful, and deliberately so. */
+/**
+ * Amir's card, in the app's own player-card language. Playful in form, but
+ * every figure on it is a real count read from VamoKora's source (see
+ * footpalSpec). No self-rated skill scores: the rest of the page refuses to
+ * show a number nobody measured, and the card follows the same rule.
+ */
 const playerCard = {
   name: "Amir Ibrahim",
   number: "18",
   position: "STK",
-  overall: 89,
-  tier: "Gold",
-  stats: [
-    { label: "TypeScript", value: 92 },
-    { label: "React / Next.js", value: 90 },
-    { label: "PostgreSQL", value: 84 },
-    { label: "System design", value: 82 },
-    { label: "Testing", value: 86 },
-    { label: "Shipping", value: 95 },
-  ],
+  since: "Jun 2026",
 };
 
 const shell = "mx-auto w-full max-w-5xl px-5 sm:px-8";
@@ -245,12 +240,19 @@ function Section({
 }
 
 /**
- * Amir's player card — the app gives every player one, so he gets one too.
- * On load it turns over from its back (.card-turn) and the stat bars fill
- * (.bar-grow). The tilt lives on the wrapper so the animation's end state and
- * the resting tilt never fight over `transform`.
+ * Amir's player card. The app gives every player one, so he gets one too.
+ * On load it turns over from its back (.card-turn). The stats are VamoKora's
+ * live counts, not ratings. The tilt lives on the wrapper so the animation's
+ * end state and the resting tilt never fight over `transform`.
  */
-function PlayerCard() {
+function PlayerCard({ live }: { live: FootpalLive }) {
+  const stats = [
+    { label: "Postgres models", value: live.models },
+    { label: "HTTP handlers", value: live.handlers },
+    { label: "Test blocks", value: live.testBlocks },
+    { label: "Commits", value: live.commits },
+  ];
+
   return (
     <figure className="w-56 shrink-0 [perspective:1200px]" aria-label="Amir Ibrahim's player card">
       <div className="faces card-turn">
@@ -263,9 +265,7 @@ function PlayerCard() {
         <div className="face rounded-2xl border border-white/10 bg-[#171310] p-5 text-[#f5f1e8] shadow-[0_30px_60px_-24px_rgba(0,0,0,0.6)]">
           <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-[0.14em] text-[#f5f1e8]/60">
             <span>VAMOKORA</span>
-            <span>
-              Nº {playerCard.number} · {playerCard.position}
-            </span>
+            <span>{live.release}</span>
           </div>
           <div
             className="mx-auto mt-4 flex h-28 w-24 flex-col items-center justify-center bg-accent"
@@ -274,37 +274,26 @@ function PlayerCard() {
             }}
           >
             <span className="font-sans text-[2.6rem] font-bold leading-none text-on-accent">
-              {playerCard.overall}
+              {playerCard.number}
             </span>
             <span className="mt-1 font-mono text-[0.6875rem] tracking-[0.2em] text-on-accent/80">
-              OVR
+              {playerCard.position}
             </span>
           </div>
           <p className="mt-3 text-center font-sans text-base font-semibold tracking-[-0.01em]">
             {playerCard.name}
           </p>
           <p className="mt-0.5 text-center font-mono text-[0.6875rem] tracking-[0.2em] text-[#f5f1e8]/60">
-            TIER — {playerCard.tier.toUpperCase()}
+            BUILDING SINCE {playerCard.since.toUpperCase()}
           </p>
-          <dl className="mt-4 space-y-2">
-            {playerCard.stats.map((stat, index) => (
-              <div key={stat.label}>
-                <div className="flex items-baseline justify-between font-mono text-[0.6875rem] tracking-wide">
-                  <dt className="text-[#f5f1e8]/70">{stat.label}</dt>
-                  <dd className="text-[#f5f1e8]">{stat.value}</dd>
-                </div>
-                <div
-                  className="mt-1 h-1 overflow-hidden rounded-full bg-[#f5f1e8]/15"
-                  role="presentation"
-                >
-                  <div
-                    className="bar-grow h-full rounded-full bg-accent"
-                    style={{
-                      width: `${stat.value}%`,
-                      animationDelay: `${1800 + index * 80}ms`,
-                    }}
-                  />
-                </div>
+          <dl className="mt-4 divide-y divide-[#f5f1e8]/10 border-t border-[#f5f1e8]/10">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex items-baseline justify-between py-1.5 font-mono text-[0.6875rem] tracking-wide"
+              >
+                <dt className="text-[#f5f1e8]/70">{stat.label}</dt>
+                <dd className="text-[#f5f1e8]">{stat.value}</dd>
               </div>
             ))}
           </dl>
@@ -496,7 +485,7 @@ export default function HomePageClient({
               />
             </div>
             <div className="absolute top-14 left-0 -rotate-[5deg]">
-              <PlayerCard />
+              <PlayerCard live={footpalLive} />
             </div>
           </div>
         </div>
@@ -536,71 +525,14 @@ export default function HomePageClient({
           ))}
         </ul>
 
-        {demoVideoHref ? (
-          <figure className="mt-10">
-            <video
-              className="aspect-[9/16] w-full max-w-xs rounded-xl border border-line bg-surface"
-              src={demoVideoHref}
-              controls
-              preload="metadata"
-              playsInline
-              aria-label="VamoKora demo: sixty-second screen recording of the matchday flow"
-            />
-            <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
-              Sixty seconds, recorded from the live app: RSVP → teams on the
-              pitch → cost split.
-            </figcaption>
-          </figure>
-        ) : null}
-
-        <dl className="mt-8 divide-y divide-line border-t border-b border-line">
-          {footpalSpec(footpalLive).map((figure) => (
-            <div
-              key={figure.label}
-              className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-6 py-2.5"
-            >
-              <dt className="font-mono text-sm font-medium text-foreground">
-                {figure.value}
-              </dt>
-              <dd className="font-mono text-[0.75rem] leading-6 tracking-wide text-muted">
-                {figure.label}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        {/* Signature device: claim, then the cost of the claim. */}
-        <h3 className="meta mt-14 text-accent-ink">In the app</h3>
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          {footpalShots.map((shot) => (
-            <figure key={shot.src}>
-              <div className="overflow-hidden border border-line bg-surface">
-                <Image
-                  src={shot.src}
-                  alt={shot.alt}
-                  width={780}
-                  height={1688}
-                  sizes="(min-width: 640px) 33vw, 100vw"
-                  className="h-auto w-full"
-                />
-              </div>
-              <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
-                {shot.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-
-        <h3 id="matchday" className="meta mt-14 scroll-mt-24 text-accent-ink">
-          A matchday, start to finish
-        </h3>
-        <MatchdayStrip steps={matchdaySteps} />
-
-        <h3 id="decisions" className="meta mt-14 scroll-mt-24 text-accent-ink">
+        {/* Signature device: claim, then the cost of the claim. Placed right
+            after the stack so a skimming reader reaches it before the screenshots. */}
+        <h3 id="decisions" className="meta mt-12 scroll-mt-24 text-accent-ink">
           Decisions I&apos;d defend
         </h3>
         <p className="mt-2 font-mono text-[0.75rem] text-muted">
-          Each card is the call. Flip it for what it cost.
+          Each one is the call, then what it cost. Happy to walk through the
+          code on a call.
         </p>
         <ul className="mt-6 grid gap-5 md:grid-cols-3">
           {footpalDecisions.slice(0, FEATURED_DECISIONS).map((decision) => (
@@ -643,6 +575,65 @@ export default function HomePageClient({
             ) : null}
           </>
         ) : null}
+
+        {demoVideoHref ? (
+          <figure className="mt-10">
+            <video
+              className="aspect-[9/16] w-full max-w-xs rounded-xl border border-line bg-surface"
+              src={demoVideoHref}
+              controls
+              preload="metadata"
+              playsInline
+              aria-label="VamoKora demo: sixty-second screen recording of the matchday flow"
+            />
+            <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+              Sixty seconds, recorded from the live app: RSVP → teams on the
+              pitch → cost split.
+            </figcaption>
+          </figure>
+        ) : null}
+
+        <dl className="mt-8 divide-y divide-line border-t border-b border-line">
+          {footpalSpec(footpalLive).map((figure) => (
+            <div
+              key={figure.label}
+              className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-6 py-2.5"
+            >
+              <dt className="font-mono text-sm font-medium text-foreground">
+                {figure.value}
+              </dt>
+              <dd className="font-mono text-[0.75rem] leading-6 tracking-wide text-muted">
+                {figure.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <h3 className="meta mt-14 text-accent-ink">In the app</h3>
+        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+          {footpalShots.map((shot) => (
+            <figure key={shot.src}>
+              <div className="overflow-hidden border border-line bg-surface">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={780}
+                  height={1688}
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
+              <figcaption className="mt-3 font-mono text-[0.75rem] leading-relaxed text-muted">
+                {shot.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <h3 id="matchday" className="meta mt-14 scroll-mt-24 text-accent-ink">
+          A matchday, start to finish
+        </h3>
+        <MatchdayStrip steps={matchdaySteps} />
 
         <p className="mt-10 border-t border-line pt-4 font-mono text-[0.75rem] text-muted">
           Counts read from VamoKora&apos;s source by its own CI, refreshed
