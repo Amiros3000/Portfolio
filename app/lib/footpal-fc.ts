@@ -159,8 +159,20 @@ export const footpalDecisions: Decision[] = [
   },
   {
     title: "Privacy page enforced by the build, not by memory",
-    body: "Every outside service the app talks to must be named on the privacy page, or the build fails. Deleting an account scrubs every personal field, and a test fails if a new field is missed.",
+    body: "Every outside service the app talks to must be named on the privacy page, or a test fails and CI blocks the merge. Deleting an account scrubs every personal field, and a test fails if a new field is missed.",
     tradeoff:
-      "The privacy page is load-bearing now — a copy edit can break the build.",
+      "The privacy page is load-bearing now — a copy edit can fail CI.",
+  },
+  {
+    title: "No rating shown until a player has three games",
+    body: "A new member's card used to open on a bronze rating with six precise-looking stats taken from position baselines: numbers nobody had voted on, about someone who had not played. Under three games the card now shows who the player is (photo, name, position, shirt number) and no rating, tier or stats, reading \"1 of 3 games\" instead.",
+    tradeoff:
+      "A newcomer's first card is deliberately less exciting. And it is presentation only: the engine still computes the number, so every surface that shows a rating has to respect the gate.",
+  },
+  {
+    title: "Database migrations can only add, enforced by a test",
+    body: "Moving from prisma db push to migrate deploy removed the old safety net: a committed DROP COLUMN would simply run against production. A test now scans every migration and fails on a destructive statement unless the file carries a written exception with its reason.",
+    tradeoff:
+      "Renames and removals take several steps instead of one, and the scan matches statements it knows, so it guards the common mistakes rather than every possible one.",
   },
 ];
