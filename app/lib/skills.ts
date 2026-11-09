@@ -1,9 +1,9 @@
 /**
- * The one skills list. The Stack section renders it grouped, the JSON-LD
- * `knowsAbout` and the résumé builder's auto-populate read it flattened.
+ * The one skills list. The Stack section renders it grouped; the JSON-LD
+ * `knowsAbout` reads it flattened.
  *
- * There used to be a second, flat list in PortfolioContent (editable in the
- * admin panel). The two drifted apart — Swift was in one and not the other —
+ * There used to be a second, flat list in PortfolioContent (editable in a
+ * since-removed admin panel). The two drifted apart — Swift was in one and not the other —
  * so the flat one was removed. Edit skills here, in code, and only here.
  *
  * Rule: list only what you would take questions on in an interview. Swift is

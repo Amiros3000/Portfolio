@@ -1,10 +1,5 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
-import {
-  getSupabasePortfolioContent,
-  isSupabaseConfigured,
-  upsertSupabasePortfolioContent,
-} from "./supabase-rest";
 
 export type PortfolioProject = {
   title: string;
@@ -21,7 +16,6 @@ export type PortfolioProject = {
 export type PortfolioContent = {
   hero: {
     subheadline: string;
-    bio: string;
     resumeUrl: string;
   };
   projects: PortfolioProject[];
@@ -41,7 +35,6 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
   hero: {
     subheadline:
       "VamoKora handles RSVPs, fair team drafts, cost splitting, and player ratings for real crews, every week.",
-    bio: "I'm a full-stack developer and a Computer Engineering graduate from York University (2025), based in the GTA. I work in TypeScript, Next.js, React, PostgreSQL, and Python, and I've shipped two products to people who aren't me: VamoKora, which I've been building since June 2026, and KonnectTaps, a digital business card platform I co-founded and built the frontend for. Most of what I care about as an engineer is in the decisions below — what I chose, and what it cost.",
     resumeUrl: "/resume.pdf",
   },
   projects: [
@@ -163,7 +156,6 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
         DEFAULT_PORTFOLIO_CONTENT.hero.subheadline,
         180,
       ),
-      bio: cleanString(hero.bio, DEFAULT_PORTFOLIO_CONTENT.hero.bio, 1200),
       resumeUrl: cleanString(hero.resumeUrl, DEFAULT_PORTFOLIO_CONTENT.hero.resumeUrl, 260),
     },
     projects: projects.length > 0 ? projects : DEFAULT_PORTFOLIO_CONTENT.projects,
@@ -187,51 +179,17 @@ export function normalizePortfolioContent(input: unknown): PortfolioContent {
   };
 }
 
+/**
+ * content/portfolio-content.json is the source; the hardcoded default is the
+ * fallback if the file is missing or unreadable. To change content, edit the
+ * JSON and push. (There used to be an admin panel and a Supabase backend for
+ * this; both were removed as unused.)
+ */
 export async function getPortfolioContent(): Promise<PortfolioContent> {
-  if (isSupabaseConfigured()) {
-    try {
-      const supabaseContent = await getSupabasePortfolioContent();
-
-      if (supabaseContent) {
-        return normalizePortfolioContent(supabaseContent);
-      }
-    } catch {
-      // Fall back to file/default content when Supabase is unavailable.
-    }
-  }
-
   try {
     const raw = await readFile(CONTENT_FILE, "utf8");
     return normalizePortfolioContent(JSON.parse(raw));
   } catch {
     return DEFAULT_PORTFOLIO_CONTENT;
   }
-}
-
-export async function savePortfolioContent(input: unknown): Promise<PortfolioContent> {
-  const content = normalizePortfolioContent(input);
-
-  if (isSupabaseConfigured()) {
-    const saved = await upsertSupabasePortfolioContent(content);
-    return normalizePortfolioContent(saved);
-  }
-
-  await mkdir(path.dirname(CONTENT_FILE), { recursive: true });
-  await writeFile(CONTENT_FILE, `${JSON.stringify(content, null, 2)}\n`, "utf8");
-
-  return content;
-}
-
-export async function updatePortfolioResumeUrl(
-  resumeUrl: string,
-): Promise<PortfolioContent> {
-  const current = await getPortfolioContent();
-
-  return savePortfolioContent({
-    ...current,
-    hero: {
-      ...current.hero,
-      resumeUrl,
-    },
-  });
 }
