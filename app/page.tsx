@@ -11,7 +11,7 @@ export const revalidate = 86400;
 /**
  * The resume link only renders when it resolves. A relative resumeUrl must
  * exist under public/ at build time (e.g. public/resume.pdf committed to the
- * repo or uploaded via /admin); an absolute URL is trusted as-is. This keeps a
+ * repo); an absolute URL is trusted as-is. This keeps a
  * stale resumeUrl from ever shipping a link to a 404.
  */
 function resolveResumeHref(resumeUrl: string): string | null {
