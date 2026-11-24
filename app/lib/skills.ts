@@ -26,9 +26,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ],
   },
   {
-    // Express removed — backend work is Next.js API routes and FastAPI.
+    // Backend list matches the résumé exactly; add nothing it does not list.
     label: "Backend",
-    skills: ["Node.js", "FastAPI", "PostgreSQL", "Prisma", "MySQL"],
+    skills: ["Node.js", "PostgreSQL", "Prisma"],
   },
   {
     label: "Testing & observability",

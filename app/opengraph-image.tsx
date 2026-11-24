@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Amir Ibrahim — full-stack developer. VamoKora: 25+ Postgres models, 100+ HTTP handlers, 170+ test blocks.";
+  "Amir Ibrahim — full-stack developer. VamoKora: 30+ Postgres models, 2,200+ automated tests across 180+ test files.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,8 +52,8 @@ export default function Image() {
             maxWidth: "980px",
           }}
         >
-          VamoKora runs on 25+ Postgres models, 100+ HTTP handlers, and 170+
-          test blocks.
+          VamoKora runs on 30+ Postgres models and 2,200+ automated tests
+          across 180+ test files.
         </div>
 
         <div

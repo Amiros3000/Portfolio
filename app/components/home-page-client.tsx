@@ -38,7 +38,7 @@ const experience = [
     bullets: [
       "Built the frontend for a digital business card platform in React and Next.js, from component work through to the shipped product.",
       "Worked alongside two other developers on scope and product direction.",
-      "The platform reached 100+ signups. It wound down in May 2026.",
+      "The platform reached its first ~100 users. It wound down in May 2026.",
     ],
   },
   {
@@ -48,7 +48,7 @@ const experience = [
     location: "Mississauga, ON",
     period: "Nov 2017 – Present",
     bullets: [
-      "Run daily operations and scheduling for a 13-person team, promoted from Clerk in June 2025.",
+      "Run daily operations and scheduling for an 11-person team, promoted from Clerk in June 2025.",
       "Primary escalation contact through high-volume, time-sensitive shifts.",
       "Worked here throughout a full-time engineering degree.",
     ],
@@ -61,14 +61,7 @@ const education = [
     institution: "York University — Lassonde School of Engineering",
     period: "Graduated Jun 2025",
     courses:
-      "Object-Oriented Programming (Java), Data Structures & Algorithms, Operating Systems, Communication Networks, Software Engineering Principles",
-  },
-  {
-    degree: "Electromechanical Engineering Technician — Year 1",
-    institution: "Humber College",
-    period: "2022 – 2023",
-    courses:
-      "Control Circuits, Robotics, Mechatronics, Industrial Pneumatics, Statics, Engineering Graphics, Engineering Materials",
+      "Object-Oriented Programming (Java), Data Structures & Algorithms, Operating Systems, Software Engineering Principles",
   },
 ];
 
@@ -755,12 +748,6 @@ export default function HomePageClient({
             </li>
           ))}
         </ul>
-
-        <p className="mt-5 max-w-2xl font-mono text-[0.75rem] leading-[1.7] text-muted">
-          Currently learning: AWS, Kubernetes. Also familiar with Ladder Logic,
-          IT/OT networking, and electromechanical systems from Computer and
-          Electromechanical Engineering studies.
-        </p>
       </Section>
 
       {/* ── Contact ── */}

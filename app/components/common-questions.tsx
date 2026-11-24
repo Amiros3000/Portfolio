@@ -10,11 +10,12 @@ import { MessageCircleQuestion, X } from "lucide-react";
 
   Every answer must match the site copy and hold up in an interview.
   Standing corrections, do not reintroduce:
-   - KonnectTaps: Amir was FRONTEND, three developers total, 100+ SIGNUPS
-     (not active users), wound down May 2026. Payments were the CEO's work.
+   - KonnectTaps: Amir was FRONTEND, three developers total, reached its
+     FIRST ~100 USERS, wound down May 2026. Payments were the CEO's work.
    - VamoKora: never state a player count (it grows, and other crews exist).
      Its service worker is an offline FALLBACK, never "offline support".
-   - No Express anywhere; backend is Next.js API routes and FastAPI.
+   - No Express anywhere; backend is Next.js API routes, PostgreSQL
+     and Prisma. Name only backend tools the résumé lists.
 */
 const questions = [
   {
@@ -27,15 +28,15 @@ const questions = [
   },
   {
     q: "What did you do at KonnectTaps?",
-    a: "I co-founded it and built the frontend, working with two other developers. It reached 100+ signups and wound down in May 2026.",
+    a: "I co-founded it and built the frontend, working with two other developers. It reached its first ~100 users and wound down in May 2026.",
   },
   {
     q: "What's your stack?",
-    a: "TypeScript, Next.js, React, PostgreSQL, and Python, plus Prisma, FastAPI, Docker, and Vercel. The Stack section below has the full list.",
+    a: "TypeScript, Next.js, React, PostgreSQL, and Python, plus Prisma, Docker, and Vercel. The Stack section below has the full list.",
   },
   {
     q: "Have you led people?",
-    a: "Yes. At Marché Adonis I run daily operations and scheduling for a 13-person team, after a promotion from Clerk.",
+    a: "Yes. At Marché Adonis I run daily operations and scheduling for an 11-person team, after a promotion from Clerk.",
   },
   {
     q: "Where did you study?",
